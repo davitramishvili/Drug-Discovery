@@ -24,7 +24,7 @@ class SimilarityConfig:
 @dataclass
 class ProjectConfig:
     # File paths
-    input_library: str = "data/raw/specs_library.sdf"
+    input_library: str = "data/raw/test_library.sdf"
     reference_compounds: str = "data/reference/malaria_box.sdf"
     output_dir: str = "results/"
     
