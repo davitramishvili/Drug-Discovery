@@ -162,10 +162,16 @@ class DrugLikeFilter:
         if df.empty:
             return {}
             
+        # Check if drug_like column exists
+        if 'drug_like' in df.columns:
+            drug_like_count = len(df[df['drug_like']])
+        else:
+            drug_like_count = len(df)  # If no filter applied, all molecules pass
+            
         stats = {
             'total_molecules': len(df),
-            'drug_like_molecules': len(df[df.get('drug_like', True)]),
-            'pass_rate': len(df[df.get('drug_like', True)]) / len(df) * 100,
+            'drug_like_molecules': drug_like_count,
+            'pass_rate': drug_like_count / len(df) * 100,
         }
         
         if 'passes_lipinski' in df.columns:

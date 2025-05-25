@@ -127,8 +127,14 @@ class AntimalarialScreeningPipeline:
                 apply_additional=apply_additional
             )
             
-            # Get filter statistics
-            filter_stats = self.filter.get_filter_statistics(self.library_data)
+            # Get filter statistics - need to use the data with filter columns
+            # Apply filters to get the full data with filter columns for statistics
+            full_data_with_filters = self.filter.filter_dataframe(
+                self.library_data,
+                apply_lipinski=apply_lipinski,
+                apply_additional=apply_additional
+            )
+            filter_stats = self.filter.get_filter_statistics(full_data_with_filters)
             self.pipeline_stats.update(filter_stats)
             
             # Analyze violations

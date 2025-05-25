@@ -150,8 +150,17 @@ class VirtualScreeningPlotter:
         # Pass/fail pie chart
         if 'drug_like' in df.columns:
             pass_fail_counts = df['drug_like'].value_counts()
-            labels = ['Drug-like', 'Non-drug-like']
-            colors = ['lightgreen', 'lightcoral']
+            
+            # Create labels based on actual data
+            labels = []
+            colors = []
+            for value in pass_fail_counts.index:
+                if value:
+                    labels.append('Drug-like')
+                    colors.append('lightgreen')
+                else:
+                    labels.append('Non-drug-like')
+                    colors.append('lightcoral')
             
             ax2.pie(pass_fail_counts.values, labels=labels, colors=colors, 
                    autopct='%1.1f%%', startangle=90)
