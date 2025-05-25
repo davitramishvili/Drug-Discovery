@@ -18,14 +18,14 @@ class FingerprintConfig:
 @dataclass
 class SimilarityConfig:
     metric: str = "tanimoto"  # or "dice"
-    threshold: float = 0.7
+    threshold: float = 0.5  # Lowered for better demo results
     max_results: int = 1000
 
 @dataclass
 class ProjectConfig:
     # File paths
-    input_library: str = "data/raw/test_library.sdf"
-    reference_compounds: str = "data/reference/malaria_box.sdf"
+    input_library: str = "data/raw/enhanced_library.sdf"
+    reference_compounds: str = "data/reference/enhanced_malaria_box.sdf"
     output_dir: str = "results/"
     
     # Processing configurations

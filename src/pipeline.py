@@ -14,6 +14,7 @@ from .data_processing.loader import MoleculeLoader
 from .filtering.drug_like import DrugLikeFilter
 from .similarity.search import SimilaritySearcher
 from .visualization.plots import VirtualScreeningPlotter
+from .visualization.chemical_space import ChemicalSpaceAnalyzer
 from .utils.config import ProjectConfig
 
 # Set up logging
@@ -47,6 +48,9 @@ class AntimalarialScreeningPipeline:
             n_bits=self.config.fingerprint_config.n_bits
         )
         self.plotter = VirtualScreeningPlotter(
+            output_dir=str(Path(self.config.output_dir) / "plots")
+        )
+        self.chemical_space = ChemicalSpaceAnalyzer(
             output_dir=str(Path(self.config.output_dir) / "plots")
         )
         
@@ -259,6 +263,30 @@ class AntimalarialScreeningPipeline:
                     filtered_df=self.filtered_data,
                     similarity_df=self.similarity_results,
                     save_path=str(Path(self.config.output_dir) / "plots" / "screening_dashboard.html")
+                )
+            
+            # Chemical space analysis
+            if self.library_data is not None and len(self.library_data) > 5:
+                # PCA chemical space
+                self.chemical_space.plot_pca_space(
+                    self.library_data,
+                    color_col='CATEGORY' if 'CATEGORY' in self.library_data.columns else None,
+                    save_path=str(Path(self.config.output_dir) / "plots" / "chemical_space_pca.png")
+                )
+                
+                # Interactive chemical space
+                self.chemical_space.plot_interactive_chemical_space(
+                    self.library_data,
+                    method="pca",
+                    color_col='CATEGORY' if 'CATEGORY' in self.library_data.columns else None,
+                    hover_cols=['ID', 'NAME', 'MW', 'LogP'],
+                    save_path=str(Path(self.config.output_dir) / "plots" / "chemical_space_interactive.html")
+                )
+                
+                # Chemical diversity report
+                self.chemical_space.create_diversity_report(
+                    self.library_data,
+                    save_path=str(Path(self.config.output_dir) / "chemical_diversity_report.txt")
                 )
                 
             logger.info("Visualizations generated successfully")

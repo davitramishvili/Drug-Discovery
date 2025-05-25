@@ -1,18 +1,32 @@
 Antimalarial Virtual Screening Pipeline Results
 ==================================================
 
-Run Date: 2025-05-25 17:36:10
+Run Date: 2025-05-25 17:50:39
 
-library_size: 5
-reference_size: 3
-total_molecules: 5
-drug_like_molecules: 5
+library_size: 30
+reference_size: 8
+total_molecules: 25
+drug_like_molecules: 25
 pass_rate: 100.0
 lipinski_pass_rate: 100.0
 avg_lipinski_violations: 0.0
 additional_pass_rate: 100.0
 violation_analysis:
-  lipinski: {'MW': {'violation_count': 0, 'violation_rate': 0.0, 'mean_value': 161.8727185664, 'criteria': '0 <= MW <= 500'}, 'LogP': {'violation_count': 0, 'violation_rate': 0.0, 'mean_value': 1.2782400000000003, 'criteria': '-5 <= LogP <= 5'}, 'HBA': {'violation_count': 0, 'violation_rate': 0.0, 'mean_value': 2.4, 'criteria': '0 <= HBA <= 10'}, 'HBD': {'violation_count': 0, 'violation_rate': 0.0, 'mean_value': 0.8, 'criteria': '0 <= HBD <= 5'}}
-  additional: {'TPSA': {'violation_count': 0, 'violation_rate': 0.0, 'mean_value': 42.410000000000004, 'criteria': '0 <= TPSA <= 140'}, 'RotBonds': {'violation_count': 0, 'violation_rate': 0.0, 'mean_value': 1.4, 'criteria': '0 <= RotBonds <= 10'}}
+  lipinski: {'MW': {'violation_count': 2, 'violation_rate': 6.666666666666667, 'mean_value': 277.67568478693335, 'criteria': '0 <= MW <= 500'}, 'LogP': {'violation_count': 4, 'violation_rate': 13.333333333333334, 'mean_value': 2.8128146666666676, 'criteria': '-5 <= LogP <= 5'}, 'HBA': {'violation_count': 2, 'violation_rate': 6.666666666666667, 'mean_value': 3.566666666666667, 'criteria': '0 <= HBA <= 10'}, 'HBD': {'violation_count': 1, 'violation_rate': 3.3333333333333335, 'mean_value': 1.8333333333333333, 'criteria': '0 <= HBD <= 5'}}
+  additional: {'TPSA': {'violation_count': 1, 'violation_rate': 3.3333333333333335, 'mean_value': 60.45866666666667, 'criteria': '0 <= TPSA <= 140'}, 'RotBonds': {'violation_count': 3, 'violation_rate': 10.0, 'mean_value': 5.133333333333334, 'criteria': '0 <= RotBonds <= 10'}}
 
-total_hits: 0
+total_hits: 7
+mean_similarity: 0.8034207968901848
+max_similarity: 1.0
+min_similarity: 0.5
+std_similarity: 0.21802100844891106
+very_high_similarity_count: 0
+very_high_similarity_percentage: 0.0
+high_similarity_count: 1
+high_similarity_percentage: 14.285714285714285
+medium_similarity_count: 1
+medium_similarity_percentage: 14.285714285714285
+low_similarity_count: 0
+low_similarity_percentage: 0.0
+very_low_similarity_count: 2
+very_low_similarity_percentage: 28.57142857142857
