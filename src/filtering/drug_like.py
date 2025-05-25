@@ -182,6 +182,45 @@ class DrugLikeFilter:
             stats['additional_pass_rate'] = len(df[df['passes_additional']]) / len(df) * 100
             
         return stats
+    
+    def calculate_violations_only(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Calculate violations for all molecules without filtering them out.
+        This is used for visualization purposes to show the full distribution.
+        
+        Args:
+            df: DataFrame containing molecules and descriptors
+            
+        Returns:
+            DataFrame with violation calculations but no filtering applied
+        """
+        if df.empty:
+            logger.warning("Empty DataFrame provided for violation calculation")
+            return df
+            
+        # Initialize columns
+        df = df.copy()
+        df['passes_lipinski'] = True
+        df['lipinski_violations'] = 0
+        df['passes_additional'] = True
+        
+        # Calculate Lipinski violations
+        lipinski_results = df.apply(
+            lambda row: self.check_lipinski_rule(row), axis=1
+        )
+        df['passes_lipinski'] = [result[0] for result in lipinski_results]
+        df['lipinski_violations'] = [result[1] for result in lipinski_results]
+        
+        # Calculate additional criteria
+        additional_results = df.apply(
+            lambda row: self.check_additional_criteria(row), axis=1
+        )
+        df['passes_additional'] = [result[0] for result in additional_results]
+        
+        # Create overall drug-likeness assessment
+        df['drug_like'] = df['passes_lipinski'] & df['passes_additional']
+        
+        return df
         
     def analyze_violations(self, df: pd.DataFrame) -> Dict[str, Dict]:
         """

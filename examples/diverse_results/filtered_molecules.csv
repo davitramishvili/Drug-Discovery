@@ -1,0 +1,10 @@
+ID,NAME,ACTIVITY,SMILES,LIPINSKI_VIOLATIONS,MW,LogP,HBA,HBD,TPSA,RotBonds,passes_lipinski,lipinski_violations,passes_additional,drug_like
+,Aspirin,Anti-inflammatory,CC(=O)OC1=CC=CC=C1C(=O)O,0,180.042258736,1.3101,3,1,63.60000000000001,2,True,0,True,True
+,Caffeine,Stimulant,CN1C=NC2=C1C(=O)N(C(=O)N2C)C,0,194.08037556,-1.0293,6,0,61.82,0,True,0,True,True
+,Ibuprofen,Anti-inflammatory,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O,0,206.130679816,3.073200000000001,1,1,37.3,4,True,0,True,True
+,Paracetamol,Analgesic,CC(=O)NC1=CC=C(C=C1)O,0,151.063328528,1.3505999999999998,2,2,49.33,1,True,0,True,True
+,Large_hydrophobic_1,Test_compound,CC(C)(C)C1=CC=C(C=C1)C(C)(C)C2=CC=C(C=C2)C(C)(C)C3=CC=C(C=C3)C(C)(C)C,1,426.328651344,8.933400000000002,0,0,0.0,4,True,1,True,True
+,Multi_carboxylic_acid,Test_compound,CC1=C(C(=C(C(=C1C)C(=O)O)C)C(=O)O)C(=O)O,0,252.063388104,1.70646,3,3,111.89999999999999,3,True,0,True,True
+,Chloroquine_analog,Antimalarial,CCN(CC)CCCC(C)NC1=C2C=CC(=CC2=NC=C1)Cl,0,319.181525512,4.810600000000004,3,1,28.16,8,True,0,True,True
+,Quinoline_derivative,Antimalarial,COC1=CC=C(C=C1)C(C2=CC=CC=N2)C3=CC=CC=N3,0,276.126263132,3.6654000000000018,3,0,35.010000000000005,4,True,0,True,True
+,Complex_heterocycle,Natural_product,CC1=C(C2=CC=CC=C2N1)CC(=O)N3CCC(CC3)N4C=NC5=C4C=CC(=C5)C,0,386.210661452,4.540640000000003,3,1,53.92,3,True,0,True,True

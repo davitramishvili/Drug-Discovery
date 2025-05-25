@@ -1,0 +1,3 @@
+ID,NAME,ACTIVITY,SMILES,LIPINSKI_VIOLATIONS,MW,LogP,HBA,HBD,TPSA,RotBonds,passes_lipinski,lipinski_violations,passes_additional,drug_like,similarity,best_reference_idx,best_reference_id
+,Chloroquine_analog,Antimalarial,CCN(CC)CCCC(C)NC1=C2C=CC(=CC2=NC=C1)Cl,0,319.181525512,4.810600000000004,3,1,28.16,8,True,0,True,True,1.0,0,
+,Quinoline_derivative,Antimalarial,COC1=CC=C(C=C1)C(C2=CC=CC=N2)C3=CC=CC=N3,0,276.126263132,3.6654000000000018,3,0,35.010000000000005,4,True,0,True,True,1.0,1,

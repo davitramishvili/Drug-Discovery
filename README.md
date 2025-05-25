@@ -109,6 +109,179 @@ filtered_data = results['filtered_data']
 similarity_results = results['similarity_results']
 ```
 
+## Usage
+
+### Dataset Selection
+
+The pipeline comes with multiple predefined datasets for different use cases:
+
+#### List Available Datasets
+```bash
+python run_pipeline.py --list-datasets
+# or
+python list_datasets.py
+```
+
+#### Dataset Options
+
+**1. Small Dataset (Quick Testing)**
+```bash
+python run_pipeline.py --dataset small
+```
+- **5 molecules**: Well-known drugs (Aspirin, Caffeine, Ibuprofen, Paracetamol, Benzene)
+- **Purpose**: Quick testing and validation
+- **Runtime**: ~30 seconds
+- **Violations**: Minimal (0-1 violations per molecule)
+
+**2. Diverse Dataset (Comprehensive Analysis) - DEFAULT**
+```bash
+python run_pipeline.py --dataset diverse
+# or simply
+python run_pipeline.py
+```
+- **20 molecules**: Wide range of drug-likeness properties
+- **Purpose**: Comprehensive analysis with meaningful variance
+- **Runtime**: ~1-2 minutes
+- **Violations**: 0-3+ violations per molecule (45% drug-like)
+
+**3. Large Dataset (Extensive Testing)**
+```bash
+python run_pipeline.py --dataset large
+```
+- **50 molecules**: Natural products, peptides, complex structures
+- **Purpose**: Extensive testing with full spectrum of properties
+- **Runtime**: ~3-5 minutes
+- **Violations**: Full spectrum of drug-likeness
+
+**4. Custom Dataset**
+```bash
+python run_pipeline.py --dataset custom
+```
+- **Your data**: Place `custom_library.sdf` and `custom_reference.sdf` in data directories
+- **Purpose**: Analyze your own molecular data
+
+### Command Line Options
+
+#### Basic Usage
+```bash
+# Choose specific dataset
+python run_pipeline.py --dataset small|diverse|large|custom
+
+# Use custom files (overrides dataset selection)
+python run_pipeline.py --library my_library.sdf --reference my_reference.sdf
+
+# Change output directory
+python run_pipeline.py --output my_results
+
+# Skip generating plots (faster execution)
+python run_pipeline.py --no-plots
+```
+
+#### Advanced Configuration
+```bash
+# Adjust similarity threshold (0.0-1.0)
+python run_pipeline.py --similarity-threshold 0.7
+
+# Change maximum allowed Lipinski violations
+python run_pipeline.py --lipinski-violations 2
+
+# Combine multiple options
+python run_pipeline.py --dataset large --similarity-threshold 0.6 --output large_results
+```
+
+#### Help and Information
+```bash
+# Show all available options
+python run_pipeline.py --help
+
+# List available datasets
+python run_pipeline.py --list-datasets
+```
+
+### Example Workflows
+
+#### 1. Quick Validation
+```bash
+# Fast test with small dataset
+python run_pipeline.py --dataset small --no-plots
+```
+
+#### 2. Standard Analysis
+```bash
+# Default comprehensive analysis
+python run_pipeline.py --dataset diverse
+```
+
+#### 3. Extensive Research
+```bash
+# Large dataset with strict similarity
+python run_pipeline.py --dataset large --similarity-threshold 0.8 --output research_results
+```
+
+#### 4. Custom Data Analysis
+```bash
+# Analyze your own data
+python run_pipeline.py --library data/raw/my_compounds.sdf --reference data/reference/my_targets.sdf --output my_analysis
+```
+
+### Using Custom Datasets
+
+To use your own data with the `custom` dataset option:
+
+1. **Prepare your files**:
+   - Library: `data/raw/custom_library.sdf`
+   - Reference: `data/reference/custom_reference.sdf`
+
+2. **Run the pipeline**:
+   ```bash
+   python run_pipeline.py --dataset custom
+   ```
+
+Alternatively, specify custom files directly:
+```bash
+python run_pipeline.py --library path/to/your/library.sdf --reference path/to/your/reference.sdf
+```
+
+### Understanding Results
+
+#### Drug-likeness Analysis
+- **Pass Rate**: Percentage of molecules meeting drug-likeness criteria
+- **Violation Distribution**: Breakdown of Lipinski rule violations
+- **Filter Statistics**: Detailed analysis of which criteria are most commonly violated
+
+#### Similarity Search
+- **Hit Rate**: Number of molecules similar to reference compounds
+- **Score Distribution**: Range and distribution of similarity scores
+- **Top Hits**: Most promising compounds for further investigation
+
+#### Visualizations
+- **Static Plots**: High-quality PNG images for publications
+- **Interactive Plots**: HTML files for detailed exploration and analysis
+- **Dashboard**: Comprehensive overview of entire screening process
+
+### Output Files
+
+The pipeline generates several output files in the specified results directory:
+
+#### CSV Files
+- `filtered_molecules.csv`: Molecules that passed drug-likeness filters
+- `similarity_results.csv`: Similarity search results with scores
+- `top_50_hits.csv`: Top 50 most similar compounds
+
+#### Analysis Files
+- `pipeline_statistics.txt`: Detailed statistics and violation analysis
+- `chemical_diversity_report.txt`: Chemical space diversity analysis
+
+#### Visualizations (`plots/` directory)
+- `library_descriptors.png`: Molecular descriptor distributions
+- `lipinski_violations.png`: Drug-likeness analysis with pie charts
+- `similarity_distribution.png`: Similarity score distributions
+- `descriptor_correlations.png`: Correlation matrix heatmap
+- `chemical_space_pca.png`: PCA visualization of chemical space
+- `screening_dashboard.html`: Interactive dashboard (open in browser)
+- `mw_vs_logp_interactive.html`: Interactive molecular weight vs LogP plot
+- `chemical_space_interactive.html`: Interactive chemical space exploration
+
 ## Pipeline Workflow
 
 ### 1. Data Loading

@@ -213,15 +213,19 @@ class VirtualScreeningPlotter:
                    label=f'Median: {median_sim:.3f}')
         ax1.legend()
         
-        # Similarity ranges
+        # Similarity ranges - fix upper bound inclusion for the highest range
         ranges = [(0.9, 1.0, 'Very High'), (0.8, 0.9, 'High'), 
                  (0.7, 0.8, 'Medium'), (0.6, 0.7, 'Low'), (0.0, 0.6, 'Very Low')]
         
         range_counts = []
         range_labels = []
         
-        for min_sim, max_sim, label in ranges:
-            count = len(similarities[(similarities >= min_sim) & (similarities < max_sim)])
+        for i, (min_sim, max_sim, label) in enumerate(ranges):
+            # For the highest range, include the upper bound (similarity = 1.0)
+            if i == 0:  # Very High range
+                count = len(similarities[(similarities >= min_sim) & (similarities <= max_sim)])
+            else:
+                count = len(similarities[(similarities >= min_sim) & (similarities < max_sim)])
             if count > 0:
                 range_counts.append(count)
                 range_labels.append(label)
