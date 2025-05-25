@@ -112,9 +112,6 @@ Antimalarial
 >  <SMILES>  (1) 
 CCN(CC)CCCC(C)NC1=C2C=CC(=CC2=NC=C1)Cl
 
->  <LIPINSKI_VIOLATIONS>  (1) 
-0
-
 $$$$
 
      RDKit          2D
@@ -208,8 +205,5 @@ Antimalarial
 
 >  <SMILES>  (2) 
 COC1=CC=C(C=C1)C(C2=CC=CC=N2)C3=CC=CC=N3
-
->  <LIPINSKI_VIOLATIONS>  (2) 
-0
 
 $$$$

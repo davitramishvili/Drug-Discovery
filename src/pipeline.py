@@ -131,14 +131,10 @@ class AntimalarialScreeningPipeline:
                 apply_additional=apply_additional
             )
             
-            # Get filter statistics - need to use the data with filter columns
-            # Apply filters to get the full data with filter columns for statistics
-            full_data_with_filters = self.filter.filter_dataframe(
-                self.library_data,
-                apply_lipinski=apply_lipinski,
-                apply_additional=apply_additional
-            )
-            filter_stats = self.filter.get_filter_statistics(full_data_with_filters)
+            # Get filter statistics using the original library with violations calculated
+            # This shows the true pass rate across all molecules
+            library_with_violations = self.filter.calculate_violations_only(self.library_data)
+            filter_stats = self.filter.get_filter_statistics(library_with_violations)
             self.pipeline_stats.update(filter_stats)
             
             # Analyze violations
@@ -224,14 +220,12 @@ class AntimalarialScreeningPipeline:
                 )
             
             # Lipinski violations analysis
-            if self.filtered_data is not None:
-                # Use the full library data with filter results for violation analysis
-                full_data_with_filters = self.filter.filter_dataframe(
-                    self.library_data, apply_lipinski=True, apply_additional=True
-                )
+            if self.library_data is not None:
+                # Calculate violations for ALL molecules without filtering them out
+                library_with_violations = self.filter.calculate_violations_only(self.library_data)
                 
                 self.plotter.plot_lipinski_violations(
-                    full_data_with_filters,
+                    library_with_violations,
                     save_path=str(Path(self.config.output_dir) / "plots" / "lipinski_violations.png")
                 )
             
@@ -258,9 +252,11 @@ class AntimalarialScreeningPipeline:
                 self.library_data is not None,
                 self.filtered_data is not None
             ]):
+                # Use library data with drug-likeness calculations for proper dashboard
+                library_with_violations = self.filter.calculate_violations_only(self.library_data)
                 self.plotter.create_screening_summary_dashboard(
                     original_df=self.library_data,
-                    filtered_df=self.filtered_data,
+                    filtered_df=library_with_violations,  # Use full data with drug-likeness calculations
                     similarity_df=self.similarity_results,
                     save_path=str(Path(self.config.output_dir) / "plots" / "screening_dashboard.html")
                 )
