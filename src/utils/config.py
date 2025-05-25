@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 import os
 
@@ -18,20 +18,20 @@ class FingerprintConfig:
 @dataclass
 class SimilarityConfig:
     metric: str = "tanimoto"  # or "dice"
-    threshold: float = 0.7
+    threshold: float = 0.5  # Lowered for better demo results
     max_results: int = 1000
 
 @dataclass
 class ProjectConfig:
     # File paths
-    input_library: str = "data/raw/specs_library.sdf"
-    reference_compounds: str = "data/reference/malaria_box.sdf"
+    input_library: str = "data/raw/enhanced_library.sdf"
+    reference_compounds: str = "data/reference/enhanced_malaria_box.sdf"
     output_dir: str = "results/"
     
     # Processing configurations
-    filter_config: FilterConfig = FilterConfig()
-    fingerprint_config: FingerprintConfig = FingerprintConfig()
-    similarity_config: SimilarityConfig = SimilarityConfig()
+    filter_config: FilterConfig = field(default_factory=FilterConfig)
+    fingerprint_config: FingerprintConfig = field(default_factory=FingerprintConfig)
+    similarity_config: SimilarityConfig = field(default_factory=SimilarityConfig)
     
     def __post_init__(self):
         # Create output directory if it doesn't exist
