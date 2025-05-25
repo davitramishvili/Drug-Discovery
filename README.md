@@ -12,7 +12,10 @@ This pipeline implements a systematic approach to virtual drug discovery, specif
 - **Descriptor Calculation**: Compute Lipinski descriptors and molecular properties
 - **Drug-likeness Filtering**: Apply Lipinski's Rule of Five and additional criteria
 - **Similarity Searching**: Find compounds similar to known antimalarials using molecular fingerprints
+- **Chemical Space Analysis**: PCA and t-SNE visualization of molecular diversity
 - **Comprehensive Visualization**: Generate plots, charts, and interactive dashboards
+- **Interactive Analysis**: Plotly-based interactive plots and dashboards
+- **Diversity Analysis**: Chemical diversity metrics and reports
 - **Flexible Configuration**: Easily customizable parameters and thresholds
 - **Results Export**: Save filtered compounds and analysis results
 
@@ -22,9 +25,9 @@ This pipeline implements a systematic approach to virtual drug discovery, specif
 Drug-Discovery/
 ├── data/
 │   ├── raw/                    # Raw input data
-│   │   └── test_library.sdf    # Test compound library
+│   │   └── enhanced_library.sdf # Enhanced compound library (30 molecules)
 │   ├── reference/              # Reference compounds
-│   │   └── malaria_box.sdf     # Known antimalarial compounds
+│   │   └── enhanced_malaria_box.sdf # Known antimalarial compounds (8 molecules)
 │   └── processed/              # Processed data files
 ├── src/
 │   ├── data_processing/        # Data loading and processing
@@ -36,7 +39,8 @@ Drug-Discovery/
 │   │   ├── fingerprints.py    # Molecular fingerprint generation
 │   │   └── search.py          # Similarity search algorithms
 │   ├── visualization/          # Plotting and visualization
-│   │   └── plots.py           # Comprehensive plotting functions
+│   │   ├── plots.py           # Comprehensive plotting functions
+│   │   └── chemical_space.py  # Chemical space analysis and PCA/t-SNE
 │   ├── utils/                  # Utilities and configuration
 │   │   └── config.py          # Configuration classes
 │   └── pipeline.py            # Main pipeline orchestration
@@ -156,7 +160,7 @@ config = ProjectConfig(
     output_dir="custom_results/",
     filter_config=FilterConfig(lipinski_violations_allowed=1),
     fingerprint_config=FingerprintConfig(type="morgan", radius=2, n_bits=2048),
-    similarity_config=SimilarityConfig(metric="tanimoto", threshold=0.7)
+    similarity_config=SimilarityConfig(metric="tanimoto", threshold=0.5)
 )
 ```
 
@@ -174,7 +178,7 @@ config = ProjectConfig(
 
 **Similarity Options:**
 - `metric`: "tanimoto", "dice", "cosine", or "jaccard" (default: "tanimoto")
-- `threshold`: Minimum similarity threshold (default: 0.7)
+- `threshold`: Minimum similarity threshold (default: 0.5)
 - `max_results`: Maximum number of results (default: 1000)
 
 ## Output Files
@@ -185,12 +189,16 @@ The pipeline generates several output files in the `results/` directory:
 - `similarity_results.csv`: All similarity search hits
 - `top_50_hits.csv`: Top 50 most similar compounds
 - `pipeline_statistics.txt`: Detailed pipeline statistics
+- `chemical_diversity_report.txt`: Chemical diversity analysis
 - `plots/`: Directory containing all visualizations
   - `library_descriptors.png`: Descriptor distributions
   - `lipinski_violations.png`: Lipinski violations analysis
   - `similarity_distribution.png`: Similarity score distribution
   - `descriptor_correlations.png`: Descriptor correlation matrix
-  - `screening_dashboard.html`: Interactive dashboard
+  - `chemical_space_pca.png`: PCA chemical space visualization
+  - `chemical_space_interactive.html`: Interactive chemical space plot
+  - `mw_vs_logp_interactive.html`: Interactive MW vs LogP scatter plot
+  - `screening_dashboard.html`: Comprehensive interactive dashboard
 
 ## Testing
 
@@ -207,17 +215,33 @@ pytest tests/
 - **NumPy**: Numerical computing
 - **Matplotlib/Seaborn**: Static plotting
 - **Plotly**: Interactive visualizations
-- **Scikit-learn**: Machine learning utilities
+- **Scikit-learn**: Machine learning utilities (PCA, t-SNE)
+- **SciPy**: Scientific computing (distance calculations)
 - **Jupyter**: Interactive notebooks
+
+## Enhanced Dataset
+
+The pipeline includes a carefully curated enhanced dataset designed to showcase realistic virtual screening results:
+
+### Dataset Composition
+- **Drug-like molecules** (15): FDA-approved drugs (aspirin, ibuprofen, statins, etc.)
+- **Antimalarial-like molecules** (8): Structural analogs of known antimalarials
+- **Non-drug-like molecules** (4): Compounds that fail Lipinski's Rule of Five
+- **Natural products** (3): Bioactive compounds (quercetin, curcumin, resveratrol)
+
+### Reference Compounds
+- **8 known antimalarials**: Chloroquine, quinine, artemisinin, mefloquine, primaquine, doxycycline, atovaquone, pyrimethamine
 
 ## Example Results
 
-With the test dataset, you can expect:
+With the enhanced dataset, you can expect:
 
-- **Library Size**: 5 test molecules
-- **Drug-like Molecules**: 3-4 molecules (60-80% pass rate)
-- **Similarity Hits**: 1-3 compounds above threshold
-- **Runtime**: < 30 seconds for test data
+- **Library Size**: 30 diverse molecules
+- **Drug-like Molecules**: 25 molecules (83.3% pass rate)
+- **Similarity Hits**: 7 compounds above 0.5 threshold
+- **Mean Similarity**: 0.803 with perfect matches (1.0) for antimalarial analogs
+- **Chemical Diversity**: 84% variance captured in 2D PCA space
+- **Runtime**: ~2-3 minutes for enhanced dataset
 
 ## Extending the Pipeline
 
@@ -248,6 +272,16 @@ def custom_similarity(self, fp1, fp2):
     return similarity_score
 ```
 
+### Adding Chemical Space Analysis
+```python
+# In src/visualization/chemical_space.py
+from src.visualization.chemical_space import ChemicalSpaceAnalyzer
+
+analyzer = ChemicalSpaceAnalyzer()
+analyzer.plot_pca_space(df, color_col='CATEGORY')
+analyzer.create_diversity_report(df)
+```
+
 ## Performance Considerations
 
 - **Memory Usage**: Scales with library size; consider chunking for very large libraries
@@ -270,32 +304,6 @@ Enable detailed logging:
 import logging
 logging.basicConfig(level=logging.DEBUG)
 ```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Citation
-
-If you use this pipeline in your research, please cite:
-
-```
-Antimalarial Drug Discovery Pipeline
-[Your Name/Institution]
-[Year]
-```
-
-## Contact
-
-For questions, issues, or contributions, please contact [your-email@domain.com] or open an issue on GitHub.
 
 ## Acknowledgments
 
