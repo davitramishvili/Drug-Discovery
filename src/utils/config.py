@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 import os
 
@@ -29,9 +29,9 @@ class ProjectConfig:
     output_dir: str = "results/"
     
     # Processing configurations
-    filter_config: FilterConfig = FilterConfig()
-    fingerprint_config: FingerprintConfig = FingerprintConfig()
-    similarity_config: SimilarityConfig = SimilarityConfig()
+    filter_config: FilterConfig = field(default_factory=FilterConfig)
+    fingerprint_config: FingerprintConfig = field(default_factory=FingerprintConfig)
+    similarity_config: SimilarityConfig = field(default_factory=SimilarityConfig)
     
     def __post_init__(self):
         # Create output directory if it doesn't exist
