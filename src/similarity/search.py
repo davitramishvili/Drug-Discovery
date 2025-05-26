@@ -9,7 +9,7 @@ from typing import List, Dict, Tuple, Optional, Any
 import logging
 from pathlib import Path
 
-from .fingerprints import FingerprintGenerator, FingerprintSimilarity
+from similarity.fingerprints import FingerprintGenerator, FingerprintSimilarity
 
 logger = logging.getLogger(__name__)
 

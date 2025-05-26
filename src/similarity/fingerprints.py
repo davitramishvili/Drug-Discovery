@@ -49,9 +49,16 @@ class FingerprintGenerator:
             
         try:
             if self.fingerprint_type == "morgan":
-                fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
-                    mol, self.radius, nBits=self.n_bits
-                )
+                # Use the newer MorganGenerator to avoid deprecation warnings
+                try:
+                    from rdkit.Chem.rdMolDescriptors import GetMorganGenerator
+                    generator = GetMorganGenerator(radius=self.radius, fpSize=self.n_bits)
+                    fp = generator.GetFingerprint(mol)
+                except ImportError:
+                    # Fallback to older method if newer API not available
+                    fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+                        mol, self.radius, nBits=self.n_bits
+                    )
             elif self.fingerprint_type == "rdkit":
                 fp = Chem.RDKFingerprint(mol, fpSize=self.n_bits)
             elif self.fingerprint_type == "maccs":

@@ -10,12 +10,12 @@ from typing import Dict, List, Optional, Any, Tuple
 import time
 from datetime import datetime
 
-from .data_processing.loader import MoleculeLoader
-from .filtering.drug_like import DrugLikeFilter
-from .similarity.search import SimilaritySearcher
-from .visualization.plots import VirtualScreeningPlotter
-from .visualization.chemical_space import ChemicalSpaceAnalyzer
-from .utils.config import ProjectConfig
+from data_processing.loader import MoleculeLoader
+from filtering.drug_like import DrugLikeFilter
+from similarity.search import SimilaritySearcher
+from visualization.plots import VirtualScreeningPlotter
+from visualization.chemical_space import ChemicalSpaceAnalyzer
+from utils.config import ProjectConfig
 
 # Set up logging
 logging.basicConfig(
@@ -39,7 +39,9 @@ class AntimalarialScreeningPipeline:
         # Initialize components
         self.loader = MoleculeLoader()
         self.filter = DrugLikeFilter(
-            violations_allowed=self.config.filter_config.lipinski_violations_allowed
+            violations_allowed=self.config.filter_config.lipinski_violations_allowed,
+            apply_pains=self.config.filter_config.apply_pains,
+            apply_brenk=self.config.filter_config.apply_brenk
         )
         self.searcher = SimilaritySearcher(
             fingerprint_type=self.config.fingerprint_config.type,

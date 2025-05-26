@@ -9,19 +9,31 @@ from rdkit.Chem import Descriptors, Crippen
 from typing import Dict, List, Optional, Tuple
 import logging
 
+from filtering.structural_alerts import StructuralAlertFilter
+
 logger = logging.getLogger(__name__)
 
 class DrugLikeFilter:
     """Class for applying drug-likeness filters to molecular datasets."""
     
-    def __init__(self, violations_allowed: int = 1):
+    def __init__(self, violations_allowed: int = 1, apply_pains: bool = True, apply_brenk: bool = True):
         """
         Initialize the DrugLikeFilter.
         
         Args:
             violations_allowed: Number of Lipinski violations allowed (default: 1)
+            apply_pains: Whether to apply PAINS filters (default: True)
+            apply_brenk: Whether to apply BRENK filters (default: True)
         """
         self.violations_allowed = violations_allowed
+        self.apply_pains = apply_pains
+        self.apply_brenk = apply_brenk
+        
+        # Initialize structural alert filter if needed
+        if self.apply_pains or self.apply_brenk:
+            self.structural_filter = StructuralAlertFilter()
+        else:
+            self.structural_filter = None
         
         # Lipinski's Rule of Five criteria
         self.lipinski_criteria = {
@@ -92,7 +104,8 @@ class DrugLikeFilter:
         
     def filter_dataframe(self, df: pd.DataFrame, 
                         apply_lipinski: bool = True,
-                        apply_additional: bool = True) -> pd.DataFrame:
+                        apply_additional: bool = True,
+                        apply_structural_alerts: bool = True) -> pd.DataFrame:
         """
         Filter a DataFrame based on drug-likeness criteria.
         
@@ -100,6 +113,7 @@ class DrugLikeFilter:
             df: DataFrame containing molecules and descriptors
             apply_lipinski: Whether to apply Lipinski's Rule of Five
             apply_additional: Whether to apply additional criteria
+            apply_structural_alerts: Whether to apply structural alert filters
             
         Returns:
             Filtered DataFrame with drug-like molecules
@@ -115,6 +129,7 @@ class DrugLikeFilter:
         df['passes_lipinski'] = True
         df['lipinski_violations'] = 0
         df['passes_additional'] = True
+        df['passes_structural_alerts'] = True
         
         # Apply Lipinski filtering
         if apply_lipinski:
@@ -130,14 +145,30 @@ class DrugLikeFilter:
                 lambda row: self.check_additional_criteria(row), axis=1
             )
             df['passes_additional'] = [result[0] for result in additional_results]
+        
+        # Apply structural alert filtering
+        if apply_structural_alerts and self.structural_filter is not None:
+            if 'mol' in df.columns or 'ROMol' in df.columns:
+                df = self.structural_filter.filter_dataframe(
+                    df, 
+                    apply_pains=self.apply_pains,
+                    apply_brenk=self.apply_brenk
+                )
+            else:
+                logger.warning("No 'mol' or 'ROMol' column found - skipping structural alert filtering")
+                df['passes_structural_alerts'] = True
             
         # Create overall filter
-        if apply_lipinski and apply_additional:
-            df['drug_like'] = df['passes_lipinski'] & df['passes_additional']
-        elif apply_lipinski:
-            df['drug_like'] = df['passes_lipinski']
-        elif apply_additional:
-            df['drug_like'] = df['passes_additional']
+        filters_to_apply = []
+        if apply_lipinski:
+            filters_to_apply.append('passes_lipinski')
+        if apply_additional:
+            filters_to_apply.append('passes_additional')
+        if apply_structural_alerts:
+            filters_to_apply.append('passes_structural_alerts')
+        
+        if filters_to_apply:
+            df['drug_like'] = df[filters_to_apply].all(axis=1)
         else:
             df['drug_like'] = True
             

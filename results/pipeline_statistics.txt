@@ -1,7 +1,7 @@
 Antimalarial Virtual Screening Pipeline Results
 ==================================================
 
-Run Date: 2025-05-25 19:49:55
+Run Date: 2025-05-26 20:42:47
 
 library_size: 20
 reference_size: 2
@@ -12,8 +12,8 @@ lipinski_pass_rate: 55.00000000000001
 avg_lipinski_violations: 1.35
 additional_pass_rate: 55.00000000000001
 violation_analysis:
-  lipinski: {'MW': {'violation_count': 8, 'violation_rate': 40.0, 'mean_value': 498.18976370539997, 'criteria': '0 <= MW <= 500'}, 'LogP': {'violation_count': 10, 'violation_rate': 50.0, 'mean_value': 4.2132899999999935, 'criteria': '-5 <= LogP <= 5'}, 'HBA': {'violation_count': 4, 'violation_rate': 20.0, 'mean_value': 5.6, 'criteria': '0 <= HBA <= 10'}, 'HBD': {'violation_count': 5, 'violation_rate': 25.0, 'mean_value': 4.85, 'criteria': '0 <= HBD <= 5'}}
-  additional: {'TPSA': {'violation_count': 5, 'violation_rate': 25.0, 'mean_value': 124.48750000000003, 'criteria': '0 <= TPSA <= 140'}, 'RotBonds': {'violation_count': 9, 'violation_rate': 45.0, 'mean_value': 17.2, 'criteria': '0 <= RotBonds <= 10'}}
+  lipinski: {'MW': {'violation_count': np.int64(8), 'violation_rate': np.float64(40.0), 'mean_value': np.float64(498.18976370539997), 'criteria': '0 <= MW <= 500'}, 'LogP': {'violation_count': np.int64(10), 'violation_rate': np.float64(50.0), 'mean_value': np.float64(4.2132899999999935), 'criteria': '-5 <= LogP <= 5'}, 'HBA': {'violation_count': np.int64(4), 'violation_rate': np.float64(20.0), 'mean_value': np.float64(5.6), 'criteria': '0 <= HBA <= 10'}, 'HBD': {'violation_count': np.int64(5), 'violation_rate': np.float64(25.0), 'mean_value': np.float64(4.85), 'criteria': '0 <= HBD <= 5'}}
+  additional: {'TPSA': {'violation_count': np.int64(5), 'violation_rate': np.float64(25.0), 'mean_value': np.float64(124.48750000000003), 'criteria': '0 <= TPSA <= 140'}, 'RotBonds': {'violation_count': np.int64(9), 'violation_rate': np.float64(45.0), 'mean_value': np.float64(17.2), 'criteria': '0 <= RotBonds <= 10'}}
 
 total_hits: 2
 mean_similarity: 1.0

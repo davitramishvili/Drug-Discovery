@@ -9,7 +9,7 @@ from typing import List, Optional, Dict, Any
 import logging
 from pathlib import Path
 
-from .descriptors import calculate_lipinski_descriptors
+from data_processing.descriptors import calculate_lipinski_descriptors
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

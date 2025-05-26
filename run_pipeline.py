@@ -11,9 +11,9 @@ from pathlib import Path
 # Add src directory to Python path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from src.pipeline import AntimalarialScreeningPipeline
-from src.utils.config import ProjectConfig
-from src.utils.dataset_manager import DatasetManager
+from pipeline import AntimalarialScreeningPipeline
+from utils.config import ProjectConfig
+from utils.dataset_manager import DatasetManager
 
 def parse_arguments():
     """Parse command line arguments."""
