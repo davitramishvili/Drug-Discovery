@@ -1,5 +1,18 @@
 """
 Module for generating molecular fingerprints for similarity searching.
+
+Morgan fingerprints are circular fingerprints that capture molecular features at different radii:
+- radius=0: Only considers the atom itself
+- radius=1: Considers atoms 1 bond away
+- radius=2 (default): Considers atoms up to 2 bonds away (recommended for most cases)
+- radius=3: Considers atoms up to 3 bonds away (captures more extended features)
+
+The number of bits affects the fingerprint resolution:
+- n_bits=256: Very compact but higher collision risk
+- n_bits=512: Good balance for small molecules
+- n_bits=1024: Standard for drug-like molecules
+- n_bits=2048 (default): Recommended for most cases
+- n_bits=4096: Higher resolution, better for large diverse libraries
 """
 
 import numpy as np
@@ -7,7 +20,7 @@ import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors, AllChem
 from rdkit import DataStructs
-from typing import List, Optional, Union, Dict, Any
+from typing import List, Optional, Union, Dict, Any, Tuple
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,23 +29,49 @@ class FingerprintGenerator:
     """Class for generating various types of molecular fingerprints."""
     
     def __init__(self, fingerprint_type: str = "morgan", 
-                 radius: int = 2, n_bits: int = 2048):
+                 radius: int = 2, n_bits: int = 2048,
+                 use_features: bool = False,
+                 include_chirality: bool = False):
         """
         Initialize the FingerprintGenerator.
         
         Args:
             fingerprint_type: Type of fingerprint ("morgan", "rdkit", "maccs")
             radius: Radius for Morgan fingerprints (default: 2)
+                   - 0: Only atom types
+                   - 1: Atom types + immediate neighbors
+                   - 2: Extended environment (recommended)
+                   - 3: Larger environment
             n_bits: Number of bits for fingerprints (default: 2048)
+                   - 256: Very compact, higher collision risk
+                   - 512: Good for small molecules
+                   - 1024: Standard for drug-like molecules
+                   - 2048: Recommended default
+                   - 4096: Higher resolution
+            use_features: Whether to use chemical features for Morgan FPs
+                        instead of connectivity (default: False)
+            include_chirality: Whether to include chirality in Morgan FPs
+                             (default: False)
         """
         self.fingerprint_type = fingerprint_type.lower()
         self.radius = radius
         self.n_bits = n_bits
+        self.use_features = use_features
+        self.include_chirality = include_chirality
         
         # Validate fingerprint type
         valid_types = ["morgan", "rdkit", "maccs"]
         if self.fingerprint_type not in valid_types:
             raise ValueError(f"Fingerprint type must be one of {valid_types}")
+            
+        # Validate radius
+        if self.radius < 0:
+            raise ValueError("Radius must be non-negative")
+            
+        # Validate n_bits
+        valid_n_bits = [256, 512, 1024, 2048, 4096]
+        if self.n_bits not in valid_n_bits:
+            logger.warning(f"Unusual number of bits: {n_bits}. Common values are {valid_n_bits}")
             
     def generate_fingerprint(self, mol: Chem.Mol) -> Optional[np.ndarray]:
         """
@@ -49,16 +88,28 @@ class FingerprintGenerator:
             
         try:
             if self.fingerprint_type == "morgan":
-                # Use the newer MorganGenerator to avoid deprecation warnings
-                try:
-                    from rdkit.Chem.rdMolDescriptors import GetMorganGenerator
-                    generator = GetMorganGenerator(radius=self.radius, fpSize=self.n_bits)
-                    fp = generator.GetFingerprint(mol)
-                except ImportError:
-                    # Fallback to older method if newer API not available
+                # Use Morgan features if specified
+                if self.use_features:
                     fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
-                        mol, self.radius, nBits=self.n_bits
+                        mol, self.radius, nBits=self.n_bits,
+                        useFeatures=True, useChirality=self.include_chirality
                     )
+                else:
+                    # Use the newer MorganGenerator to avoid deprecation warnings
+                    try:
+                        from rdkit.Chem.rdMolDescriptors import GetMorganGenerator
+                        generator = GetMorganGenerator(
+                            radius=self.radius, 
+                            fpSize=self.n_bits,
+                            includeChirality=self.include_chirality
+                        )
+                        fp = generator.GetFingerprint(mol)
+                    except ImportError:
+                        # Fallback to older method if newer API not available
+                        fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+                            mol, self.radius, nBits=self.n_bits,
+                            useChirality=self.include_chirality
+                        )
             elif self.fingerprint_type == "rdkit":
                 fp = Chem.RDKFingerprint(mol, fpSize=self.n_bits)
             elif self.fingerprint_type == "maccs":
@@ -75,6 +126,36 @@ class FingerprintGenerator:
         except Exception as e:
             logger.warning(f"Failed to generate fingerprint: {str(e)}")
             return None
+            
+    def get_bit_info(self, mol: Chem.Mol) -> Dict[int, List[Tuple[int, ...]]]:
+        """
+        Get information about which molecular features set specific bits.
+        Only available for Morgan fingerprints.
+        
+        Args:
+            mol: RDKit molecule object
+            
+        Returns:
+            Dictionary mapping bit positions to lists of atom environments
+        """
+        if self.fingerprint_type != "morgan":
+            raise ValueError("Bit info is only available for Morgan fingerprints")
+            
+        if mol is None:
+            return {}
+            
+        # Initialize bit information dictionary
+        bit_info = {}
+        
+        # Generate Morgan fingerprint with bit information
+        _ = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, self.radius, nBits=self.n_bits,
+            useFeatures=self.use_features,
+            useChirality=self.include_chirality,
+            bitInfo=bit_info
+        )
+        
+        return bit_info
             
     def generate_fingerprints_batch(self, molecules: List[Chem.Mol]) -> np.ndarray:
         """
