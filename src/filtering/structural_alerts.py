@@ -1,6 +1,6 @@
 """
 Structural alert filters for identifying potentially problematic compounds.
-Includes PAINS (Pan-Assay Interference Compounds) and BRENK filters.
+Includes PAINS (Pan-Assay Interference Compounds), BRENK, and NIH filters.
 """
 
 import pandas as pd
@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class StructuralAlertFilter:
-    """Class for applying structural alert filters (PAINS, BRENK, etc.)."""
+    """Class for applying structural alert filters (PAINS, BRENK, NIH, etc.)."""
     
     def __init__(self):
         """Initialize the StructuralAlertFilter with common alert patterns."""
@@ -53,9 +53,39 @@ class StructuralAlertFilter:
             "N=[N+]=[N-]",                                   # Azide
         ]
         
+        # NIH (NIH Molecular Libraries Small Molecule Repository) patterns
+        self.nih_patterns = [
+            # Reactive alkyl halides
+            "C[F,Cl,Br,I]",                                 # Alkyl halides
+            
+            # Phosphorus-containing compounds
+            "P(=O)(O)[OH]",                                # Phosphoric acids
+            
+            # Metals and metalloids
+            "[Si,As,Hg,Sb,Sn]",                           # Heavy metals/metalloids
+            
+            # Peroxides and similar
+            "OO",                                          # Peroxides
+            
+            # Thiols and reactive sulfur compounds
+            "[SH]",                                        # Thiols
+            "S(=O)(=O)F",                                 # Sulfonyl fluorides
+            
+            # Reactive nitrogen compounds
+            "N=[N+]=[N-]",                                # Azides
+            "[N+]#N",                                     # Diazonium
+            
+            # Acid halides and similar
+            "C(=O)[F,Cl,Br,I]",                          # Acid halides
+            
+            # Anhydrides
+            "C(=O)OC(=O)",                               # Anhydrides
+        ]
+        
         # Compile patterns with error handling
         self.compiled_pains = []
         self.compiled_brenk = []
+        self.compiled_nih = []
         
         # Compile PAINS patterns
         for i, pattern in enumerate(self.pains_patterns):
@@ -78,9 +108,21 @@ class StructuralAlertFilter:
                     logger.warning(f"Invalid BRENK pattern {i+1}: {pattern}")
             except Exception as e:
                 logger.warning(f"Error compiling BRENK pattern {i+1}: {e}")
+                
+        # Compile NIH patterns
+        for i, pattern in enumerate(self.nih_patterns):
+            try:
+                mol = Chem.MolFromSmarts(pattern)
+                if mol is not None:
+                    self.compiled_nih.append(mol)
+                else:
+                    logger.warning(f"Invalid NIH pattern {i+1}: {pattern}")
+            except Exception as e:
+                logger.warning(f"Error compiling NIH pattern {i+1}: {e}")
         
         logger.info(f"Loaded {len(self.compiled_pains)} PAINS patterns")
         logger.info(f"Loaded {len(self.compiled_brenk)} BRENK patterns")
+        logger.info(f"Loaded {len(self.compiled_nih)} NIH patterns")
     
     def check_pains(self, mol: Chem.Mol) -> Tuple[bool, List[str]]:
         """
@@ -125,10 +167,33 @@ class StructuralAlertFilter:
         
         has_brenk = len(matched_patterns) > 0
         return has_brenk, matched_patterns
+        
+    def check_nih(self, mol: Chem.Mol) -> Tuple[bool, List[str]]:
+        """
+        Check if molecule contains NIH filter patterns.
+        
+        Args:
+            mol: RDKit molecule object
+            
+        Returns:
+            Tuple of (has_nih_alert, list_of_matched_patterns)
+        """
+        if mol is None:
+            return True, ["Invalid molecule"]
+        
+        matched_patterns = []
+        
+        for i, pattern in enumerate(self.compiled_nih):
+            if mol.HasSubstructMatch(pattern):
+                matched_patterns.append(f"NIH_{i+1}")
+        
+        has_nih = len(matched_patterns) > 0
+        return has_nih, matched_patterns
     
     def filter_dataframe(self, df: pd.DataFrame, 
                         apply_pains: bool = True,
-                        apply_brenk: bool = True) -> pd.DataFrame:
+                        apply_brenk: bool = True,
+                        apply_nih: bool = False) -> pd.DataFrame:
         """
         Filter DataFrame based on structural alerts.
         
@@ -136,6 +201,7 @@ class StructuralAlertFilter:
             df: DataFrame containing molecules with 'mol' column
             apply_pains: Whether to apply PAINS filters
             apply_brenk: Whether to apply BRENK filters
+            apply_nih: Whether to apply NIH filters
             
         Returns:
             Filtered DataFrame without problematic structures
@@ -159,8 +225,10 @@ class StructuralAlertFilter:
         df = df.copy()
         df['passes_pains'] = True
         df['passes_brenk'] = True
+        df['passes_nih'] = True
         df['pains_alerts'] = ""
         df['brenk_alerts'] = ""
+        df['nih_alerts'] = ""
         
         # Apply PAINS filtering
         if apply_pains:
@@ -173,27 +241,37 @@ class StructuralAlertFilter:
             brenk_results = df[mol_col].apply(self.check_brenk)
             df['passes_brenk'] = ~pd.Series([result[0] for result in brenk_results])
             df['brenk_alerts'] = pd.Series([';'.join(result[1]) for result in brenk_results])
+            
+        # Apply NIH filtering
+        if apply_nih:
+            nih_results = df[mol_col].apply(self.check_nih)
+            df['passes_nih'] = ~pd.Series([result[0] for result in nih_results])
+            df['nih_alerts'] = pd.Series([';'.join(result[1]) for result in nih_results])
         
         # Create overall structural alert filter
-        if apply_pains and apply_brenk:
-            df['passes_structural_alerts'] = df['passes_pains'] & df['passes_brenk']
-        elif apply_pains:
-            df['passes_structural_alerts'] = df['passes_pains']
-        elif apply_brenk:
-            df['passes_structural_alerts'] = df['passes_brenk']
-        else:
-            df['passes_structural_alerts'] = True
+        df['passes_structural_alerts'] = True
+        if apply_pains:
+            df['passes_structural_alerts'] &= df['passes_pains']
+        if apply_brenk:
+            df['passes_structural_alerts'] &= df['passes_brenk']
+        if apply_nih:
+            df['passes_structural_alerts'] &= df['passes_nih']
         
         # Filter the DataFrame
         filtered_df = df[df['passes_structural_alerts']].copy()
         
-        pains_filtered = len(df) - len(df[df['passes_pains']])
-        brenk_filtered = len(df) - len(df[df['passes_brenk']])
+        pains_filtered = len(df) - len(df[df['passes_pains']]) if apply_pains else 0
+        brenk_filtered = len(df) - len(df[df['passes_brenk']]) if apply_brenk else 0
+        nih_filtered = len(df) - len(df[df['passes_nih']]) if apply_nih else 0
         total_filtered = len(df) - len(filtered_df)
         
         logger.info(f"Structural alert filtering results:")
-        logger.info(f"  PAINS alerts: {pains_filtered} molecules")
-        logger.info(f"  BRENK alerts: {brenk_filtered} molecules")
+        if apply_pains:
+            logger.info(f"  PAINS alerts: {pains_filtered} molecules")
+        if apply_brenk:
+            logger.info(f"  BRENK alerts: {brenk_filtered} molecules")
+        if apply_nih:
+            logger.info(f"  NIH alerts: {nih_filtered} molecules")
         logger.info(f"  Total filtered: {total_filtered} molecules")
         logger.info(f"  Remaining: {len(filtered_df)} molecules ({len(filtered_df)/len(df)*100:.1f}% pass rate)")
         
