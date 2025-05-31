@@ -93,7 +93,7 @@ def apply_nih_filter(df: pd.DataFrame, mol_col: str = 'mol') -> Tuple[pd.DataFra
 def apply_custom_filter_combination(df: pd.DataFrame, 
                                  use_pains: bool = True,
                                  use_brenk: bool = True,
-                                 use_nih: bool = False,
+                                 use_nih: bool = True,
                                  mol_col: str = 'mol') -> Tuple[pd.DataFrame, Dict[str, any]]:
     """
     Apply a custom combination of structural filters.

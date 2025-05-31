@@ -7,6 +7,7 @@ class FilterConfig:
     lipinski_violations_allowed: int = 1
     apply_pains: bool = True
     apply_brenk: bool = True
+    apply_nih: bool = False  # NIH filter off by default
     custom_alerts_file: Optional[str] = None
 
 @dataclass

@@ -83,6 +83,25 @@ Examples:
         help="Maximum allowed Lipinski violations (default: 1)"
     )
     
+    # Add structural filter arguments
+    parser.add_argument(
+        "--disable-pains",
+        action="store_true",
+        help="Disable PAINS structural filter"
+    )
+    
+    parser.add_argument(
+        "--disable-brenk",
+        action="store_true",
+        help="Disable BRENK structural filter"
+    )
+    
+    parser.add_argument(
+        "--enable-nih",
+        action="store_true",
+        help="Enable NIH (NIH Molecular Libraries) structural filter"
+    )
+    
     return parser.parse_args()
 
 def main():
@@ -138,6 +157,16 @@ def main():
         config.output_dir = args.output
         config.similarity_config.threshold = args.similarity_threshold
         config.filter_config.lipinski_violations_allowed = args.lipinski_violations
+        
+        # Update structural filter settings
+        config.filter_config.apply_pains = not args.disable_pains
+        config.filter_config.apply_brenk = not args.disable_brenk
+        config.filter_config.apply_nih = args.enable_nih
+        
+        # Print filter configuration
+        print(f"  PAINS filter: {'enabled' if not args.disable_pains else 'disabled'}")
+        print(f"  BRENK filter: {'enabled' if not args.disable_brenk else 'disabled'}")
+        print(f"  NIH filter: {'enabled' if args.enable_nih else 'disabled'}")
         
         # Initialize and run pipeline
         pipeline = AntimalarialScreeningPipeline(config)
