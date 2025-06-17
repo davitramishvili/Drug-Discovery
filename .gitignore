@@ -49,3 +49,9 @@ results/*.html
 # OS
 .DS_Store
 Thumbs.db
+
+# Copyrighted Materials - Flynn's ML for Drug Discovery Book
+ML*.pdf
+*Drug*Discovery*.pdf
+CH03_FLYNN_ML4DD.ipynb
+*FLYNN*.ipynb
