@@ -548,9 +548,4 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 ```
 
-## Acknowledgments
-
-- RDKit community for the excellent cheminformatics toolkit
-- Medicines for Malaria Venture (MMV) for antimalarial compound data
-- Open source contributors to the scientific Python ecosystem
 

@@ -2,21 +2,21 @@
 
 This directory contains a complete implementation of **Chapter 3** from Flynn's "Machine Learning for Drug Discovery" book, focusing on ligand-based virtual screening using machine learning techniques.
 
-## 🎯 Overview
+## Overview
 
 Chapter 3 implements an end-to-end machine learning pipeline for predicting **hERG channel cardiotoxicity** using molecular fingerprints and linear models. This is a critical safety assessment in drug discovery, as hERG channel blocking can cause dangerous cardiac arrhythmias.
 
-### Key Learning Objectives
-- ✅ Data acquisition, curation, and quality assessment
-- ✅ SMILES standardization and molecular preprocessing  
-- ✅ Morgan (ECFP) fingerprint generation for ML features
-- ✅ Linear model training with regularization techniques
-- ✅ Hyperparameter optimization (Grid Search & Random Search)
-- ✅ Model evaluation and performance analysis
-- ✅ Feature importance and interpretability
-- ✅ Model deployment and persistence
+### Key Features
+- Data acquisition, curation, and quality assessment
+- SMILES standardization and molecular preprocessing  
+- Morgan (ECFP) fingerprint generation for ML features
+- Linear model training with regularization techniques
+- Hyperparameter optimization (Grid Search & Random Search)
+- Model evaluation and performance analysis
+- Feature importance and interpretability
+- Model deployment and persistence
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/chapter3_ml_screening/
@@ -42,7 +42,7 @@ figures/chapter3/              # Generated visualizations
 └── confusion_matrix.svg       # Model performance visualization
 ```
 
-## 🚀 Quick Start
+## Installation
 
 ### Prerequisites
 ```bash
@@ -50,12 +50,14 @@ pip install scikit-learn pandas numpy matplotlib seaborn
 pip install rdkit-pypi  # For molecular functionality
 ```
 
-### Run the Demo
+## Usage
+
+### Running the Demo
 ```bash
 python demo_chapter3.py
 ```
 
-This will execute the complete Chapter 3 pipeline:
+The demo executes the complete Chapter 3 pipeline:
 1. **Data Loading**: Downloads hERG dataset (587 compounds)
 2. **Preprocessing**: SMILES standardization and validation
 3. **Feature Generation**: Morgan fingerprints (radius=2, 2048 bits)
@@ -65,7 +67,7 @@ This will execute the complete Chapter 3 pipeline:
 7. **Visualization**: Generate plots and analysis charts
 8. **Deployment**: Save trained model for production use
 
-## 🔬 Technical Implementation
+## Technical Implementation
 
 ### Core Components
 
@@ -106,9 +108,7 @@ This will execute the complete Chapter 3 pipeline:
   - `visualize_cv_results()`: Cross-validation performance
   - `plot_confusion_matrix()`: Classification results
 
-## 📊 Expected Results
-
-After running the demo, you should see:
+## Performance Metrics
 
 ### Model Performance
 - **Test Accuracy**: ~85-90% (depending on train/test split)
@@ -116,29 +116,29 @@ After running the demo, you should see:
 - **Matthews Correlation**: ~0.70-0.80
 - **ROC AUC**: ~0.90-0.95
 
-### Key Insights
-- **Dataset**: 587 compounds with hERG activity labels
+### Dataset Statistics
+- **Compounds**: 587 compounds with hERG activity labels
 - **Feature Sparsity**: ~95% (typical for molecular fingerprints)
 - **Important Features**: Specific molecular substructures related to hERG binding
 - **Regularization**: L1/L2 penalties help prevent overfitting
 
-## 🔗 Integration with Existing Pipeline
+## Integration
 
-This Chapter 3 implementation seamlessly integrates with your existing drug discovery tools:
+This Chapter 3 implementation integrates with existing drug discovery pipelines:
 
 ```python
 # Example integration
 from src.chapter3_ml_screening import HERGClassifier, MolecularFeaturizer
-from src.similarity import SimilaritySearcher  # Your existing tool
+from src.similarity import SimilaritySearcher  # Existing tool
 
-# Load your Chapter 3 trained model
+# Load trained model
 classifier = HERGClassifier()
 model = classifier.load_model("artifacts/chapter3/herg_classifier_final.pkl")
 featurizer = MolecularFeaturizer()
 
-# Use with your existing similarity search
+# Use with existing similarity search
 searcher = SimilaritySearcher()
-similar_compounds = searcher.find_similar(query_mol, your_database)
+similar_compounds = searcher.find_similar(query_mol, database)
 
 # Add hERG safety assessment
 for compound in similar_compounds:
@@ -148,7 +148,7 @@ for compound in similar_compounds:
     compound.is_safe = herg_risk < 0.5  # Safety threshold
 ```
 
-## 📈 Advanced Usage
+## Advanced Usage
 
 ### Custom Hyperparameter Optimization
 ```python
@@ -188,34 +188,3 @@ pipeline.fit(smiles_train, y_train)
 
 # Predict directly from SMILES
 predictions = pipeline.predict(new_smiles)
-```
-
-## 🏆 Key Benefits
-
-1. **Production-Ready**: Complete pipeline with error handling and logging
-2. **Scientifically Rigorous**: Based on Flynn's peer-reviewed methodology
-3. **Extensible**: Modular design allows easy customization
-4. **Interpretable**: Feature importance analysis reveals molecular drivers
-5. **Integrated**: Works seamlessly with existing drug discovery tools
-6. **Validated**: Cross-validation and proper train/test evaluation
-
-## 📚 References
-
-- Flynn, N. "Machine Learning for Drug Discovery" - Chapter 3
-- Original hERG dataset from ChEMBL and literature sources
-- Morgan/ECFP fingerprints: Rogers & Hahn, J. Chem. Inf. Model. 2010
-- Scikit-learn documentation for SGD and evaluation metrics
-
-## 🤝 Contributing
-
-To extend this implementation:
-1. Add new molecular descriptors in `molecular_features.py`
-2. Implement additional ML algorithms in `ml_models.py`
-3. Create custom evaluation metrics in `evaluation.py`
-4. Add new visualization types in `visualization.py`
-
----
-
-**Next Chapter**: Chapter 4 will focus on structure-based drug design and protein-ligand interaction modeling.
-
-**Questions?** Check the demo script output and generated artifacts for detailed results and troubleshooting information. 
