@@ -1,0 +1,14 @@
+Final Model Evaluation Report: optimized_sgd
+==================================================
+
+Performance Metrics:
+  Accuracy: 0.8308
+  F1 Score (macro): 0.7704
+  F1 Score (weighted): 0.8217
+  Precision (macro): 0.8101
+  Recall (macro): 0.7497
+  Matthews Correlation Coefficient: 0.5565
+
+Confusion Matrix:
+  True Negative: 31, False Positive: 24
+  False Negative: 9, True Positive: 131
