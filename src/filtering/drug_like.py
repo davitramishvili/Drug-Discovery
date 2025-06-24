@@ -16,7 +16,8 @@ logger = logging.getLogger(__name__)
 class DrugLikeFilter:
     """Class for applying drug-likeness filters to molecular datasets."""
     
-    def __init__(self, violations_allowed: int = 1, apply_pains: bool = True, apply_brenk: bool = True):
+    def __init__(self, violations_allowed: int = 1, apply_pains: bool = True, 
+                 apply_brenk: bool = True, apply_nih: bool = False):
         """
         Initialize the DrugLikeFilter.
         
@@ -24,13 +25,15 @@ class DrugLikeFilter:
             violations_allowed: Number of Lipinski violations allowed (default: 1)
             apply_pains: Whether to apply PAINS filters (default: True)
             apply_brenk: Whether to apply BRENK filters (default: True)
+            apply_nih: Whether to apply NIH filters (default: False)
         """
         self.violations_allowed = violations_allowed
         self.apply_pains = apply_pains
         self.apply_brenk = apply_brenk
+        self.apply_nih = apply_nih
         
         # Initialize structural alert filter if needed
-        if self.apply_pains or self.apply_brenk:
+        if self.apply_pains or self.apply_brenk or self.apply_nih:
             self.structural_filter = StructuralAlertFilter()
         else:
             self.structural_filter = None
@@ -152,7 +155,8 @@ class DrugLikeFilter:
                 df = self.structural_filter.filter_dataframe(
                     df, 
                     apply_pains=self.apply_pains,
-                    apply_brenk=self.apply_brenk
+                    apply_brenk=self.apply_brenk,
+                    apply_nih=self.apply_nih
                 )
             else:
                 logger.warning("No 'mol' or 'ROMol' column found - skipping structural alert filtering")

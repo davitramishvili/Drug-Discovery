@@ -41,7 +41,8 @@ class AntimalarialScreeningPipeline:
         self.filter = DrugLikeFilter(
             violations_allowed=self.config.filter_config.lipinski_violations_allowed,
             apply_pains=self.config.filter_config.apply_pains,
-            apply_brenk=self.config.filter_config.apply_brenk
+            apply_brenk=self.config.filter_config.apply_brenk,
+            apply_nih=self.config.filter_config.apply_nih  # Add NIH filter configuration
         )
         self.searcher = SimilaritySearcher(
             fingerprint_type=self.config.fingerprint_config.type,
