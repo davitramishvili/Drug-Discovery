@@ -1,6 +1,0 @@
-ID,NAME,ACTIVITY,SMILES,MW,LogP,HBA,HBD,TPSA,RotBonds,passes_lipinski,lipinski_violations,passes_additional,passes_structural_alerts,passes_pains,passes_brenk,pains_alerts,brenk_alerts,drug_like
-,Aspirin,Anti-inflammatory,CC(=O)OC1=CC=CC=C1C(=O)O,180.042258736,1.3101,3,1,63.60000000000001,2,True,0,True,True,True,True,,,True
-,Caffeine,Stimulant,CN1C=NC2=C1C(=O)N(C(=O)N2C)C,194.08037556,-1.0293,6,0,61.82,0,True,0,True,True,True,True,,,True
-,Ibuprofen,Anti-inflammatory,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O,206.130679816,3.073200000000001,1,1,37.3,4,True,0,True,True,True,True,,,True
-,Paracetamol,Analgesic,CC(=O)NC1=CC=C(C=C1)O,151.063328528,1.3505999999999998,2,2,49.33,1,True,0,True,True,True,True,,,True
-,Benzene,Solvent,C1=CC=CC=C1,78.046950192,1.6866,0,0,0.0,0,True,0,True,True,True,True,,,True

@@ -1,12 +1,12 @@
 Chemical Diversity Analysis Report
 ========================================
 
-Dataset size: 49 molecules
+Dataset size: 20 molecules
 
 Diversity Metrics:
 --------------------
-PCA 2D variance captured: 97.2%
+PCA 2D variance captured: 97.0%
 PCA 3D variance captured: 99.1%
 Effective dimensionality: 2
-Mean pairwise distance: 2.315
-Std pairwise distance: 2.625
+Mean pairwise distance: 2.833
+Std pairwise distance: 2.146
