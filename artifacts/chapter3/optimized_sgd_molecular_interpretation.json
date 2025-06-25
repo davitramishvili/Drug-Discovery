@@ -1,0 +1,369 @@
+{
+  "model_type": "linear",
+  "top_features": [
+    {
+      "rank": 1,
+      "bit_index": 695,
+      "weight": 0.14535101889226792,
+      "effect": "promotes hERG blocking",
+      "frequency": 136,
+      "frequency_percent": 34.69387755102041,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 695,
+        "environments": [
+          {
+            "atom_id": 21,
+            "radius": 0
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 2,
+      "bit_index": 881,
+      "weight": 0.15300107251817682,
+      "effect": "promotes hERG blocking",
+      "frequency": 84,
+      "frequency_percent": 21.428571428571427,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 881,
+        "environments": [
+          {
+            "atom_id": 12,
+            "radius": 0
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 3,
+      "bit_index": 926,
+      "weight": 0.15300107251817718,
+      "effect": "promotes hERG blocking",
+      "frequency": 263,
+      "frequency_percent": 67.09183673469387,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 926,
+        "environments": [
+          {
+            "atom_id": 8,
+            "radius": 0
+          },
+          {
+            "atom_id": 9,
+            "radius": 0
+          },
+          {
+            "atom_id": 11,
+            "radius": 0
+          },
+          {
+            "atom_id": 12,
+            "radius": 0
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 4,
+      "bit_index": 656,
+      "weight": -0.1555510903934798,
+      "effect": "prevents hERG blocking",
+      "frequency": 81,
+      "frequency_percent": 20.66326530612245,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 656,
+        "environments": [
+          {
+            "atom_id": 6,
+            "radius": 0
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 5,
+      "bit_index": 1911,
+      "weight": 0.16320114401938873,
+      "effect": "promotes hERG blocking",
+      "frequency": 70,
+      "frequency_percent": 17.857142857142858,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 1911,
+        "environments": [
+          {
+            "atom_id": 14,
+            "radius": 1
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 6,
+      "bit_index": 1480,
+      "weight": 0.17000119168686337,
+      "effect": "promotes hERG blocking",
+      "frequency": 159,
+      "frequency_percent": 40.56122448979592,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 1480,
+        "environments": [
+          {
+            "atom_id": 9,
+            "radius": 1
+          },
+          {
+            "atom_id": 11,
+            "radius": 1
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 7,
+      "bit_index": 1199,
+      "weight": 0.1887013227724184,
+      "effect": "promotes hERG blocking",
+      "frequency": 150,
+      "frequency_percent": 38.265306122448976,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 1199,
+        "environments": [
+          {
+            "atom_id": 16,
+            "radius": 2
+          },
+          {
+            "atom_id": 18,
+            "radius": 2
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 8,
+      "bit_index": 1873,
+      "weight": 0.22185155515135693,
+      "effect": "promotes hERG blocking",
+      "frequency": 365,
+      "frequency_percent": 93.11224489795919,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 1873,
+        "environments": [
+          {
+            "atom_id": 2,
+            "radius": 0
+          },
+          {
+            "atom_id": 15,
+            "radius": 0
+          },
+          {
+            "atom_id": 16,
+            "radius": 0
+          },
+          {
+            "atom_id": 17,
+            "radius": 0
+          },
+          {
+            "atom_id": 18,
+            "radius": 0
+          },
+          {
+            "atom_id": 19,
+            "radius": 0
+          },
+          {
+            "atom_id": 23,
+            "radius": 0
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 9,
+      "bit_index": 1088,
+      "weight": 0.28560200203392994,
+      "effect": "promotes hERG blocking",
+      "frequency": 195,
+      "frequency_percent": 49.744897959183675,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 1088,
+        "environments": [
+          {
+            "atom_id": 16,
+            "radius": 1
+          },
+          {
+            "atom_id": 17,
+            "radius": 1
+          },
+          {
+            "atom_id": 18,
+            "radius": 1
+          }
+        ],
+        "found": true
+      }
+    },
+    {
+      "rank": 10,
+      "bit_index": 1750,
+      "weight": 0.33320233570625085,
+      "effect": "promotes hERG blocking",
+      "frequency": 331,
+      "frequency_percent": 84.43877551020408,
+      "example_molecules": 3,
+      "bit_info": {
+        "bit_number": 1750,
+        "environments": [
+          {
+            "atom_id": 15,
+            "radius": 1
+          },
+          {
+            "atom_id": 19,
+            "radius": 1
+          }
+        ],
+        "found": true
+      }
+    }
+  ],
+  "substructure_examples": {
+    "695": {
+      "weight": 0.14535101889226792,
+      "molecules_count": 136,
+      "example_indices": [
+        0,
+        3,
+        7,
+        9,
+        10
+      ]
+    },
+    "881": {
+      "weight": 0.15300107251817682,
+      "molecules_count": 84,
+      "example_indices": [
+        2,
+        5,
+        10,
+        24,
+        27
+      ]
+    },
+    "926": {
+      "weight": 0.15300107251817718,
+      "molecules_count": 263,
+      "example_indices": [
+        0,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    "656": {
+      "weight": -0.1555510903934798,
+      "molecules_count": 81,
+      "example_indices": [
+        2,
+        7,
+        9,
+        12,
+        13
+      ]
+    },
+    "1911": {
+      "weight": 0.16320114401938873,
+      "molecules_count": 70,
+      "example_indices": [
+        2,
+        4,
+        8,
+        15,
+        27
+      ]
+    },
+    "1480": {
+      "weight": 0.17000119168686337,
+      "molecules_count": 159,
+      "example_indices": [
+        0,
+        3,
+        7,
+        8,
+        9
+      ]
+    },
+    "1199": {
+      "weight": 0.1887013227724184,
+      "molecules_count": 150,
+      "example_indices": [
+        0,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    "1873": {
+      "weight": 0.22185155515135693,
+      "molecules_count": 365,
+      "example_indices": [
+        0,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    "1088": {
+      "weight": 0.28560200203392994,
+      "molecules_count": 195,
+      "example_indices": [
+        0,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    "1750": {
+      "weight": 0.33320233570625085,
+      "molecules_count": 331,
+      "example_indices": [
+        0,
+        1,
+        2,
+        3,
+        5
+      ]
+    }
+  },
+  "molecular_insights": [
+    "Found 9 molecular features that promote hERG blocking",
+    "Strongest hERG-promoting feature appears in 84.4% of molecules",
+    "Found 1 molecular features that prevent hERG blocking",
+    "Strongest hERG-preventing feature appears in 20.7% of molecules"
+  ]
+}
