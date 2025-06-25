@@ -230,14 +230,27 @@ class DatasetManager:
             molecules: List of (SMILES, name, activity) tuples
             filename: Output SDF file path
         """
+        self._write_molecules_to_sdf(molecules, filename, add_coordinates=True)
+        
+    def _write_molecules_to_sdf(self, molecules: List[Tuple[str, str, str]], 
+                               filename: Path, add_coordinates: bool = True) -> None:
+        """
+        Generic SDF writer utility to avoid code duplication.
+        
+        Args:
+            molecules: List of (SMILES, name, activity) tuples
+            filename: Output SDF file path
+            add_coordinates: Whether to generate 2D coordinates
+        """
         writer = Chem.SDWriter(str(filename))
         
         for i, (smiles, name, activity) in enumerate(molecules, 1):
             mol = Chem.MolFromSmiles(smiles)
             if mol is not None:
-                # Add hydrogens and generate 2D coordinates
+                # Add hydrogens and optionally generate coordinates
                 mol = Chem.AddHs(mol)
-                rdDepictor.Compute2DCoords(mol)
+                if add_coordinates:
+                    rdDepictor.Compute2DCoords(mol)
                 
                 # Set properties
                 mol.SetProp("ID", f"COMPOUND_{i:03d}")
@@ -251,6 +264,50 @@ class DatasetManager:
         
         writer.close()
         logger.info(f"Created SDF file: {filename}")
+        
+    @staticmethod
+    def convert_csv_to_sdf(csv_path: Path, sdf_path: Path, 
+                          smiles_col: str = 'Smiles', name_col: str = 'HEOS_COMPOUND_ID') -> None:
+        """
+        Convert CSV file containing SMILES to SDF format.
+        Consolidates functionality from convert_csv_to_sdf.py
+        
+        Args:
+            csv_path: Path to input CSV file
+            sdf_path: Path to output SDF file
+            smiles_col: Name of SMILES column
+            name_col: Name of compound ID column
+        """
+        import pandas as pd
+        from rdkit.Chem import AllChem
+        
+        df = pd.read_csv(csv_path)
+        writer = Chem.SDWriter(str(sdf_path))
+        
+        for idx, row in df.iterrows():
+            try:
+                mol = Chem.MolFromSmiles(row[smiles_col])
+                if mol is None:
+                    logger.warning(f"Failed to create molecule for compound {row[name_col]}")
+                    continue
+                    
+                # Add hydrogens and generate 3D coordinates
+                mol = Chem.AddHs(mol)
+                AllChem.EmbedMolecule(mol, randomSeed=42)
+                
+                # Set properties from CSV columns
+                mol.SetProp("_Name", str(row[name_col]))
+                for col in df.columns:
+                    if col not in [smiles_col]:
+                        mol.SetProp(col, str(row[col]))
+                
+                writer.write(mol)
+                
+            except Exception as e:
+                logger.warning(f"Error processing compound {row[name_col]}: {str(e)}")
+        
+        writer.close()
+        logger.info(f"CSV to SDF conversion completed: {sdf_path}")
         
     def setup_dataset(self, dataset_name: str) -> Tuple[str, str]:
         """

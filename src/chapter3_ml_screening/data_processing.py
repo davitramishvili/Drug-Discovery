@@ -322,3 +322,19 @@ class HERGDataProcessor:
         
         logger.info(f"Retrieved {len(extremes)} extreme molecules")
         return extremes 
+
+# Module-level convenience functions to avoid import duplication
+def load_herg_data(data_path: Optional[str] = None) -> pd.DataFrame:
+    """Convenience function for loading hERG data."""
+    processor = HERGDataProcessor()
+    return processor.load_herg_blockers_data(data_path)
+
+def standardize_smiles(df: pd.DataFrame) -> pd.DataFrame:
+    """Convenience function for standardizing SMILES."""
+    processor = HERGDataProcessor()
+    return processor.standardize_molecules(df)
+
+def train_test_split_activity(df: pd.DataFrame, test_size: float = 0.2, random_state: int = 42) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Convenience function for train/test splitting."""
+    processor = HERGDataProcessor()
+    return processor.split_data(df, test_size=test_size, random_state=random_state) 
