@@ -12,6 +12,7 @@ from pathlib import Path
 
 # Scikit-learn imports
 from sklearn.linear_model import SGDClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.dummy import DummyClassifier
 from sklearn.model_selection import cross_validate, GridSearchCV, RandomizedSearchCV
 from sklearn.pipeline import make_pipeline, Pipeline
@@ -61,8 +62,9 @@ class HERGClassifier:
         Returns:
             sklearn.linear_model.SGDClassifier: Trained classifier
         """
-        # Default parameters
+        # Default parameters - using log_loss to enable probability predictions
         params = {
+            'loss': 'log_loss',  # Changed from default 'hinge' to enable predict_proba
             'random_state': self.random_seed,
             'max_iter': 1000,
             'tol': 1e-3
@@ -80,6 +82,145 @@ class HERGClassifier:
         
         return clf
     
+    def train_random_forest_classifier(self, X_train: np.ndarray, y_train: np.ndarray, **kwargs) -> RandomForestClassifier:
+        """
+        Train a Random Forest classifier.
+        
+        Parameters:
+            X_train (numpy.ndarray): Training features
+            y_train (numpy.ndarray): Training labels
+            **kwargs: Additional parameters for RandomForestClassifier
+            
+        Returns:
+            sklearn.ensemble.RandomForestClassifier: Trained classifier
+        """
+        # Default parameters
+        params = {
+            'random_state': self.random_seed,
+            'n_estimators': 100,
+            'max_depth': None,
+            'min_samples_split': 2,
+            'min_samples_leaf': 1,
+            'n_jobs': -1
+        }
+        
+        # Update with any provided parameters
+        params.update(kwargs)
+        
+        # Create and train the classifier
+        rf_clf = RandomForestClassifier(**params)
+        rf_clf.fit(X_train, y_train)
+        
+        self.model = rf_clf
+        logger.info("Random Forest classifier training completed")
+        
+        return rf_clf
+    
+    def grid_search_random_forest(self, X_train: np.ndarray, y_train: np.ndarray,
+                                 param_grid: Optional[Dict] = None,
+                                 cv: int = 5,
+                                 scoring: str = 'matthews_corrcoef') -> GridSearchCV:
+        """
+        Perform grid search for Random Forest hyperparameter optimization.
+        
+        Parameters:
+            X_train (numpy.ndarray): Training features
+            y_train (numpy.ndarray): Training labels
+            param_grid (dict, optional): Parameter grid to search
+            cv (int): Number of cross-validation folds
+            scoring (str): Scoring metric for optimization (default: MCC)
+            
+        Returns:
+            sklearn.model_selection.GridSearchCV: Fitted grid search object
+        """
+        if param_grid is None:
+            # Default parameter grid for Random Forest
+            param_grid = {
+                'n_estimators': [50, 100, 200, 300],
+                'max_depth': [5, 10, 20, None],
+                'min_samples_split': [2, 5, 10],
+                'min_samples_leaf': [1, 2, 4]
+            }
+        
+        # Create base classifier
+        rf_clf = RandomForestClassifier(
+            random_state=self.random_seed,
+            n_jobs=-1
+        )
+        
+        # Perform grid search
+        grid_search = GridSearchCV(
+            rf_clf,
+            param_grid=param_grid,
+            cv=cv,
+            scoring=scoring,
+            n_jobs=-1,
+            verbose=1
+        )
+        
+        grid_search.fit(X_train, y_train)
+        
+        self.best_params = grid_search.best_params_
+        self.model = grid_search.best_estimator_
+        
+        logger.info("Random Forest grid search completed")
+        logger.info(f"Best parameters: {grid_search.best_params_}")
+        logger.info(f"Best CV score: {grid_search.best_score_:.4f}")
+        
+        return grid_search
+    
+    def compare_models(self, X_train: np.ndarray, y_train: np.ndarray,
+                      X_test: np.ndarray, y_test: np.ndarray,
+                      models: Optional[Dict[str, Any]] = None) -> pd.DataFrame:
+        """
+        Compare multiple models on the same dataset.
+        
+        Parameters:
+            X_train (numpy.ndarray): Training features
+            y_train (numpy.ndarray): Training labels
+            X_test (numpy.ndarray): Test features
+            y_test (numpy.ndarray): Test labels
+            models (dict, optional): Dictionary of models to compare
+            
+        Returns:
+            pandas.DataFrame: Comparison results
+        """
+        if models is None:
+            # Default models to compare
+            models = {
+                'SGDClassifier': SGDClassifier(loss='log_loss', random_state=self.random_seed),
+                'RandomForest': RandomForestClassifier(random_state=self.random_seed, n_jobs=-1),
+                'Dummy': DummyClassifier(strategy='most_frequent', random_state=self.random_seed)
+            }
+        
+        results = []
+        
+        for name, model in models.items():
+            # Train model
+            model.fit(X_train, y_train)
+            
+            # Make predictions
+            y_pred = model.predict(X_test)
+            
+            # Calculate metrics
+            result = {
+                'Model': name,
+                'Accuracy': accuracy_score(y_test, y_pred),
+                'F1_macro': f1_score(y_test, y_pred, average='macro'),
+                'Precision_macro': precision_score(y_test, y_pred, average='macro'),
+                'Recall_macro': recall_score(y_test, y_pred, average='macro'),
+                'Matthews_CC': matthews_corrcoef(y_test, y_pred)
+            }
+            
+            results.append(result)
+            
+            logger.info(f"{name} - MCC: {result['Matthews_CC']:.4f}")
+        
+        comparison_df = pd.DataFrame(results)
+        comparison_df = comparison_df.sort_values('Matthews_CC', ascending=False)
+        
+        return comparison_df
+    
     def create_pipeline(self, radius: int = 2, n_bits: int = 2048, 
                        sgd_params: Optional[Dict] = None) -> Pipeline:
         """
@@ -95,6 +236,7 @@ class HERGClassifier:
         """
         if sgd_params is None:
             sgd_params = {
+                'loss': 'log_loss',  # Enable probability predictions
                 'random_state': self.random_seed,
                 'max_iter': 1000,
                 'tol': 1e-3
@@ -194,8 +336,9 @@ class HERGClassifier:
                 'penalty': ['l1', 'l2', 'elasticnet']
             }
         
-        # Create base classifier
+        # Create base classifier with log_loss for probability predictions
         sgd_clf = SGDClassifier(
+            loss='log_loss',
             random_state=self.random_seed,
             max_iter=1000,
             tol=1e-3
@@ -249,8 +392,9 @@ class HERGClassifier:
                 'penalty': ['l1', 'l2', 'elasticnet']
             }
         
-        # Create base classifier
+        # Create base classifier with log_loss for probability predictions
         sgd_clf = SGDClassifier(
+            loss='log_loss',
             random_state=self.random_seed,
             max_iter=1000,
             tol=1e-3

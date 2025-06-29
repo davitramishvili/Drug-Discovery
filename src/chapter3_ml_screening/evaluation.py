@@ -443,4 +443,99 @@ class ModelEvaluator:
         elif isinstance(obj, (np.integer, np.floating)):
             return float(obj)
         else:
-            return obj 
+            return obj
+    
+    def apply_to_compound_library(self, model, fingerprints: np.ndarray, 
+                                 compound_info: pd.DataFrame,
+                                 model_name: str = "model",
+                                 threshold: float = 0.5) -> Dict[str, Any]:
+        """
+        Apply a trained model to an external compound library.
+        
+        Parameters:
+            model: Trained model
+            fingerprints (numpy.ndarray): Fingerprints of compounds
+            compound_info (pandas.DataFrame): Information about compounds
+            model_name (str): Name of the model
+            threshold (float): Probability threshold for classification
+            
+        Returns:
+            dict: Results including predictions and filtered compounds
+        """
+        # Make predictions
+        predictions = model.predict(fingerprints)
+        
+        # Get probabilities if available
+        probabilities = None
+        if hasattr(model, 'predict_proba'):
+            try:
+                probabilities = model.predict_proba(fingerprints)
+                # For binary classification, get probability of positive class
+                if probabilities.ndim == 2 and probabilities.shape[1] == 2:
+                    prob_positive = probabilities[:, 1]
+                else:
+                    prob_positive = probabilities
+            except Exception as e:
+                logger.warning(f"Could not get prediction probabilities: {e}")
+                prob_positive = None
+        else:
+            prob_positive = None
+        
+        # Create results dataframe
+        results_df = compound_info.copy()
+        results_df['prediction'] = predictions
+        results_df['predicted_label'] = ['Blocker' if p == 1 else 'Non-blocker' for p in predictions]
+        
+        if prob_positive is not None:
+            results_df['blocker_probability'] = prob_positive
+            results_df['confidence'] = np.abs(prob_positive - 0.5) * 2  # Distance from decision boundary
+        
+        # Calculate statistics
+        n_total = len(results_df)
+        n_blockers = np.sum(predictions == 1)
+        n_safe = np.sum(predictions == 0)
+        
+        # Filter compounds
+        safe_compounds = results_df[results_df['prediction'] == 0]
+        blockers = results_df[results_df['prediction'] == 1]
+        
+        # High confidence predictions
+        if prob_positive is not None:
+            high_conf_safe = results_df[
+                (results_df['prediction'] == 0) & 
+                (results_df['blocker_probability'] < 0.2)
+            ]
+            high_conf_blockers = results_df[
+                (results_df['prediction'] == 1) & 
+                (results_df['blocker_probability'] > 0.8)
+            ]
+        else:
+            high_conf_safe = safe_compounds
+            high_conf_blockers = blockers
+        
+        # Create summary
+        summary = {
+            'model_name': model_name,
+            'n_total': n_total,
+            'n_blockers': n_blockers,
+            'n_safe': n_safe,
+            'percent_blockers': (n_blockers / n_total * 100) if n_total > 0 else 0,
+            'percent_safe': (n_safe / n_total * 100) if n_total > 0 else 0,
+            'n_high_conf_safe': len(high_conf_safe),
+            'n_high_conf_blockers': len(high_conf_blockers),
+            'results_df': results_df,
+            'safe_compounds': safe_compounds,
+            'blockers': blockers,
+            'high_conf_safe': high_conf_safe,
+            'high_conf_blockers': high_conf_blockers
+        }
+        
+        # Log summary
+        logger.info(f"Applied {model_name} to {n_total} compounds:")
+        logger.info(f"  Predicted blockers: {n_blockers} ({summary['percent_blockers']:.1f}%)")
+        logger.info(f"  Predicted safe: {n_safe} ({summary['percent_safe']:.1f}%)")
+        if prob_positive is not None:
+            logger.info(f"  High confidence safe: {len(high_conf_safe)}")
+            logger.info(f"  High confidence blockers: {len(high_conf_blockers)}")
+        
+        return summary

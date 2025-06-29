@@ -1,0 +1,4 @@
+ID,SMILES,source,NAME,ACTIVITY,CLASS,prediction,predicted_label,blocker_probability,confidence
+REF_ARTEMISININ,C[C@H]1CC[C@H]2[C@@H](C)C(=O)O[C@H]3O[C@]4(C)CC[C@@H]1[C@]2(C)OO[C@@]34C,SDF: enhanced_malaria_box.sdf,Artemisinin,Antimalarial,Artemisinin,0,Non-blocker,0.13764263823483172,0.7247147235303366
+REF_ATOVAQUONE,CC(C)c1ccc(Cl)c(-c2c(O)cc(O)c3c2C(=O)C=CC3=O)c1,SDF: enhanced_malaria_box.sdf,Atovaquone,Antimalarial,Naphthoquinone,0,Non-blocker,0.4983428083652164,0.0033143832695672337
+REF_PYRIMETHAMINE,CCn1cnc(-c2ccc(Cl)cc2)c1N,SDF: enhanced_malaria_box.sdf,Pyrimethamine,Antimalarial,Pyrimethamine,0,Non-blocker,0.39357926322389325,0.2128414735522135
