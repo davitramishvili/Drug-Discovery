@@ -38,7 +38,44 @@ from chapter3_ml_screening.utils import save_molecular_dataframe, load_molecular
 def load_or_simulate_malaria_box_hits(n_compounds: int = 1000):
     """Load Malaria Box hits from Chapter 2 or simulate them."""
     
-    # Check for existing results from Chapter 2
+    # First priority: Check for Malaria Box reference files
+    malaria_files = [
+        'data/reference/malaria_box_400.sdf',
+        'data/reference/extended_malaria_box.sdf',
+        'data/reference/enhanced_malaria_box.sdf',
+        'data/reference/malaria_box.sdf'
+    ]
+    
+    for malaria_file in malaria_files:
+        if Path(malaria_file).exists():
+            print(f"Loading compounds from {malaria_file}...")
+            suppl = Chem.SDMolSupplier(str(malaria_file))
+            compounds = []
+            compound_info = []
+            
+            for i, mol in enumerate(suppl):
+                if mol is not None and len(compounds) < n_compounds:
+                    smiles = Chem.MolToSmiles(mol)
+                    compounds.append(smiles)
+                    
+                    # Extract properties
+                    info = {
+                        'ID': mol.GetProp('_Name') if mol.HasProp('_Name') else f'MB_{i:04d}',
+                        'SMILES': smiles,
+                        'source': 'Malaria Box'
+                    }
+                    
+                    # Add any other properties
+                    for prop in mol.GetPropNames():
+                        if prop != '_Name':
+                            info[prop] = mol.GetProp(prop)
+                    
+                    compound_info.append(info)
+            
+            print(f"Successfully loaded {len(compounds)} compounds from {malaria_file}")
+            return compounds, pd.DataFrame(compound_info)
+    
+    # Second priority: Check for existing results from Chapter 2
     results_files = [
         'results/top_50_hits.csv',
         'results/similarity_results.csv',
@@ -53,6 +90,7 @@ def load_or_simulate_malaria_box_hits(n_compounds: int = 1000):
                 smiles_col = 'SMILES' if 'SMILES' in df.columns else 'smiles'
                 # Use available data, even if less than n_compounds
                 available_compounds = min(len(df), n_compounds)
+                print(f"Found {available_compounds} compounds in {file_path}")
                 return df[smiles_col].head(available_compounds).tolist(), df.head(available_compounds)
     
     # Check for Malaria Box reference files
