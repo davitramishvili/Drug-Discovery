@@ -1,0 +1,2 @@
+sgd_cv_score,sgd_test_mcc,sgd_best_params,rf_cv_score,rf_test_mcc,rf_best_params,winner,mcc_improvement
+0.7675525726523358,0.5564871454263047,"{'alpha': 0.1, 'penalty': 'l2'}",0.5270831682056942,0.49481197189191656,"{'max_depth': None, 'max_features': 'log2', 'min_samples_split': 2, 'n_estimators': 50}",SGD,0.06167517353438817
