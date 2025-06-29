@@ -1,9 +1,9 @@
-ID,SMILES,source,NAME,ACTIVITY,CLASS,prediction,predicted_label
-REF_CHLOROQUINE,CCN(CC)CCCC(C)Nc1ccnc2cc(Cl)ccc12,SDF: enhanced_malaria_box.sdf,Chloroquine,Antimalarial,Quinoline,1,Blocker
-REF_QUININE,C=CC1CC2CCN1CC2C(O)c1ccnc2ccc(OC)cc12,SDF: enhanced_malaria_box.sdf,Quinine,Antimalarial,Quinoline,1,Blocker
-REF_ARTEMISININ,C[C@H]1CC[C@H]2[C@@H](C)C(=O)O[C@H]3O[C@]4(C)CC[C@@H]1[C@]2(C)OO[C@@]34C,SDF: enhanced_malaria_box.sdf,Artemisinin,Antimalarial,Artemisinin,0,Non-blocker
-REF_MEFLOQUINE,OC(c1ccc(C(F)(F)F)cc1C(F)(F)F)C1CCCCN1,SDF: enhanced_malaria_box.sdf,Mefloquine,Antimalarial,Quinoline,1,Blocker
-REF_PRIMAQUINE,COc1ccc2nccc(NC(C)CCCN)c2c1,SDF: enhanced_malaria_box.sdf,Primaquine,Antimalarial,Quinoline,1,Blocker
-REF_DOXYCYCLINE,CN(C)C1C(=O)c2cccc(O)c2C(=O)c2cccc(O)c2C(=O)C(N(C)C)C(O)C1O,SDF: enhanced_malaria_box.sdf,Doxycycline,Antimalarial,Tetracycline,1,Blocker
-REF_ATOVAQUONE,CC(C)c1ccc(Cl)c(-c2c(O)cc(O)c3c2C(=O)C=CC3=O)c1,SDF: enhanced_malaria_box.sdf,Atovaquone,Antimalarial,Naphthoquinone,0,Non-blocker
-REF_PYRIMETHAMINE,CCn1cnc(-c2ccc(Cl)cc2)c1N,SDF: enhanced_malaria_box.sdf,Pyrimethamine,Antimalarial,Pyrimethamine,0,Non-blocker
+ID,SMILES,source,NAME,ACTIVITY,CLASS,prediction,predicted_label,blocker_probability,confidence
+REF_CHLOROQUINE,CCN(CC)CCCC(C)Nc1ccnc2cc(Cl)ccc12,SDF: enhanced_malaria_box.sdf,Chloroquine,Antimalarial,Quinoline,1,Blocker,0.8661545101518185,0.7323090203036371
+REF_QUININE,C=CC1CC2CCN1CC2C(O)c1ccnc2ccc(OC)cc12,SDF: enhanced_malaria_box.sdf,Quinine,Antimalarial,Quinoline,1,Blocker,0.8128561489173391,0.6257122978346783
+REF_ARTEMISININ,C[C@H]1CC[C@H]2[C@@H](C)C(=O)O[C@H]3O[C@]4(C)CC[C@@H]1[C@]2(C)OO[C@@]34C,SDF: enhanced_malaria_box.sdf,Artemisinin,Antimalarial,Artemisinin,0,Non-blocker,0.13764263823483172,0.7247147235303366
+REF_MEFLOQUINE,OC(c1ccc(C(F)(F)F)cc1C(F)(F)F)C1CCCCN1,SDF: enhanced_malaria_box.sdf,Mefloquine,Antimalarial,Quinoline,1,Blocker,0.7704711261699115,0.5409422523398231
+REF_PRIMAQUINE,COc1ccc2nccc(NC(C)CCCN)c2c1,SDF: enhanced_malaria_box.sdf,Primaquine,Antimalarial,Quinoline,1,Blocker,0.6799602578113032,0.3599205156226064
+REF_DOXYCYCLINE,CN(C)C1C(=O)c2cccc(O)c2C(=O)c2cccc(O)c2C(=O)C(N(C)C)C(O)C1O,SDF: enhanced_malaria_box.sdf,Doxycycline,Antimalarial,Tetracycline,1,Blocker,0.7227071258172533,0.44541425163450654
+REF_ATOVAQUONE,CC(C)c1ccc(Cl)c(-c2c(O)cc(O)c3c2C(=O)C=CC3=O)c1,SDF: enhanced_malaria_box.sdf,Atovaquone,Antimalarial,Naphthoquinone,0,Non-blocker,0.4983428083652164,0.0033143832695672337
+REF_PYRIMETHAMINE,CCn1cnc(-c2ccc(Cl)cc2)c1N,SDF: enhanced_malaria_box.sdf,Pyrimethamine,Antimalarial,Pyrimethamine,0,Non-blocker,0.39357926322389325,0.2128414735522135

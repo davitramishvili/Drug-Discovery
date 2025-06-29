@@ -62,8 +62,9 @@ class HERGClassifier:
         Returns:
             sklearn.linear_model.SGDClassifier: Trained classifier
         """
-        # Default parameters
+        # Default parameters - using log_loss to enable probability predictions
         params = {
+            'loss': 'log_loss',  # Changed from default 'hinge' to enable predict_proba
             'random_state': self.random_seed,
             'max_iter': 1000,
             'tol': 1e-3
@@ -187,7 +188,7 @@ class HERGClassifier:
         if models is None:
             # Default models to compare
             models = {
-                'SGDClassifier': SGDClassifier(random_state=self.random_seed),
+                'SGDClassifier': SGDClassifier(loss='log_loss', random_state=self.random_seed),
                 'RandomForest': RandomForestClassifier(random_state=self.random_seed, n_jobs=-1),
                 'Dummy': DummyClassifier(strategy='most_frequent', random_state=self.random_seed)
             }
@@ -235,6 +236,7 @@ class HERGClassifier:
         """
         if sgd_params is None:
             sgd_params = {
+                'loss': 'log_loss',  # Enable probability predictions
                 'random_state': self.random_seed,
                 'max_iter': 1000,
                 'tol': 1e-3
@@ -334,8 +336,9 @@ class HERGClassifier:
                 'penalty': ['l1', 'l2', 'elasticnet']
             }
         
-        # Create base classifier
+        # Create base classifier with log_loss for probability predictions
         sgd_clf = SGDClassifier(
+            loss='log_loss',
             random_state=self.random_seed,
             max_iter=1000,
             tol=1e-3
@@ -389,8 +392,9 @@ class HERGClassifier:
                 'penalty': ['l1', 'l2', 'elasticnet']
             }
         
-        # Create base classifier
+        # Create base classifier with log_loss for probability predictions
         sgd_clf = SGDClassifier(
+            loss='log_loss',
             random_state=self.random_seed,
             max_iter=1000,
             tol=1e-3
