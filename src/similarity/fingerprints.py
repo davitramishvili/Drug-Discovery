@@ -22,16 +22,19 @@ from rdkit.Chem import rdMolDescriptors, AllChem
 from rdkit import DataStructs
 from typing import List, Optional, Union, Dict, Any, Tuple
 import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
 
 logger = logging.getLogger(__name__)
 
 class FingerprintGenerator:
-    """Class for generating various types of molecular fingerprints."""
+    """Class for generating various types of molecular fingerprints with multi-threading support."""
     
     def __init__(self, fingerprint_type: str = "morgan", 
                  radius: int = 2, n_bits: int = 2048,
                  use_features: bool = False,
-                 include_chirality: bool = False):
+                 include_chirality: bool = False,
+                 n_threads: Optional[int] = None):
         """
         Initialize the FingerprintGenerator.
         
@@ -52,12 +55,18 @@ class FingerprintGenerator:
                         instead of connectivity (default: False)
             include_chirality: Whether to include chirality in Morgan FPs
                              (default: False)
+            n_threads: Number of threads to use (default: None, auto-detect)
         """
         self.fingerprint_type = fingerprint_type.lower()
         self.radius = radius
         self.n_bits = n_bits
         self.use_features = use_features
         self.include_chirality = include_chirality
+        
+        # Threading configuration
+        import os
+        self.n_threads = n_threads or min(8, (os.cpu_count() or 1) + 4)
+        self._lock = threading.Lock()
         
         # Validate fingerprint type
         valid_types = ["morgan", "rdkit", "maccs"]
@@ -157,9 +166,119 @@ class FingerprintGenerator:
         
         return bit_info
             
+    def _process_molecule_chunk(self, molecules: List[Chem.Mol]) -> List[Optional[np.ndarray]]:
+        """
+        Process a chunk of molecules for fingerprint generation in a thread-safe manner.
+        
+        Args:
+            molecules: List of RDKit molecule objects
+            
+        Returns:
+            List of fingerprints (or None for failed molecules)
+        """
+        fingerprints = []
+        for mol in molecules:
+            fp = self.generate_fingerprint(mol)
+            fingerprints.append(fp)
+        return fingerprints
+    
+    def generate_fingerprints_batch_threaded(self, molecules: List[Chem.Mol],
+                                           chunk_size: Optional[int] = None) -> np.ndarray:
+        """
+        Generate fingerprints for a batch of molecules using multi-threading.
+        
+        Args:
+            molecules: List of RDKit molecule objects
+            chunk_size: Size of chunks for threading (default: auto-calculate)
+            
+        Returns:
+            2D numpy array where each row is a fingerprint
+        """
+        if not molecules:
+            return np.array([])
+            
+        logger.info(f"Generating fingerprints for {len(molecules)} molecules using {self.n_threads} threads")
+        
+        # Calculate chunk size
+        if chunk_size is None:
+            chunk_size = max(1, len(molecules) // (self.n_threads * 2))
+        
+        # Split molecules into chunks
+        chunks = [molecules[i:i+chunk_size] for i in range(0, len(molecules), chunk_size)]
+        
+        # Process chunks in parallel
+        all_fingerprints = []
+        with ThreadPoolExecutor(max_workers=self.n_threads) as executor:
+            future_to_chunk = {
+                executor.submit(self._process_molecule_chunk, chunk): i 
+                for i, chunk in enumerate(chunks)
+            }
+            
+            chunk_results = [None] * len(chunks)
+            for future in as_completed(future_to_chunk):
+                chunk_idx = future_to_chunk[future]
+                try:
+                    chunk_results[chunk_idx] = future.result()
+                except Exception as e:
+                    logger.error(f"Error processing fingerprint chunk {chunk_idx}: {e}")
+                    chunk_results[chunk_idx] = []
+        
+        # Flatten results
+        for chunk_fps in chunk_results:
+            if chunk_fps:
+                all_fingerprints.extend(chunk_fps)
+        
+        # Convert to proper format
+        final_fingerprints = []
+        for fp in all_fingerprints:
+            if fp is not None:
+                final_fingerprints.append(fp)
+            else:
+                # Add zero fingerprint for failed molecules
+                if self.fingerprint_type == "maccs":
+                    final_fingerprints.append(np.zeros(167, dtype=np.int8))
+                else:
+                    final_fingerprints.append(np.zeros(self.n_bits, dtype=np.int8))
+        
+        if not final_fingerprints:
+            return np.array([])
+            
+        return np.array(final_fingerprints)
+        
+    def add_fingerprints_to_dataframe(self, df: pd.DataFrame, 
+                                    mol_col: str = 'ROMol',
+                                    use_threading: bool = True) -> pd.DataFrame:
+        """
+        Add fingerprints to a DataFrame containing molecules.
+        
+        Args:
+            df: DataFrame containing molecules
+            mol_col: Name of the molecule column
+            use_threading: Whether to use multi-threading for fingerprint generation
+            
+        Returns:
+            DataFrame with added fingerprint column
+        """
+        if df.empty:
+            logger.warning("Empty DataFrame provided for fingerprint generation")
+            return df
+            
+        logger.info(f"Generating {self.fingerprint_type} fingerprints for {len(df)} molecules")
+        
+        if use_threading and len(df) > 50:  # Use threading for larger datasets
+            fingerprints = self.generate_fingerprints_batch_threaded(df[mol_col].tolist())
+        else:
+            fingerprints = self.generate_fingerprints_batch(df[mol_col].tolist())
+        
+        # Add fingerprints to DataFrame
+        df = df.copy()
+        df['fingerprint'] = list(fingerprints) if len(fingerprints) > 0 else [None] * len(df)
+        
+        return df
+        
     def generate_fingerprints_batch(self, molecules: List[Chem.Mol]) -> np.ndarray:
         """
-        Generate fingerprints for a batch of molecules.
+        Generate fingerprints for a batch of molecules (single-threaded version).
         
         Args:
             molecules: List of RDKit molecule objects
@@ -184,40 +303,6 @@ class FingerprintGenerator:
             return np.array([])
             
         return np.array(fingerprints)
-        
-    def add_fingerprints_to_dataframe(self, df: pd.DataFrame, 
-                                    mol_col: str = 'ROMol') -> pd.DataFrame:
-        """
-        Add fingerprints to a DataFrame containing molecules.
-        
-        Args:
-            df: DataFrame containing molecules
-            mol_col: Name of the molecule column
-            
-        Returns:
-            DataFrame with added fingerprint column
-        """
-        if df.empty:
-            logger.warning("Empty DataFrame provided for fingerprint generation")
-            return df
-            
-        logger.info(f"Generating {self.fingerprint_type} fingerprints for {len(df)} molecules")
-        
-        df = df.copy()
-        fingerprints = []
-        
-        for idx, row in df.iterrows():
-            mol = row[mol_col]
-            fp = self.generate_fingerprint(mol)
-            fingerprints.append(fp)
-            
-        df['fingerprint'] = fingerprints
-        
-        # Count successful fingerprint generations
-        valid_fps = sum(1 for fp in fingerprints if fp is not None)
-        logger.info(f"Successfully generated {valid_fps}/{len(df)} fingerprints")
-        
-        return df
         
     def get_fingerprint_info(self) -> Dict[str, Any]:
         """
