@@ -32,7 +32,7 @@ from chapter3_ml_screening import (
     HERGDataProcessor, MolecularFeaturizer, HERGClassifier,
     ModelEvaluator, VisualizationTools
 )
-from utils import save_molecular_dataframe, load_molecular_dataframe
+from chapter3_ml_screening.utils import save_molecular_dataframe, load_molecular_dataframe
 
 
 def load_or_simulate_malaria_box_hits(n_compounds: int = 1000):
@@ -51,7 +51,9 @@ def load_or_simulate_malaria_box_hits(n_compounds: int = 1000):
             df = pd.read_csv(file_path)
             if 'SMILES' in df.columns or 'smiles' in df.columns:
                 smiles_col = 'SMILES' if 'SMILES' in df.columns else 'smiles'
-                return df[smiles_col].head(n_compounds).tolist(), df.head(n_compounds)
+                # Use available data, even if less than n_compounds
+                available_compounds = min(len(df), n_compounds)
+                return df[smiles_col].head(available_compounds).tolist(), df.head(available_compounds)
     
     # Check for Malaria Box reference files
     malaria_files = list(Path('data/reference').glob('*malaria*.sdf'))
@@ -83,7 +85,7 @@ def load_or_simulate_malaria_box_hits(n_compounds: int = 1000):
         return compounds, pd.DataFrame(compound_info)
     
     # Simulate compounds if no real data available
-    print("Simulating Malaria Box compounds for demonstration...")
+    print(f"No real Malaria Box data found. Simulating {n_compounds} compounds for demonstration...")
     
     # Use a diverse set of drug-like SMILES for simulation
     example_smiles = [
@@ -92,7 +94,7 @@ def load_or_simulate_malaria_box_hits(n_compounds: int = 1000):
         "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",  # Ibuprofen-like
         "CC1=CC=C(C=C1)C(C)C(=O)O",  # Similar to ibuprofen
         "COC1=CC=CC=C1OCCN",  # Ether compound
-        "CC(C)NCC(COC1=CC=CC=C1)O",  # Beta blocker-like
+        "CC(C)NCC(COC1=CC=CC2=CC=CC=C12)O",  # Beta blocker-like
         "CN1CCN(CC1)C2=CC=CC=N2",  # Pyridine derivative
         "CC1=CC(=NO1)C2=CC=CC=C2",  # Isoxazole derivative
         "C1CC1CN2C=NC3=C2C=CC=C3",  # Indole derivative
@@ -310,11 +312,24 @@ def run_exercise2_malaria_box_screening():
     
     # Display sample of results
     print("\nSample of screening results:")
-    display_cols = ['compound_id', 'predicted_label']
+    display_cols = ['predicted_label']
+    
+    # Add available columns
+    if 'ID' in results_df.columns:
+        display_cols.insert(0, 'ID')
+    elif 'compound_id' in results_df.columns:
+        display_cols.insert(0, 'compound_id')
+    
+    if 'NAME' in results_df.columns:
+        display_cols.insert(1, 'NAME')
+        
     if 'blocker_probability' in results_df.columns:
         display_cols.append('blocker_probability')
     if 'similarity_score' in results_df.columns:
         display_cols.append('similarity_score')
+    
+    # Only display columns that exist
+    display_cols = [col for col in display_cols if col in results_df.columns]
     
     print(results_df[display_cols].head(10).to_string(index=False))
     
@@ -324,4 +339,7 @@ def run_exercise2_malaria_box_screening():
 if __name__ == "__main__":
     results = run_exercise2_malaria_box_screening()
     print("\n✓ Exercise 2 completed successfully!")
-    print(f"\nFinal answer: {results['n_safe']} compounds out of 1000 are predicted to be safe from hERG blockage.") 
+    if results['n_total'] > 0:
+        print(f"\nFinal answer: {results['n_safe']} compounds out of {results['n_total']} are predicted to be safe from hERG blockage.")
+    else:
+        print("\nNo compounds passed the hERG safety filter.")
