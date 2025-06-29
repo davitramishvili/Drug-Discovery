@@ -8,16 +8,20 @@ from rdkit import Chem
 from rdkit.Chem import Descriptors, Crippen
 from typing import Dict, List, Optional, Tuple
 import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
+from functools import partial
 
-from filtering.structural_alerts import StructuralAlertFilter
+from .structural_alerts import StructuralAlertFilter
 
 logger = logging.getLogger(__name__)
 
 class DrugLikeFilter:
-    """Class for applying drug-likeness filters to molecular datasets."""
+    """Class for applying drug-likeness filters to molecular datasets with multi-threading support."""
     
     def __init__(self, violations_allowed: int = 1, apply_pains: bool = True, 
-                 apply_brenk: bool = True, apply_nih: bool = False):
+                 apply_brenk: bool = True, apply_nih: bool = False,
+                 n_threads: Optional[int] = None):
         """
         Initialize the DrugLikeFilter.
         
@@ -26,11 +30,17 @@ class DrugLikeFilter:
             apply_pains: Whether to apply PAINS filters (default: True)
             apply_brenk: Whether to apply BRENK filters (default: True)
             apply_nih: Whether to apply NIH filters (default: False)
+            n_threads: Number of threads to use (default: None, auto-detect)
         """
         self.violations_allowed = violations_allowed
         self.apply_pains = apply_pains
         self.apply_brenk = apply_brenk
         self.apply_nih = apply_nih
+        
+        # Threading configuration
+        import os
+        self.n_threads = n_threads or min(8, (os.cpu_count() or 1) + 4)
+        self._lock = threading.Lock()
         
         # Initialize structural alert filter if needed
         if self.apply_pains or self.apply_brenk or self.apply_nih:
@@ -105,12 +115,201 @@ class DrugLikeFilter:
         
         return passes_criteria, violations
         
+    def _process_chunk_lipinski(self, chunk: pd.DataFrame) -> List[Tuple[bool, int, Dict[str, bool]]]:
+        """
+        Process a chunk of molecules for Lipinski filtering in a thread-safe manner.
+        
+        Args:
+            chunk: DataFrame chunk to process
+            
+        Returns:
+            List of tuples containing (passes_rule, num_violations, violation_details)
+        """
+        results = []
+        for _, row in chunk.iterrows():
+            result = self.check_lipinski_rule(row)
+            results.append(result)
+        return results
+    
+    def _process_chunk_additional(self, chunk: pd.DataFrame) -> List[Tuple[bool, Dict[str, bool]]]:
+        """
+        Process a chunk of molecules for additional criteria filtering in a thread-safe manner.
+        
+        Args:
+            chunk: DataFrame chunk to process
+            
+        Returns:
+            List of tuples containing (passes_criteria, violation_details)
+        """
+        results = []
+        for _, row in chunk.iterrows():
+            result = self.check_additional_criteria(row)
+            results.append(result)
+        return results
+    
+    def filter_dataframe_threaded(self, df: pd.DataFrame, 
+                                apply_lipinski: bool = True,
+                                apply_additional: bool = True,
+                                apply_structural_alerts: bool = True,
+                                chunk_size: Optional[int] = None) -> pd.DataFrame:
+        """
+        Filter a DataFrame based on drug-likeness criteria using multi-threading.
+        
+        Args:
+            df: DataFrame containing molecules and descriptors
+            apply_lipinski: Whether to apply Lipinski's Rule of Five
+            apply_additional: Whether to apply additional criteria
+            apply_structural_alerts: Whether to apply structural alert filters
+            chunk_size: Size of chunks for threading (default: auto-calculate)
+            
+        Returns:
+            Filtered DataFrame with drug-like molecules
+        """
+        if df.empty:
+            logger.warning("Empty DataFrame provided for filtering")
+            return df
+            
+        logger.info(f"Filtering {len(df)} molecules for drug-likeness using {self.n_threads} threads")
+        
+        # Initialize filter columns
+        df = df.copy()
+        df['passes_lipinski'] = True
+        df['lipinski_violations'] = 0
+        df['passes_additional'] = True
+        df['passes_structural_alerts'] = True
+        
+        # Calculate chunk size
+        if chunk_size is None:
+            chunk_size = max(1, len(df) // (self.n_threads * 2))
+        
+        # Apply Lipinski filtering with threading
+        if apply_lipinski:
+            logger.info("Applying Lipinski Rule of Five filtering...")
+            chunks = [df.iloc[i:i+chunk_size] for i in range(0, len(df), chunk_size)]
+            
+            with ThreadPoolExecutor(max_workers=self.n_threads) as executor:
+                future_to_chunk = {
+                    executor.submit(self._process_chunk_lipinski, chunk): i 
+                    for i, chunk in enumerate(chunks)
+                }
+                
+                lipinski_results = [None] * len(chunks)
+                for future in as_completed(future_to_chunk):
+                    chunk_idx = future_to_chunk[future]
+                    try:
+                        lipinski_results[chunk_idx] = future.result()
+                    except Exception as e:
+                        logger.error(f"Error processing Lipinski chunk {chunk_idx}: {e}")
+                        lipinski_results[chunk_idx] = []
+            
+            # Flatten results and assign to DataFrame
+            all_results = []
+            for chunk_results in lipinski_results:
+                all_results.extend(chunk_results)
+            
+            if len(all_results) == len(df):
+                df['passes_lipinski'] = [result[0] for result in all_results]
+                df['lipinski_violations'] = [result[1] for result in all_results]
+            
+        # Apply additional criteria with threading
+        if apply_additional:
+            logger.info("Applying additional drug-likeness criteria...")
+            chunks = [df.iloc[i:i+chunk_size] for i in range(0, len(df), chunk_size)]
+            
+            with ThreadPoolExecutor(max_workers=self.n_threads) as executor:
+                future_to_chunk = {
+                    executor.submit(self._process_chunk_additional, chunk): i 
+                    for i, chunk in enumerate(chunks)
+                }
+                
+                additional_results = [None] * len(chunks)
+                for future in as_completed(future_to_chunk):
+                    chunk_idx = future_to_chunk[future]
+                    try:
+                        additional_results[chunk_idx] = future.result()
+                    except Exception as e:
+                        logger.error(f"Error processing additional criteria chunk {chunk_idx}: {e}")
+                        additional_results[chunk_idx] = []
+            
+            # Flatten results and assign to DataFrame
+            all_results = []
+            for chunk_results in additional_results:
+                all_results.extend(chunk_results)
+            
+            if len(all_results) == len(df):
+                df['passes_additional'] = [result[0] for result in all_results]
+        
+        # Apply structural alert filtering (structural alerts module needs to handle its own threading)
+        if apply_structural_alerts and self.structural_filter is not None:
+            if 'mol' in df.columns or 'ROMol' in df.columns:
+                logger.info("Applying structural alert filtering...")
+                df = self.structural_filter.filter_dataframe(
+                    df, 
+                    apply_pains=self.apply_pains,
+                    apply_brenk=self.apply_brenk,
+                    apply_nih=self.apply_nih
+                )
+            else:
+                logger.warning("No 'mol' or 'ROMol' column found - skipping structural alert filtering")
+                df['passes_structural_alerts'] = True
+            
+        # Create overall filter
+        filters_to_apply = []
+        if apply_lipinski:
+            filters_to_apply.append('passes_lipinski')
+        if apply_additional:
+            filters_to_apply.append('passes_additional')
+        if apply_structural_alerts:
+            filters_to_apply.append('passes_structural_alerts')
+        
+        if filters_to_apply:
+            df['drug_like'] = df[filters_to_apply].all(axis=1)
+        else:
+            df['drug_like'] = True
+            
+        # Filter the DataFrame
+        filtered_df = df[df['drug_like']].copy()
+        
+        logger.info(f"Filtered to {len(filtered_df)} drug-like molecules "
+                   f"({len(filtered_df)/len(df)*100:.1f}% pass rate)")
+        
+        return filtered_df
+
     def filter_dataframe(self, df: pd.DataFrame, 
                         apply_lipinski: bool = True,
                         apply_additional: bool = True,
-                        apply_structural_alerts: bool = True) -> pd.DataFrame:
+                        apply_structural_alerts: bool = True,
+                        use_threading: bool = True,
+                        chunk_size: Optional[int] = None) -> pd.DataFrame:
         """
         Filter a DataFrame based on drug-likeness criteria.
+        
+        Args:
+            df: DataFrame containing molecules and descriptors
+            apply_lipinski: Whether to apply Lipinski's Rule of Five
+            apply_additional: Whether to apply additional criteria
+            apply_structural_alerts: Whether to apply structural alert filters
+            use_threading: Whether to use multi-threading (default: True)
+            chunk_size: Size of chunks for threading (default: auto-calculate)
+            
+        Returns:
+            Filtered DataFrame with drug-like molecules
+        """
+        if use_threading and len(df) > 100:  # Use threading for larger datasets
+            return self.filter_dataframe_threaded(
+                df, apply_lipinski, apply_additional, apply_structural_alerts, chunk_size
+            )
+        else:
+            return self._filter_dataframe_single_threaded(
+                df, apply_lipinski, apply_additional, apply_structural_alerts
+            )
+
+    def _filter_dataframe_single_threaded(self, df: pd.DataFrame, 
+                                        apply_lipinski: bool = True,
+                                        apply_additional: bool = True,
+                                        apply_structural_alerts: bool = True) -> pd.DataFrame:
+        """
+        Filter a DataFrame based on drug-likeness criteria using single thread (original implementation).
         
         Args:
             df: DataFrame containing molecules and descriptors
@@ -125,7 +324,7 @@ class DrugLikeFilter:
             logger.warning("Empty DataFrame provided for filtering")
             return df
             
-        logger.info(f"Filtering {len(df)} molecules for drug-likeness")
+        logger.info(f"Filtering {len(df)} molecules for drug-likeness (single-threaded)")
         
         # Initialize filter columns
         df = df.copy()
@@ -183,7 +382,7 @@ class DrugLikeFilter:
                    f"({len(filtered_df)/len(df)*100:.1f}% pass rate)")
         
         return filtered_df
-        
+
     def get_filter_statistics(self, df: pd.DataFrame) -> Dict[str, any]:
         """
         Get statistics about filtering results.

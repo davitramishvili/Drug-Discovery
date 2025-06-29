@@ -27,37 +27,38 @@ This pipeline implements a systematic approach to virtual drug discovery, specif
 ```
 Drug-Discovery/
 ├── data/
-│   ├── raw/                    # Raw input data
-│   │   └── enhanced_library.sdf # Enhanced compound library (30 molecules)
-│   ├── reference/              # Reference compounds
-│   │   └── enhanced_malaria_box.sdf # Known antimalarial compounds (8 molecules)
+│   ├── raw/                    # Raw input data (SDF files)
+│   ├── reference/              # Reference compounds and datasets
 │   └── processed/              # Processed data files
-├── src/
+├── src/                        # Core library modules
 │   ├── data_processing/        # Data loading and processing
-│   │   ├── loader.py          # SDF file loading and descriptor calculation
-│   │   └── descriptors.py     # Molecular descriptor functions
-│   ├── filtering/              # Drug-likeness filtering
-│   │   ├── drug_like.py       # Lipinski and drug-like filters
-│   │   └── structural_alerts.py # PAINS and BRENK structural alerts
-│   ├── similarity/             # Similarity searching
-│   │   ├── fingerprints.py    # Molecular fingerprint generation
-│   │   └── search.py          # Similarity search algorithms
+│   ├── filtering/              # Drug-likeness filtering (with threading)
+│   ├── similarity/             # Similarity searching (with threading)
+│   ├── chapter3_ml_screening/  # Machine learning modules
 │   ├── visualization/          # Plotting and visualization
-│   │   ├── plots.py           # Comprehensive plotting functions
-│   │   └── chemical_space.py  # Chemical space analysis and PCA/t-SNE
 │   ├── utils/                  # Utilities and configuration
-│   │   ├── config.py          # Configuration classes
-│   │   └── dataset_manager.py # Dataset management and generation
 │   └── pipeline.py            # Main pipeline orchestration
-├── notebooks/                  # Jupyter notebooks
-│   └── antimalarial_screening_demo.ipynb
+├── examples/                   # Learning examples and demonstrations
+│   ├── chapter2_specs/         # Chapter 2: Filtering and similarity
+│   ├── chapter3/               # Chapter 3: Machine learning
+│   ├── filter_examples.py     # Basic filtering examples
+│   └── random_forest_example.py # ML model examples
+├── scripts/                    # Utility scripts
+│   └── convert_csv_to_sdf.py   # Data conversion utilities
+├── docs/                       # Comprehensive documentation
+│   ├── README_Chapter3.md     # Chapter 3 ML documentation
+│   ├── THREADING_ENHANCEMENTS.md # Performance optimization guide
+│   └── DATASET_GUIDE.md       # Dataset management guide
 ├── tests/                      # Unit tests
-│   ├── test_pipeline.py       # Pytest test suite
-│   └── test_setup.py          # Test setup utilities
-├── results/                    # Output directory
+├── notebooks/                  # Jupyter notebooks
+├── results/                    # Analysis results and outputs
+├── figures/                    # Generated plots and visualizations
+├── artifacts/                  # Model artifacts and saved objects
 ├── requirements.txt           # Python dependencies
 ├── run_pipeline.py           # Main execution script
 ├── test_pipeline.py          # Standalone test runner
+├── generate_Specs_hits.py    # Production Specs hits generation
+├── Specs_hits_safety_analysis_optimized.py # Safety analysis
 └── README.md                 # This file
 ```
 
