@@ -237,4 +237,4 @@ def run_exercise1_comparison():
 
 if __name__ == "__main__":
     results = run_exercise1_comparison()
-    print("\n✓ Exercise 1 completed successfully!") 
+    print("\n✓ Exercise 1 completed successfully!")

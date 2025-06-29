@@ -7,12 +7,18 @@ This script demonstrates the implementation of Exercise 2 from Chapter 3,
 applying the best hERG prediction model to top 1000 Malaria Box hits.
 
 Usage:
+    python demo_exercise2_malaria_box.py [--sdf-file PATH_TO_SDF]
+    
+Examples:
     python demo_exercise2_malaria_box.py
+    python demo_exercise2_malaria_box.py --sdf-file data/reference/malaria_box_400.sdf
+    python demo_exercise2_malaria_box.py --sdf-file data/reference/enhanced_malaria_box.sdf
 """
 
 import sys
 import os
 import warnings
+import argparse
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -35,9 +41,54 @@ from chapter3_ml_screening import (
 from chapter3_ml_screening.utils import save_molecular_dataframe, load_molecular_dataframe
 
 
-def load_or_simulate_malaria_box_hits(n_compounds: int = 1000):
-    """Load Malaria Box hits from Chapter 2 or simulate them."""
+def get_available_sdf_files():
+    """Get list of available SDF files in the data/reference directory."""
+    reference_dir = Path('data/reference')
+    if not reference_dir.exists():
+        return []
     
+    sdf_files = list(reference_dir.glob('*.sdf'))
+    return sorted(sdf_files)
+
+
+def load_or_simulate_malaria_box_hits(n_compounds: int = 1000, sdf_file: str = None):
+    """Load Malaria Box hits from specified SDF file or find automatically."""
+    
+    # If specific SDF file is provided, use it
+    if sdf_file:
+        sdf_path = Path(sdf_file)
+        if not sdf_path.exists():
+            print(f"Error: Specified SDF file '{sdf_file}' does not exist.")
+            return [], pd.DataFrame()
+        
+        print(f"Loading compounds from specified file: {sdf_file}...")
+        suppl = Chem.SDMolSupplier(str(sdf_path))
+        compounds = []
+        compound_info = []
+        
+        for i, mol in enumerate(suppl):
+            if mol is not None and len(compounds) < n_compounds:
+                smiles = Chem.MolToSmiles(mol)
+                compounds.append(smiles)
+                
+                # Extract properties
+                info = {
+                    'ID': mol.GetProp('_Name') if mol.HasProp('_Name') else f'Compound_{i:04d}',
+                    'SMILES': smiles,
+                    'source': f'SDF: {sdf_path.name}'
+                }
+                
+                # Add any other properties
+                for prop in mol.GetPropNames():
+                    if prop != '_Name':
+                        info[prop] = mol.GetProp(prop)
+                
+                compound_info.append(info)
+        
+        print(f"Successfully loaded {len(compounds)} compounds from {sdf_file}")
+        return compounds, pd.DataFrame(compound_info)
+    
+    # Original automatic detection logic
     # First priority: Check for Malaria Box reference files
     malaria_files = [
         'data/reference/malaria_box_400.sdf',
@@ -166,12 +217,14 @@ def load_or_simulate_malaria_box_hits(n_compounds: int = 1000):
     return compounds, pd.DataFrame(compound_info)
 
 
-def run_exercise2_malaria_box_screening():
+def run_exercise2_malaria_box_screening(sdf_file: str = None):
     """Run Exercise 2: Apply hERG model to Malaria Box compounds."""
     
     print("="*70)
     print("EXERCISE 2: Apply hERG Model to Malaria Box Compounds")
     print("="*70)
+    if sdf_file:
+        print(f"Using SDF file: {sdf_file}")
     print()
     
     # Initialize components
@@ -207,9 +260,14 @@ def run_exercise2_malaria_box_screening():
         model = joblib.load(model_path)
         print(f"✓ Loaded model from {model_path}")
     
-    # Step 2: Load Malaria Box compounds
-    print("\nStep 2: Loading Malaria Box compounds...")
-    smiles_list, compound_info = load_or_simulate_malaria_box_hits(1000)
+    # Step 2: Load compounds from specified or auto-detected SDF file
+    print("\nStep 2: Loading compounds...")
+    smiles_list, compound_info = load_or_simulate_malaria_box_hits(1000, sdf_file)
+    
+    if len(smiles_list) == 0:
+        print("Error: No compounds could be loaded. Please check the SDF file path.")
+        return None
+        
     print(f"✓ Loaded {len(smiles_list)} compounds")
     
     # Step 3: Process and standardize SMILES
@@ -260,7 +318,12 @@ def run_exercise2_malaria_box_screening():
     print("\nStep 7: Creating visualizations...")
     
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-    fig.suptitle('hERG Screening Results for Malaria Box Compounds', fontsize=16)
+    
+    # Update title to include SDF file info
+    title = 'hERG Screening Results for Malaria Box Compounds'
+    if sdf_file:
+        title += f'\n(Source: {Path(sdf_file).name})'
+    fig.suptitle(title, fontsize=16)
     
     # Plot 1: Pie chart of predictions
     ax1 = axes[0, 0]
@@ -309,8 +372,12 @@ def run_exercise2_malaria_box_screening():
     ax4 = axes[1, 1]
     ax4.axis('off')
     
+    source_info = f"Source: {Path(sdf_file).name}" if sdf_file else "Source: Auto-detected"
+    
     summary_text = f"""
     Screening Summary:
+    
+    {source_info}
     
     • Total compounds: {results['n_total']}
     • Safe compounds: {results['n_safe']} ({results['percent_safe']:.1f}%)
@@ -318,8 +385,8 @@ def run_exercise2_malaria_box_screening():
     
     Retention after hERG filter: {results['percent_safe']:.1f}%
     
-    This means that out of the initial 1000 
-    Malaria Box hits, approximately {results['n_safe']} 
+    This means that out of the initial {results['n_total']} 
+    compounds, approximately {results['n_safe']} 
     compounds are predicted to be safe from 
     hERG-related cardiotoxicity.
     """
@@ -374,10 +441,62 @@ def run_exercise2_malaria_box_screening():
     return results
 
 
-if __name__ == "__main__":
-    results = run_exercise2_malaria_box_screening()
-    print("\n✓ Exercise 2 completed successfully!")
-    if results['n_total'] > 0:
+def main():
+    """Main function with command line argument parsing."""
+    parser = argparse.ArgumentParser(
+        description='Apply hERG model to compounds from SDF files',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+    python demo_exercise2_malaria_box.py
+    python demo_exercise2_malaria_box.py --sdf-file data/reference/malaria_box_400.sdf
+    python demo_exercise2_malaria_box.py --sdf-file data/reference/enhanced_malaria_box.sdf
+    
+Available SDF files:"""
+    )
+    
+    parser.add_argument(
+        '--sdf-file', 
+        type=str, 
+        help='Path to SDF file containing compounds to screen'
+    )
+    
+    parser.add_argument(
+        '--list-files',
+        action='store_true',
+        help='List available SDF files in data/reference directory'
+    )
+    
+    args = parser.parse_args()
+    
+    # List available files if requested
+    if args.list_files:
+        print("Available SDF files in data/reference/:")
+        sdf_files = get_available_sdf_files()
+        if sdf_files:
+            for i, sdf_file in enumerate(sdf_files, 1):
+                print(f"  {i}. {sdf_file}")
+        else:
+            print("  No SDF files found in data/reference/")
+        return
+    
+    # Show available files in help
+    sdf_files = get_available_sdf_files()
+    if sdf_files:
+        print("\nAvailable SDF files:")
+        for i, sdf_file in enumerate(sdf_files, 1):
+            print(f"  {i}. {sdf_file}")
+        print()
+    
+    # Run the analysis
+    results = run_exercise2_malaria_box_screening(args.sdf_file)
+    
+    if results and results['n_total'] > 0:
+        print(f"\n✓ Exercise 2 completed successfully!")
         print(f"\nFinal answer: {results['n_safe']} compounds out of {results['n_total']} are predicted to be safe from hERG blockage.")
     else:
-        print("\nNo compounds passed the hERG safety filter.")
+        print("\nNo compounds were successfully processed.")
+
+
+if __name__ == "__main__":
+    main()

@@ -538,4 +538,4 @@ class ModelEvaluator:
             logger.info(f"  High confidence safe: {len(high_conf_safe)}")
             logger.info(f"  High confidence blockers: {len(high_conf_blockers)}")
         
-        return summary 
+        return summary
