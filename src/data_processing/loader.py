@@ -2,14 +2,27 @@
 Module for loading and processing molecular data from SDF files.
 """
 
+import sys
+import os
+from pathlib import Path
 import pandas as pd
+import logging
 from rdkit import Chem
 from rdkit.Chem import PandasTools
 from typing import List, Optional, Dict, Any
-import logging
-from pathlib import Path
 
-from data_processing.descriptors import calculate_lipinski_descriptors
+# Add project root to path for imports to work from any directory
+project_root = Path(__file__).parent.parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
+# Now import the centralized descriptor calculator
+try:
+    from src.utils.molecular_descriptors import descriptor_calculator
+except ImportError:
+    # Fallback for when running from examples subdirectories
+    sys.path.insert(0, str(project_root / "src"))
+    from utils.molecular_descriptors import descriptor_calculator
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -73,31 +86,25 @@ class MoleculeLoader:
         try:
             logger.info("Calculating molecular descriptors")
             
-            descriptor_data = []
-            for idx, row in df.iterrows():
-                mol = row[mol_col_name]
-                if mol is not None:
-                    descriptors = calculate_lipinski_descriptors(mol)
-                    if descriptors:
-                        descriptor_data.append(descriptors)
-                    else:
-                        # Add NaN values for failed calculations
-                        descriptor_data.append({
-                            'MW': None, 'LogP': None, 'HBA': None,
-                            'HBD': None, 'TPSA': None, 'RotBonds': None
-                        })
-                else:
-                    descriptor_data.append({
-                        'MW': None, 'LogP': None, 'HBA': None,
-                        'HBD': None, 'TPSA': None, 'RotBonds': None
-                    })
-            
-            # Add descriptors to DataFrame
-            descriptors_df = pd.DataFrame(descriptor_data)
-            result_df = pd.concat([df.reset_index(drop=True), descriptors_df], axis=1)
+            # Add molecular descriptors for enhanced analysis
+            if add_descriptors:
+                print("   📊 Computing molecular descriptors...")
+                
+                # Use centralized descriptor calculator
+                for idx, row in df.iterrows():
+                    mol = row.get(mol_col_name)
+                    if mol is not None:
+                        try:
+                            descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                            for desc_name, desc_value in descriptors.items():
+                                df.at[idx, desc_name] = desc_value
+                        except Exception as e:
+                            # Set default values for failed calculations
+                            for desc_name in ['MW', 'LogP', 'HBA', 'HBD', 'TPSA', 'RotBonds']:
+                                df.at[idx, desc_name] = 0
             
             logger.info("Molecular descriptors calculated successfully")
-            return result_df
+            return df
             
         except Exception as e:
             logger.error(f"Error calculating descriptors: {str(e)}")

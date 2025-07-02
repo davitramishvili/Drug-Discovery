@@ -447,9 +447,9 @@ class SimilaritySearcher:
             for chunk_matrix, start_idx, end_idx in results:
                 similarity_matrix[start_idx:end_idx, start_idx:end_idx] = chunk_matrix
         else:
-        similarity_matrix = self.similarity_calculator.calculate_similarity_matrix(
-            fingerprints_array
-        )
+            similarity_matrix = self.similarity_calculator.calculate_similarity_matrix(
+                fingerprints_array
+            )
         
         return similarity_matrix
         

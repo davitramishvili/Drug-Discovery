@@ -41,6 +41,9 @@ from data_processing.loader import MoleculeLoader
 from pipeline import AntimalarialScreeningPipeline
 from utils.config import ProjectConfig
 
+# Import centralized descriptor calculator
+from src.utils.molecular_descriptors import descriptor_calculator
+
 # Suppress warnings
 warnings.filterwarnings('ignore')
 
@@ -122,10 +125,11 @@ class Chapter2HitsSafetyAnalyzer:
         np.random.seed(self.random_seed)
         for mol in processed_df['mol']:
             if mol:
-                # Simulate DILI based on molecular properties
-                mw = Descriptors.MolWt(mol)
-                logp = Descriptors.MolLogP(mol)
-                tpsa = Descriptors.TPSA(mol)
+                # Simulate DILI based on molecular properties using centralized calculator
+                descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                mw = descriptors.get('MW', 0)
+                logp = descriptors.get('LogP', 0)
+                tpsa = descriptors.get('TPSA', 0)
                 
                 # Complex rule: higher MW, LogP, and lower TPSA = higher DILI risk
                 dili_risk = (0.15 + 
@@ -247,11 +251,12 @@ class Chapter2HitsSafetyAnalyzer:
             if mol:
                 smiles = Chem.MolToSmiles(mol)
                 
-                # Calculate properties
-                mw = Descriptors.MolWt(mol)
-                logp = Descriptors.MolLogP(mol)
-                hba = Descriptors.NumHAcceptors(mol)
-                hbd = Descriptors.NumHDonors(mol)
+                # Calculate properties using centralized infrastructure
+                descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                mw = descriptors.get('MW', 0)
+                logp = descriptors.get('LogP', 0)
+                hba = descriptors.get('HBA', 0)
+                hbd = descriptors.get('HBD', 0)
                 
                 synthetic_hits.append({
                     'ID': f'HIT_{i+1:04d}',

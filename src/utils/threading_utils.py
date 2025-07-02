@@ -10,6 +10,8 @@ import threading
 from typing import List, Callable, Any, Tuple, Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import logging
+import numpy as np
+from multiprocessing import cpu_count
 
 logger = logging.getLogger(__name__)
 
@@ -250,39 +252,100 @@ def run_threaded_operation(operation: Callable,
     return results
 
 
-def compute_similarities_batch(lib_fps: List, ref_fps: List) -> List[float]:
+def compute_similarities_batch(batch_lib_fps: List, ref_fps: List) -> List[float]:
     """
-    Centralized similarity computation for Chapter 2 workflows.
+    Compute maximum Tanimoto similarities for a batch of library fingerprints.
     
-    This function is used by Chapter 2 similarity search to find compounds
-    similar to reference molecules. Chapter 3 doesn't need this.
+    This function is optimized for Chapter 2 similarity workflows and handles
+    numpy-based fingerprint arrays efficiently.
     
     Args:
-        lib_fps: Library fingerprints
-        ref_fps: Reference fingerprints
-        
-    Returns:
-        List of maximum similarities for each library fingerprint
-    """
-    import numpy as np
+        batch_lib_fps: List of library fingerprints (numpy arrays)
+        ref_fps: List of reference fingerprints (numpy arrays)
     
+    Returns:
+        List of maximum similarity scores for each library fingerprint
+    """
     max_similarities = []
     
-    for lib_fp in lib_fps:
+    for lib_fp in batch_lib_fps:
         if lib_fp is not None:
             max_sim = 0.0
             for ref_fp in ref_fps:
                 if ref_fp is not None:
                     try:
-                        # Use numpy-based Tanimoto calculation
-                        intersection = np.logical_and(lib_fp, ref_fp).sum()
-                        union = np.logical_or(lib_fp, ref_fp).sum()
-                        sim = intersection / union if union > 0 else 0.0
-                        max_sim = max(max_sim, sim)
+                        # Use numpy-based Tanimoto calculation for numpy arrays
+                        similarity = compute_tanimoto_similarity(lib_fp, ref_fp)
+                        max_sim = max(max_sim, similarity)
                     except Exception:
                         continue
             max_similarities.append(max_sim)
         else:
             max_similarities.append(0.0)
     
-    return max_similarities 
+    return max_similarities
+
+
+def compute_tanimoto_similarity(fp1: np.ndarray, fp2: np.ndarray) -> float:
+    """
+    Compute Tanimoto similarity between two binary fingerprints.
+    
+    Optimized numpy implementation that's used across all similarity calculations.
+    
+    Args:
+        fp1: First fingerprint as numpy array
+        fp2: Second fingerprint as numpy array
+    
+    Returns:
+        Tanimoto similarity coefficient (0.0 to 1.0)
+    """
+    try:
+        intersection = np.logical_and(fp1, fp2).sum()
+        union = np.logical_or(fp1, fp2).sum()
+        return intersection / union if union > 0 else 0.0
+    except Exception:
+        return 0.0
+
+
+def threaded_similarity_search(lib_fingerprints: List, ref_fingerprints: List, 
+                             n_threads: int = None, description: str = "similarities") -> List[float]:
+    """
+    Perform threaded similarity search between library and reference fingerprints.
+    
+    Centralized function that eliminates duplicate similarity search patterns
+    across Chapter 2 workflows.
+    
+    Args:
+        lib_fingerprints: List of library fingerprints
+        ref_fingerprints: List of reference fingerprints  
+        n_threads: Number of threads (auto-detected if None)
+        description: Progress description
+    
+    Returns:
+        List of maximum similarity scores for each library fingerprint
+    """
+    import time
+    
+    if n_threads is None:
+        n_threads = min(8, cpu_count())
+    
+    print(f"\n🔍 Computing {description} with {n_threads} threads...")
+    
+    # Filter out None fingerprints from references
+    valid_ref_fps = [fp for fp in ref_fingerprints if fp is not None]
+    print(f"   Using {len(valid_ref_fps)} valid reference fingerprints")
+    
+    if not valid_ref_fps:
+        print("   ❌ No valid reference fingerprints!")
+        return [0.0] * len(lib_fingerprints)
+    
+    processor = ThreadedBatchProcessor(n_threads)
+    
+    def similarity_batch_processor(batch_lib_fps, batch_id):
+        """Process a batch of library fingerprints for similarity computation."""
+        batch_similarities = compute_similarities_batch(batch_lib_fps, valid_ref_fps)
+        return batch_id, batch_similarities
+    
+    similarities = processor.process_batches(lib_fingerprints, similarity_batch_processor, description)
+    print(f"   ✅ Computed similarities for {len(similarities)} compounds")
+    return similarities 

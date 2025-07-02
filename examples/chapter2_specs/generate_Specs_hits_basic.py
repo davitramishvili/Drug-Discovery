@@ -82,9 +82,9 @@ class SpecsHitsGenerator:
         
         pipeline = AntimalarialScreeningPipeline(config)
         
-        # Check data files
-        specs_path = Path("../../../data/raw/Specs.sdf")
-        malaria_path = Path("../../../data/reference/malaria_box_400.sdf")
+        # Check data files using centralized paths
+        specs_path = Path(data_paths.resolve_specs_path(from_examples=True))
+        malaria_path = Path(data_paths.resolve_malaria_path(from_examples=True))
         
         if not specs_path.exists():
             print(f"❌ Library file not found: {specs_path}")
@@ -220,7 +220,11 @@ class SpecsHitsGenerator:
         return np.array(fingerprints)
 
 def main():
-    """Main execution function."""
+    """Generate Specs hits for antimalarial compounds using basic single-threaded approach."""
+    
+    # Use centralized paths
+    from src.utils.config import data_paths
+    
     print("="*70)
     print("🎯 CHAPTER 2 HITS GENERATOR")
     print("One-time generation of top 1000 antimalarial hits for reuse")

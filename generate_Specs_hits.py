@@ -86,26 +86,14 @@ class SpecsHitsGenerator:
         return batch_id, fingerprints
     
     def compute_similarities_batch(self, lib_fps: List, ref_fps: List, batch_id: int) -> Tuple[int, List[float]]:
-        """Compute similarities for a batch of library fingerprints against all references."""
-        max_similarities = []
+        """Compute similarities for a batch of library fingerprints - using centralized infrastructure."""
+        # Use centralized similarity computation
+        from src.utils.threading_utils import compute_similarities_batch
         
-        for lib_fp in lib_fps:
-            if lib_fp is not None:
-                max_sim = 0.0
-                for ref_fp in ref_fps:
-                    if ref_fp is not None:
-                        try:
-                            # Use numpy-based Tanimoto calculation for numpy arrays
-                            intersection = np.logical_and(lib_fp, ref_fp).sum()
-                            union = np.logical_or(lib_fp, ref_fp).sum()
-                            sim = intersection / union if union > 0 else 0.0
-                            max_sim = max(max_sim, sim)
-                        except Exception:
-                            continue
-                max_similarities.append(max_sim)
-            else:
-                max_similarities.append(0.0)
-            
+        max_similarities = compute_similarities_batch(lib_fps, ref_fps)
+        
+        # Update progress tracking
+        for _ in lib_fps:
             self.progress_tracker.update(1)
         
         return batch_id, max_similarities
@@ -114,11 +102,12 @@ class SpecsHitsGenerator:
         """Load and filter molecular data."""
         print("\n📚 Loading molecular data...")
         
-        # Load data files
+        # Load data files using centralized path management
+        from src.utils.config import data_paths
         loader = MoleculeLoader()
         
-        specs_path = Path("data/raw/Specs.sdf")
-        malaria_path = Path("data/reference/malaria_box_400.sdf")
+        specs_path = Path(data_paths.specs_sdf)
+        malaria_path = Path(data_paths.malaria_box_sdf)
         
         if not specs_path.exists() or not malaria_path.exists():
             print("❌ Required data files not found")
