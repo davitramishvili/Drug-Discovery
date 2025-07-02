@@ -87,21 +87,20 @@ class MoleculeLoader:
             logger.info("Calculating molecular descriptors")
             
             # Add molecular descriptors for enhanced analysis
-            if add_descriptors:
-                print("   📊 Computing molecular descriptors...")
-                
-                # Use centralized descriptor calculator
-                for idx, row in df.iterrows():
-                    mol = row.get(mol_col_name)
-                    if mol is not None:
-                        try:
-                            descriptors = descriptor_calculator.calculate_all_descriptors(mol)
-                            for desc_name, desc_value in descriptors.items():
-                                df.at[idx, desc_name] = desc_value
-                        except Exception as e:
-                            # Set default values for failed calculations
-                            for desc_name in ['MW', 'LogP', 'HBA', 'HBD', 'TPSA', 'RotBonds']:
-                                df.at[idx, desc_name] = 0
+            print("   📊 Computing molecular descriptors...")
+            
+            # Use centralized descriptor calculator
+            for idx, row in df.iterrows():
+                mol = row.get(mol_col_name)
+                if mol is not None:
+                    try:
+                        descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                        for desc_name, desc_value in descriptors.items():
+                            df.at[idx, desc_name] = desc_value
+                    except Exception as e:
+                        # Set default values for failed calculations
+                        for desc_name in ['MW', 'LogP', 'HBA', 'HBD', 'TPSA', 'RotBonds']:
+                            df.at[idx, desc_name] = 0
             
             logger.info("Molecular descriptors calculated successfully")
             return df
