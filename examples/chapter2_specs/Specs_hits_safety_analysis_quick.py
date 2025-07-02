@@ -24,7 +24,7 @@ from typing import Dict, Tuple, List
 import sys
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 # Machine Learning
 from sklearn.model_selection import train_test_split
@@ -38,6 +38,9 @@ from rdkit.Chem import Descriptors
 # Import existing infrastructure
 from chapter3_ml_screening.data_processing import HERGDataProcessor
 from chapter3_ml_screening.molecular_features import MolecularFeaturizer
+
+# Import centralized descriptor calculator
+from src.utils.molecular_descriptors import descriptor_calculator
 
 # Suppress warnings
 warnings.filterwarnings('ignore')
@@ -118,10 +121,11 @@ class QuickSafetyAnalyzer:
         np.random.seed(self.random_seed)
         for mol in processed_df['mol']:
             if mol:
-                # Simulate DILI based on molecular properties
-                mw = Descriptors.MolWt(mol)
-                logp = Descriptors.MolLogP(mol)
-                tpsa = Descriptors.TPSA(mol)
+                # Calculate properties using centralized infrastructure
+                descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                mw = descriptors.get('MW', 0)
+                logp = descriptors.get('LogP', 0)
+                tpsa = descriptors.get('TPSA', 0)
                 
                 # Complex rule: higher MW, LogP, and lower TPSA = higher DILI risk
                 dili_risk = (0.15 + 
@@ -189,11 +193,12 @@ class QuickSafetyAnalyzer:
             if mol:
                 smiles = Chem.MolToSmiles(mol)
                 
-                # Calculate properties
-                mw = Descriptors.MolWt(mol)
-                logp = Descriptors.MolLogP(mol)
-                hba = Descriptors.NumHAcceptors(mol)
-                hbd = Descriptors.NumHDonors(mol)
+                # Calculate properties using centralized infrastructure
+                descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                mw = descriptors.get('MW', 0)
+                logp = descriptors.get('LogP', 0)
+                hba = descriptors.get('HBA', 0)
+                hbd = descriptors.get('HBD', 0)
                 
                 synthetic_hits.append({
                     'ID': f'HIT_{i+1:04d}',
@@ -217,13 +222,30 @@ class QuickSafetyAnalyzer:
         
         # Convert SMILES to molecules
         molecules = []
+        properties = []
         valid_indices = []
         
         for idx, row in hits_df.iterrows():
-            mol = Chem.MolFromSmiles(row['SMILES'])
-            if mol:
-                molecules.append(mol)
-                valid_indices.append(idx)
+            try:
+                mol = Chem.MolFromSmiles(row['SMILES'])
+                if mol is not None:
+                    # Use centralized descriptor calculator
+                    descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                    mw = descriptors.get('MW', 0)
+                    logp = descriptors.get('LogP', 0)
+                    hba = descriptors.get('HBA', 0)
+                    hbd = descriptors.get('HBD', 0)
+                    
+                    molecules.append(mol)
+                    properties.append({
+                        'MW': mw,
+                        'LogP': logp,
+                        'HBA': hba,
+                        'HBD': hbd
+                    })
+                    valid_indices.append(idx)
+            except Exception:
+                continue
         
         print(f"   📊 Analyzing {len(molecules)} valid molecules")
         
@@ -293,7 +315,8 @@ class QuickSafetyAnalyzer:
             'herg_probabilities': herg_probabilities,
             'dili_probabilities': dili_probabilities,
             'combined_risk': combined_risk,
-            'hits_df': hits_df.iloc[valid_indices].copy()
+            'hits_df': hits_df.iloc[valid_indices].copy(),
+            'properties': properties
         }
         
         # Add predictions to dataframe

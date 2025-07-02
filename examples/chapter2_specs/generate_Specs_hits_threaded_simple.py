@@ -22,7 +22,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import multiprocessing as mp
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 # RDKit imports
 from rdkit import Chem
@@ -66,37 +66,43 @@ class SimpleThreadedGenerator:
                 percentage = (self.processed_compounds / self.total_compounds) * 100
                 print(f"\r   ⚡ Processing: {self.processed_compounds}/{self.total_compounds} ({percentage:.1f}%)", end="", flush=True)
     
-    def simple_lipinski_filter(self, mol: Chem.Mol) -> bool:
-        """Relaxed drug-like filter allowing 1-2 Lipinski violations."""
+    def check_drug_likeness(self, mol: Chem.Mol) -> bool:
+        """Enhanced drug-likeness check using centralized infrastructure."""
         if mol is None:
             return False
-        try:
-            mw = Descriptors.MolWt(mol)
-            logp = Descriptors.MolLogP(mol)
-            hbd = Descriptors.NumHDonors(mol)
-            hba = Descriptors.NumHAcceptors(mol)
             
-            # Count Lipinski violations
-            violations = 0
-            if mw > 500:
-                violations += 1
-            if logp > 5:
-                violations += 1
-            if hbd > 5:
-                violations += 1
-            if hba > 10:
-                violations += 1
-            
-            # Allow up to 2 violations (more permissive than standard)
-            # Also ensure basic sanity checks
-            return (violations <= 2 and 
-                    mw >= 150 and mw <= 1000 and  # Basic MW range
-                    logp >= -3 and logp <= 8)      # Reasonable LogP range
-        except:
-            return False
+        # Use centralized descriptor calculator
+        from src.utils.molecular_descriptors import descriptor_calculator
+        
+        descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+        
+        # Extract values with defaults
+        mw = descriptors.get('MW', 0)
+        logp = descriptors.get('LogP', 0)
+        hbd = descriptors.get('HBD', 0)
+        hba = descriptors.get('HBA', 0)
+        
+        # Count Lipinski violations (more lenient)
+        violations = 0
+        if mw > 500:
+            violations += 1
+        if logp > 5:
+            violations += 1
+        if hbd > 5:
+            violations += 1
+        if hba > 10:
+            violations += 1
+        
+        # Allow up to 1 Lipinski violation, plus basic sanity checks
+        return (violations <= 1 and 
+                mw >= 150 and mw <= 1000 and  # Basic MW range
+                logp >= -3 and logp <= 8)      # Reasonable LogP range
     
     def compute_fingerprints_batch(self, molecules: List[Chem.Mol], batch_id: int) -> Tuple[int, List]:
-        """Compute fingerprints for a batch of molecules (thread worker)."""
+        """Compute fingerprints for a batch of molecules (thread worker) - using centralized infrastructure."""
+        # Use existing infrastructure instead of duplicating fingerprint computation
+        from similarity.fingerprints import FingerprintGenerator
+        
         fingerprints = []
         fp_generator = FingerprintGenerator(fingerprint_type="morgan", radius=2, n_bits=2048)
         
@@ -115,26 +121,14 @@ class SimpleThreadedGenerator:
         return batch_id, fingerprints
     
     def compute_similarities_batch(self, lib_fps: List, ref_fps: List, batch_id: int) -> Tuple[int, List[float]]:
-        """Compute similarities for a batch of library fingerprints against all references."""
-        max_similarities = []
+        """Compute similarities for a batch of library fingerprints - using centralized infrastructure."""
+        # Use centralized similarity computation
+        from src.utils.threading_utils import compute_similarities_batch
         
-        for lib_fp in lib_fps:
-            if lib_fp is not None:
-                max_sim = 0.0
-                for ref_fp in ref_fps:
-                    if ref_fp is not None:
-                        try:
-                            # Use numpy-based Tanimoto calculation for numpy arrays
-                            intersection = np.logical_and(lib_fp, ref_fp).sum()
-                            union = np.logical_or(lib_fp, ref_fp).sum()
-                            sim = intersection / union if union > 0 else 0.0
-                            max_sim = max(max_sim, sim)
-                        except Exception:
-                            continue
-                max_similarities.append(max_sim)
-            else:
-                max_similarities.append(0.0)
-            
+        max_similarities = compute_similarities_batch(lib_fps, ref_fps)
+        
+        # Update progress tracking
+        for _ in lib_fps:
             self.update_progress(1)
         
         return batch_id, max_similarities
@@ -143,11 +137,12 @@ class SimpleThreadedGenerator:
         """Load and filter molecular data with simple filtering."""
         print("\n📚 Loading molecular data...")
         
-        # Load data files
+        # Load data files using centralized path management
+        from src.utils.config import data_paths
         loader = MoleculeLoader()
         
-        specs_path = Path("data/raw/Specs.sdf")
-        malaria_path = Path("data/reference/malaria_box_400.sdf")
+        specs_path = Path(data_paths.resolve_specs_path(from_examples=True))
+        malaria_path = Path(data_paths.resolve_malaria_path(from_examples=True))
         
         if not specs_path.exists() or not malaria_path.exists():
             print("❌ Required data files not found")
@@ -172,7 +167,7 @@ class SimpleThreadedGenerator:
         library_filtered = []
         for _, mol_data in library_df.iterrows():
             mol = mol_data.get('ROMol')  # Use correct column name
-            if mol and self.simple_lipinski_filter(mol):
+            if mol and self.check_drug_likeness(mol):
                 library_filtered.append(mol_data)
         
         library_df = pd.DataFrame(library_filtered)
@@ -226,46 +221,16 @@ class SimpleThreadedGenerator:
         return fingerprints
     
     def threaded_similarity_search(self, lib_fingerprints: List, ref_fingerprints: List) -> List[float]:
-        """Perform similarity search using multiple threads."""
-        print(f"\n🔍 Computing similarities with {self.n_threads} threads...")
+        """Perform similarity search using multiple threads - using centralized infrastructure."""
+        # Use centralized similarity search
+        from src.utils.threading_utils import threaded_similarity_search
         
-        # Filter out None fingerprints from references
-        valid_ref_fps = [fp for fp in ref_fingerprints if fp is not None]
-        print(f"   Using {len(valid_ref_fps)} valid reference fingerprints")
-        
-        if not valid_ref_fps:
-            print("   ❌ No valid reference fingerprints!")
-            return [0.0] * len(lib_fingerprints)
-        
-        # Split library fingerprints into batches
-        batch_size = max(1, len(lib_fingerprints) // self.n_threads)
-        batches = [lib_fingerprints[i:i + batch_size] for i in range(0, len(lib_fingerprints), batch_size)]
-        
-        # Reset progress tracking
-        self.processed_compounds = 0
-        self.total_compounds = len(lib_fingerprints)
-        
-        similarities = [0.0] * len(lib_fingerprints)
-        
-        with ThreadPoolExecutor(max_workers=self.n_threads) as executor:
-            # Submit all batches
-            future_to_batch = {
-                executor.submit(self.compute_similarities_batch, batch, valid_ref_fps, i): i 
-                for i, batch in enumerate(batches)
-            }
-            
-            # Collect results
-            for future in as_completed(future_to_batch):
-                batch_id, batch_sims = future.result()
-                
-                # Insert batch results in correct position
-                start_idx = batch_id * batch_size
-                for i, sim in enumerate(batch_sims):
-                    if start_idx + i < len(similarities):
-                        similarities[start_idx + i] = sim
-        
-        print(f"\n   ✅ Computed similarities for {len(similarities)} compounds")
-        return similarities
+        return threaded_similarity_search(
+            lib_fingerprints, 
+            ref_fingerprints, 
+            n_threads=self.n_threads, 
+            description="similarities"
+        )
     
     def generate_hits_threaded(self, max_hits: int = 1000, max_library_size: int = 5000, similarity_threshold: float = 0.3) -> pd.DataFrame:
         """Generate hits using threaded similarity search."""
@@ -301,16 +266,19 @@ class SimpleThreadedGenerator:
         
         # Add molecular properties
         print(f"\n📊 Computing molecular properties for {len(hits_df)} hits...")
-        for idx, row in hits_df.iterrows():
-            mol = row.get('mol')
-            if mol:
-                try:
-                    hits_df.at[idx, 'MW'] = Descriptors.MolWt(mol)
-                    hits_df.at[idx, 'LogP'] = Descriptors.MolLogP(mol)
-                    hits_df.at[idx, 'HBA'] = Descriptors.NumHAcceptors(mol)
-                    hits_df.at[idx, 'HBD'] = Descriptors.NumHDonors(mol)
-                except Exception:
-                    continue
+        
+        # Use centralized descriptor calculator
+        from src.utils.molecular_descriptors import descriptor_calculator
+        
+        # Add descriptors efficiently using the centralized calculator
+        hits_df_with_descriptors = descriptor_calculator.add_descriptors_to_dataframe(
+            hits_df, mol_col='ROMol', descriptors=['MW', 'LogP', 'HBA', 'HBD']
+        )
+        
+        # Update the original dataframe
+        for desc in ['MW', 'LogP', 'HBA', 'HBD']:
+            if desc in hits_df_with_descriptors.columns:
+                hits_df[desc] = hits_df_with_descriptors[desc]
         
         elapsed_time = time.time() - start_time
         

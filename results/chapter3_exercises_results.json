@@ -1,0 +1,139 @@
+{
+  "results": {
+    "timestamp": "2025-07-02T19:24:42.625109",
+    "herg_model_comparison": {
+      "sgd_results": {
+        "accuracy": 0.7061855670103093,
+        "f1_score": 0.7634854771784232,
+        "matthews_cc": 0.41557722797604296
+      },
+      "rf_results": {
+        "accuracy": 0.7783505154639175,
+        "f1_score": 0.8480565371024735,
+        "matthews_cc": 0.4453903072880885
+      },
+      "best_mcc": 0.4453903072880885
+    },
+    "compound_screening": {
+      "specs_available": true,
+      "malaria_available": true,
+      "specs_path": "C:\\Users\\elchi\\Desktop\\Kiu\\Bachelor Project\\Drug-Discovery\\data\\raw\\Specs.sdf",
+      "malaria_path": "C:\\Users\\elchi\\Desktop\\Kiu\\Bachelor Project\\Drug-Discovery\\data\\reference\\malaria_box_400.sdf",
+      "screening_results": {
+        "specs": {
+          "summary": {
+            "total_compounds": 1000,
+            "predicted_blockers": 717,
+            "predicted_safe": 283,
+            "blocker_percentage": 71.7,
+            "risk_distribution": {
+              "HIGH": 66,
+              "MEDIUM": 665,
+              "LOW": 269
+            }
+          },
+          "results_file": "results\\specs_herg_screening.csv",
+          "safe_compounds_file": "results\\specs_safe_compounds.csv"
+        },
+        "malaria_box": {
+          "summary": {
+            "total_compounds": 400,
+            "predicted_blockers": 388,
+            "predicted_safe": 12,
+            "blocker_percentage": 97.0,
+            "risk_distribution": {
+              "HIGH": 92,
+              "MEDIUM": 296,
+              "LOW": 12
+            }
+          },
+          "results_file": "results\\malaria_box_herg_screening.csv",
+          "safe_compounds_file": "results\\malaria_box_safe_compounds.csv"
+        }
+      }
+    },
+    "liver_toxicity_modeling": {
+      "model_name": "Random Forest",
+      "performance": {
+        "accuracy": 0.7777777777777778,
+        "f1_score": 0.5,
+        "rf_accuracy": 0.7777777777777778,
+        "rf_f1": 0.5,
+        "sgd_accuracy": 0.5555555555555556,
+        "sgd_f1": 0.5
+      },
+      "training_data": {
+        "total_compounds": 28,
+        "training_samples": 19,
+        "test_samples": 9
+      },
+      "model_file": "results\\dili_classifier.pkl"
+    },
+    "combined_safety_assessment": {
+      "combined_screening_results": {
+        "specs": {
+          "summary": {
+            "total_compounds": 1000,
+            "combined_safe": 264,
+            "herg_only_safe": 283,
+            "dili_only_safe": 876,
+            "combined_safe_percentage": 26.400000000000002,
+            "toxicity_breakdown": {
+              "herg_toxic_total": 717,
+              "dili_toxic_total": 124,
+              "herg_only_toxic": 612,
+              "dili_only_toxic": 19,
+              "both_toxic": 105,
+              "neither_toxic": 264,
+              "herg_only_toxic_percentage": 61.199999999999996,
+              "dili_only_toxic_percentage": 1.9,
+              "both_toxic_percentage": 10.5,
+              "neither_toxic_percentage": 26.400000000000002
+            },
+            "combined_risk_distribution": {
+              "HIGH": 737,
+              "MEDIUM": 187,
+              "LOW": 76
+            }
+          },
+          "combined_results_file": "results\\specs_combined_safety_screening.csv",
+          "combined_safe_file": "results\\specs_combined_safe_compounds.csv"
+        },
+        "malaria_box": {
+          "summary": {
+            "total_compounds": 400,
+            "combined_safe": 10,
+            "herg_only_safe": 12,
+            "dili_only_safe": 295,
+            "combined_safe_percentage": 2.5,
+            "toxicity_breakdown": {
+              "herg_toxic_total": 388,
+              "dili_toxic_total": 105,
+              "herg_only_toxic": 285,
+              "dili_only_toxic": 2,
+              "both_toxic": 103,
+              "neither_toxic": 10,
+              "herg_only_toxic_percentage": 71.25,
+              "dili_only_toxic_percentage": 0.5,
+              "both_toxic_percentage": 25.75,
+              "neither_toxic_percentage": 2.5
+            },
+            "combined_risk_distribution": {
+              "HIGH": 390,
+              "MEDIUM": 8,
+              "LOW": 2
+            }
+          },
+          "combined_results_file": "results\\malaria_box_combined_safety_screening.csv",
+          "combined_safe_file": "results\\malaria_box_combined_safe_compounds.csv"
+        }
+      }
+    },
+    "data_info": {
+      "total_molecules": 587,
+      "training_samples": 393,
+      "test_samples": 194,
+      "fingerprint_dimensions": 2048
+    }
+  }
+}

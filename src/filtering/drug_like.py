@@ -274,7 +274,7 @@ class DrugLikeFilter:
                    f"({len(filtered_df)/len(df)*100:.1f}% pass rate)")
         
         return filtered_df
-
+        
     def filter_dataframe(self, df: pd.DataFrame, 
                         apply_lipinski: bool = True,
                         apply_additional: bool = True,
@@ -382,7 +382,7 @@ class DrugLikeFilter:
                    f"({len(filtered_df)/len(df)*100:.1f}% pass rate)")
         
         return filtered_df
-
+        
     def get_filter_statistics(self, df: pd.DataFrame) -> Dict[str, any]:
         """
         Get statistics about filtering results.
@@ -502,4 +502,49 @@ class DrugLikeFilter:
                 
         violation_analysis['additional'] = additional_violations
         
-        return violation_analysis 
+        return violation_analysis
+
+    def _apply_filters_batch(self, molecules_batch: List[Tuple]) -> List[Dict]:
+        """Apply filters to a batch of molecules using centralized infrastructure."""
+        # Use centralized descriptor calculator
+        from src.utils.molecular_descriptors import descriptor_calculator
+        
+        results = []
+        for idx, (mol, original_data) in enumerate(molecules_batch):
+            result = {
+                'original_index': original_data.get('original_index', idx),
+                'mol': mol,
+                'passes_filter': False,
+                'violations': [],
+                'descriptors': {}
+            }
+            
+            if mol is None:
+                result['violations'].append('Invalid molecule')
+                results.append(result)
+                continue
+            
+            # Calculate descriptors using centralized calculator
+            descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+            result['descriptors'] = descriptors
+            
+            # Check Lipinski filters
+            violations = []
+            if self.apply_lipinski:
+                for desc, (min_val, max_val) in self.lipinski_ranges.items():
+                    if desc in descriptors and descriptors[desc] is not None:
+                        value = descriptors[desc]
+                        if not (min_val <= value <= max_val):
+                            violations.append(f"{desc}: {value:.2f} not in [{min_val}, {max_val}]")
+            
+            # Check additional filters if enabled
+            if self.apply_additional:
+                if descriptors.get('RotBonds', 0) > 10:
+                    violations.append(f"RotBonds: {descriptors['RotBonds']} > 10")
+            
+            # Determine if molecule passes
+            violation_count = len(violations)
+            result['violations'] = violations
+            result['passes_filter'] = violation_count <= self.violations_allowed
+            
+            results.append(result) 

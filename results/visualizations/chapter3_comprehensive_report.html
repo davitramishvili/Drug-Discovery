@@ -1,0 +1,122 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Chapter 3: Machine Learning for Drug Discovery - Results Report</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    background-color: #F8F9FA;
+                    color: #2C3E50;
+                }
+                .header {
+                    text-align: center;
+                    margin-bottom: 30px;
+                    padding: 20px;
+                    background: linear-gradient(135deg, #2E86C1, #28B463);
+                    color: white;
+                    border-radius: 10px;
+                }
+                .section {
+                    margin: 20px 0;
+                    padding: 20px;
+                    background: white;
+                    border-radius: 10px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                }
+                .dashboard-container {
+                    width: 100%;
+                    height: 600px;
+                    border: none;
+                    border-radius: 8px;
+                }
+                .metrics-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 20px;
+                    margin: 20px 0;
+                }
+                .metric-card {
+                    background: #2E86C1;
+                    color: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    text-align: center;
+                }
+                .metric-value {
+                    font-size: 2em;
+                    font-weight: bold;
+                }
+                .metric-label {
+                    font-size: 0.9em;
+                    opacity: 0.9;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>🧬 Chapter 3: Machine Learning for Drug Discovery</h1>
+                <h2>Comprehensive Results Report</h2>
+                <p>Generated on 2025-07-02 20:36:49</p>
+            </div>
+            
+            <div class="section">
+                <h2>📊 Executive Summary</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">587</div>
+                        <div class="metric-label">Total Molecules Analyzed</div>
+                    </div>
+                    <div class="metric-card" style="background: #27AE60;">
+                        <div class="metric-value">0.445</div>
+                        <div class="metric-label">Best Model MCC Score</div>
+                    </div>
+                    <div class="metric-card" style="background: #F39C12;">
+                        <div class="metric-value">Random Forest</div>
+                        <div class="metric-label">Best Performing Model</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🤖 Model Performance Comparison</h2>
+                <p>Comprehensive comparison between SGD Classifier and Random Forest models for hERG blocking prediction.</p>
+                <iframe src="model_comparison_dashboard.html" class="dashboard-container"></iframe>
+            </div>
+            
+            <div class="section">
+                <h2>🔬 Compound Screening Results</h2>
+                <p>Analysis of Specs and Malaria Box compound libraries for hERG blocking activity.</p>
+                <iframe src="screening_results_dashboard.html" class="dashboard-container"></iframe>
+            </div>
+            
+            <div class="section">
+                <h2>🛡️ Safety Assessment</h2>
+                <p>Integrated safety assessment combining hERG and DILI risk predictions.</p>
+                <iframe src="safety_assessment_heatmap.html" class="dashboard-container" style="height: 400px;"></iframe>
+            </div>
+            
+            <div class="section">
+                <h2>📈 Key Findings</h2>
+                <ul>
+                    <li><strong>Model Performance:</strong> Random Forest achieved the best performance with MCC of 0.445</li>
+                    <li><strong>Compound Screening:</strong> Identified potential safe compounds from both Specs and Malaria Box libraries</li>
+                    <li><strong>Safety Integration:</strong> Successfully combined hERG and DILI predictions for comprehensive risk assessment</li>
+                    <li><strong>Clinical Relevance:</strong> Results provide actionable insights for drug discovery prioritization</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>🔍 Technical Details</h2>
+                <p><strong>Data Processing:</strong> 587 molecules processed with molecular fingerprints</p>
+                <p><strong>Training/Test Split:</strong> 393 training, 194 test samples</p>
+                <p><strong>Feature Dimensions:</strong> 2048 fingerprint features</p>
+                <p><strong>Evaluation Metrics:</strong> Matthews Correlation Coefficient, Accuracy, F1-Score</p>
+            </div>
+        </body>
+        </html>
+        

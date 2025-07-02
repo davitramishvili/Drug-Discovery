@@ -47,6 +47,9 @@ from rdkit.Chem import Descriptors
 from chapter3_ml_screening.data_processing import HERGDataProcessor
 from chapter3_ml_screening.molecular_features import MolecularFeaturizer
 
+# Import centralized descriptor calculator
+from src.utils.molecular_descriptors import descriptor_calculator
+
 # Suppress warnings
 warnings.filterwarnings('ignore')
 
@@ -191,11 +194,15 @@ class OptimizedSafetyAnalyzer:
         for mol in processed_df['mol']:
             if mol:
                 # Simulate DILI based on molecular properties
-                mw = Descriptors.MolWt(mol)
-                logp = Descriptors.MolLogP(mol)
-                tpsa = Descriptors.TPSA(mol)
+                # Compute molecular properties using centralized infrastructure
+                try:
+                    descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                    mw = descriptors.get('MW', 0)
+                    logp = descriptors.get('LogP', 0)
+                    tpsa = descriptors.get('TPSA', 0)
+                except Exception:
+                    mw = logp = tpsa = 0
                 
-                # Complex rule: higher MW, LogP, and lower TPSA = higher DILI risk
                 dili_risk = (0.15 + 
                            0.25 * (mw > 400) + 
                            0.30 * (logp > 3) + 
@@ -246,7 +253,20 @@ class OptimizedSafetyAnalyzer:
         
         print("   🧪 Converting SMILES to molecular structures...")
         for idx, row in hits_df.iterrows():
-            mol = Chem.MolFromSmiles(row['SMILES'])
+            # Compute molecular properties using centralized infrastructure
+            try:
+                mol = Chem.MolFromSmiles(row['SMILES'])
+                if mol is not None:
+                    # Use centralized descriptor calculator
+                    descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                    mw = descriptors.get('MW', 0)
+                    logp = descriptors.get('LogP', 0)
+                    tpsa = descriptors.get('TPSA', 0)
+                else:
+                    mw = logp = tpsa = 0
+            except Exception:
+                mw = logp = tpsa = 0
+            
             if mol:
                 molecules.append(mol)
                 valid_indices.append(idx)

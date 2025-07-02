@@ -51,30 +51,36 @@ class HERGDataProcessor:
         
         logger.info("HERGDataProcessor initialized")
     
-    def load_herg_blockers_data(self, data_path: Optional[str] = None) -> pd.DataFrame:
+    def load_herg_blockers_data(self) -> Optional[pd.DataFrame]:
         """
-        Load the hERG blockers dataset from local file or download if not present.
-        
-        Parameters:
-            data_path (str, optional): Path to the hERG data file
-            
-        Returns:
-            pandas.DataFrame: A dataframe containing hERG blocker compounds with their properties
+        Load hERG blockers dataset.
+        Will try to download if not present locally.
         """
-        if data_path is None:
-            data_path = "data/chapter3/hERG_blockers.xlsx"
+        # Try to find project root by looking for the 'data' directory
+        current_path = Path(__file__).parent
+        project_root = None
         
-        herg_blockers_path = Path(data_path)
+        # Search up the directory tree for project root
+        for parent in [current_path] + list(current_path.parents):
+            if (parent / 'data').exists():
+                project_root = parent
+                break
+        
+        if project_root is None:
+            # Fallback to relative path
+            data_path = Path("data/chapter3/hERG_blockers.xlsx")
+        else:
+            data_path = project_root / "data/chapter3/hERG_blockers.xlsx"
         
         # Download if not present
-        if not herg_blockers_path.exists():
+        if not data_path.exists():
             logger.info(f"Data file not found at {data_path}, attempting to download...")
-            self._download_herg_data(herg_blockers_path)
+            self._download_herg_data(data_path)
         
         # Load the data, skipping header rows and the footer
         try:
             df = pd.read_excel(
-                herg_blockers_path,
+                data_path,
                 usecols="A:F",
                 header=None,
                 skiprows=[0, 1],
@@ -95,21 +101,23 @@ class HERGDataProcessor:
             logger.error(f"Error loading data: {e}")
             return None
     
-    def _download_herg_data(self, save_path: Path):
+    def _download_herg_data(self, data_path: Path) -> bool:
         """Download hERG data from the GitHub repository."""
         url = "https://raw.githubusercontent.com/nrflynn2/ml-drug-discovery/main/data/ch03/hERG_blockers.xlsx"
         
         try:
             # Ensure directory exists
-            save_path.parent.mkdir(parents=True, exist_ok=True)
+            data_path.parent.mkdir(parents=True, exist_ok=True)
             
             # Download the file
-            urllib.request.urlretrieve(url, save_path)
-            logger.info(f"Successfully downloaded hERG data to {save_path}")
+            urllib.request.urlretrieve(url, data_path)
+            logger.info(f"Successfully downloaded hERG data to {data_path}")
+            
+            return True
             
         except Exception as e:
             logger.error(f"Failed to download hERG data: {e}")
-            raise
+            return False
     
     def _display_data_info(self, df: pd.DataFrame):
         """Display basic information about the loaded dataset."""

@@ -28,6 +28,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from queue import Queue
 import multiprocessing as mp
+import os
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -48,32 +49,20 @@ class SpecsHitsGenerator:
     """Production-grade multi-threaded generator for Specs library hits."""
     
     def __init__(self, random_seed: int = 42, n_threads: int = None):
-        """Initialize the threaded hits generator."""
+        """Initialize the hits generator with threading support."""
         self.random_seed = random_seed
-        self.output_file = "top_1000_Specs_hits.csv"
+        self.n_threads = n_threads or min(8, mp.cpu_count())
         
-        # Auto-detect optimal thread count
-        if n_threads is None:
-            self.n_threads = min(mp.cpu_count(), 8)  # Cap at 8 for memory reasons
-        else:
-            self.n_threads = n_threads
-            
-        # Thread-safe progress tracking
-        self.progress_lock = threading.Lock()
-        self.processed_compounds = 0
-        self.total_compounds = 0
+        # Output configuration
+        self.output_file = "results/threaded_Specs_hits.csv"
         
-        print("🚀 PRODUCTION Specs Hits Generator Initialized")
-        print(f"   🧵 Using {self.n_threads} threads for parallel processing")
-        print(f"   📁 Will save results to: {self.output_file}")
-    
-    def update_progress(self, increment: int = 1):
-        """Thread-safe progress update."""
-        with self.progress_lock:
-            self.processed_compounds += increment
-            if self.total_compounds > 0:
-                percentage = (self.processed_compounds / self.total_compounds) * 100
-                print(f"\r   ⚡ Processing: {self.processed_compounds}/{self.total_compounds} ({percentage:.1f}%)", end="", flush=True)
+        # Create output directory
+        Path(self.output_file).parent.mkdir(parents=True, exist_ok=True)
+        
+        # Progress tracking - use centralized infrastructure
+        self.progress_tracker = None
+        
+        print(f"🧵 Initialized with {self.n_threads} threads")
     
     def compute_fingerprints_batch(self, molecules: List[Chem.Mol], batch_id: int) -> Tuple[int, List]:
         """Compute fingerprints for a batch of molecules (thread worker)."""
@@ -90,32 +79,22 @@ class SpecsHitsGenerator:
             else:
                 fingerprints.append(None)
             
-            self.update_progress(1)
+            # Update progress using centralized tracker
+            if self.progress_tracker:
+                self.progress_tracker.update(1)
         
         return batch_id, fingerprints
     
     def compute_similarities_batch(self, lib_fps: List, ref_fps: List, batch_id: int) -> Tuple[int, List[float]]:
-        """Compute similarities for a batch of library fingerprints against all references."""
-        max_similarities = []
+        """Compute similarities for a batch of library fingerprints - using centralized infrastructure."""
+        # Use centralized similarity computation
+        from src.utils.threading_utils import compute_similarities_batch
         
-        for lib_fp in lib_fps:
-            if lib_fp is not None:
-                max_sim = 0.0
-                for ref_fp in ref_fps:
-                    if ref_fp is not None:
-                        try:
-                            # Use numpy-based Tanimoto calculation for numpy arrays
-                            intersection = np.logical_and(lib_fp, ref_fp).sum()
-                            union = np.logical_or(lib_fp, ref_fp).sum()
-                            sim = intersection / union if union > 0 else 0.0
-                            max_sim = max(max_sim, sim)
-                        except Exception:
-                            continue
-                max_similarities.append(max_sim)
-            else:
-                max_similarities.append(0.0)
-            
-            self.update_progress(1)
+        max_similarities = compute_similarities_batch(lib_fps, ref_fps)
+        
+        # Update progress tracking
+        for _ in lib_fps:
+            self.progress_tracker.update(1)
         
         return batch_id, max_similarities
     
@@ -123,11 +102,12 @@ class SpecsHitsGenerator:
         """Load and filter molecular data."""
         print("\n📚 Loading molecular data...")
         
-        # Load data files
+        # Load data files using centralized path management
+        from src.utils.config import data_paths
         loader = MoleculeLoader()
         
-        specs_path = Path("data/raw/Specs.sdf")
-        malaria_path = Path("data/reference/malaria_box_400.sdf")
+        specs_path = Path(data_paths.specs_sdf)
+        malaria_path = Path(data_paths.malaria_box_sdf)
         
         if not specs_path.exists() or not malaria_path.exists():
             print("❌ Required data files not found")
@@ -166,74 +146,47 @@ class SpecsHitsGenerator:
         return library_filtered, reference_df
     
     def threaded_fingerprint_computation(self, molecules: List[Chem.Mol], description: str) -> List:
-        """Compute fingerprints using multiple threads."""
+        """Compute fingerprints using multiple threads - using centralized infrastructure."""
+        # Use centralized threading infrastructure
+        from src.utils.threading_utils import ThreadedBatchProcessor, ProgressTracker
+        
         print(f"\n🔢 Computing {description} fingerprints with {self.n_threads} threads...")
         
-        # Split molecules into batches
-        batch_size = max(1, len(molecules) // self.n_threads)
-        batches = [molecules[i:i + batch_size] for i in range(0, len(molecules), batch_size)]
+        # Initialize progress tracker
+        self.progress_tracker = ProgressTracker(len(molecules), f"{description} fingerprints")
         
-        # Reset progress tracking
-        self.processed_compounds = 0
-        self.total_compounds = len(molecules)
+        processor = ThreadedBatchProcessor(self.n_threads)
         
-        fingerprints = [None] * len(molecules)
+        def fingerprint_batch_processor(batch_molecules, batch_id):
+            """Process a batch of molecules for fingerprint computation."""
+            return self.compute_fingerprints_batch(batch_molecules, batch_id)
         
-        with ThreadPoolExecutor(max_workers=self.n_threads) as executor:
-            # Submit all batches
-            future_to_batch = {
-                executor.submit(self.compute_fingerprints_batch, batch, i): i 
-                for i, batch in enumerate(batches)
-            }
-            
-            # Collect results
-            for future in as_completed(future_to_batch):
-                batch_id, batch_fps = future.result()
-                
-                # Insert batch results in correct position
-                start_idx = batch_id * batch_size
-                for i, fp in enumerate(batch_fps):
-                    if start_idx + i < len(fingerprints):
-                        fingerprints[start_idx + i] = fp
+        results = processor.process_batches(molecules, fingerprint_batch_processor, f"{description} fingerprints")
         
-        print(f"\n   ✅ Computed {len([fp for fp in fingerprints if fp is not None])} valid fingerprints")
-        return fingerprints
+        # Complete progress tracking
+        self.progress_tracker.complete()
+        
+        return results
     
     def threaded_similarity_search(self, lib_fingerprints: List, ref_fingerprints: List) -> List[float]:
-        """Perform similarity search using multiple threads."""
+        """Perform similarity search using multiple threads - using centralized infrastructure."""
+        # Use centralized threading infrastructure
+        from src.utils.threading_utils import ThreadedBatchProcessor, compute_similarities_batch
+        
         print(f"\n🔍 Computing similarities with {self.n_threads} threads...")
         
         # Filter out None fingerprints from references
         valid_ref_fps = [fp for fp in ref_fingerprints if fp is not None]
         print(f"   Using {len(valid_ref_fps)} valid reference fingerprints")
         
-        # Split library fingerprints into batches
-        batch_size = max(1, len(lib_fingerprints) // self.n_threads)
-        batches = [lib_fingerprints[i:i + batch_size] for i in range(0, len(lib_fingerprints), batch_size)]
+        processor = ThreadedBatchProcessor(self.n_threads)
         
-        # Reset progress tracking
-        self.processed_compounds = 0
-        self.total_compounds = len(lib_fingerprints)
+        def similarity_batch_processor(batch_lib_fps, batch_id):
+            """Process a batch of library fingerprints for similarity computation."""
+            batch_similarities = compute_similarities_batch(batch_lib_fps, valid_ref_fps)
+            return batch_id, batch_similarities
         
-        similarities = [0.0] * len(lib_fingerprints)
-        
-        with ThreadPoolExecutor(max_workers=self.n_threads) as executor:
-            # Submit all batches
-            future_to_batch = {
-                executor.submit(self.compute_similarities_batch, batch, valid_ref_fps, i): i 
-                for i, batch in enumerate(batches)
-            }
-            
-            # Collect results
-            for future in as_completed(future_to_batch):
-                batch_id, batch_sims = future.result()
-                
-                # Insert batch results in correct position
-                start_idx = batch_id * batch_size
-                for i, sim in enumerate(batch_sims):
-                    if start_idx + i < len(similarities):
-                        similarities[start_idx + i] = sim
-        
+        similarities = processor.process_batches(lib_fingerprints, similarity_batch_processor, "similarities")
         print(f"\n   ✅ Computed similarities for {len(similarities)} compounds")
         return similarities
     
@@ -270,24 +223,26 @@ class SpecsHitsGenerator:
         
         # Add molecular properties
         print(f"\n📊 Computing molecular properties for {len(hits_df)} hits...")
-        for idx, row in hits_df.iterrows():
-            mol = row.get('mol')
-            if mol:
-                try:
-                    hits_df.at[idx, 'MW'] = Descriptors.MolWt(mol)
-                    hits_df.at[idx, 'LogP'] = Descriptors.MolLogP(mol)
-                    hits_df.at[idx, 'HBA'] = Descriptors.NumHAcceptors(mol)
-                    hits_df.at[idx, 'HBD'] = Descriptors.NumHDonors(mol)
-                    hits_df.at[idx, 'TPSA'] = Descriptors.TPSA(mol)
-                except Exception:
-                    continue
+        
+        # Use centralized descriptor calculator
+        from src.utils.molecular_descriptors import descriptor_calculator
+        
+        # Add descriptors efficiently using the centralized calculator
+        hits_df_with_descriptors = descriptor_calculator.add_descriptors_to_dataframe(
+            hits_df, mol_col='ROMol', descriptors=['MW', 'LogP', 'HBA', 'HBD', 'TPSA']
+        )
+        
+        # Update the original dataframe
+        for desc in ['MW', 'LogP', 'HBA', 'HBD', 'TPSA']:
+            if desc in hits_df_with_descriptors.columns:
+                hits_df[desc] = hits_df_with_descriptors[desc]
         
         elapsed_time = time.time() - start_time
         
         print(f"\n🎉 THREADED GENERATION COMPLETE!")
         print(f"   ⏱️  Total time: {elapsed_time:.1f} seconds")
         print(f"   📊 Generated {len(hits_df)} hits")
-        
+                
         if len(hits_df) > 0:
             avg_sim = hits_df['similarity'].mean()
             min_sim = hits_df['similarity'].min()
@@ -298,7 +253,7 @@ class SpecsHitsGenerator:
             compounds_per_second = len(library_df) / elapsed_time
             print(f"   ⚡ Processing speed: {compounds_per_second:.1f} compounds/second")
             print(f"   🧵 Threading efficiency: {self.n_threads}x parallel processing")
-        
+                
         return hits_df
     
     def save_hits(self, hits_df: pd.DataFrame) -> bool:

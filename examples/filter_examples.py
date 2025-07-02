@@ -28,7 +28,7 @@ def load_sdf_as_dataframe(sdf_path: str) -> pd.DataFrame:
 
 def main():
     # Load your compound library
-    df = load_sdf_as_dataframe('data/raw/Specs.sdf.gz')
+    df = load_sdf_as_dataframe('../data/raw/Specs.sdf.gz')
     print(f"Loaded {len(df)} molecules")
     
     # Example 1: Apply only PAINS filter

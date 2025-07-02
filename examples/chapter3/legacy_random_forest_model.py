@@ -77,7 +77,7 @@ class RandomForestHERGClassifier:
         
     def load_herg_data(self) -> pd.DataFrame:
         """Load hERG blocker dataset."""
-        data_path = Path("data/chapter3/hERG_blockers.xlsx")
+        data_path = Path("../../../data/chapter3/hERG_blockers.xlsx")
         
         if not data_path.exists():
             raise FileNotFoundError(f"hERG dataset not found at {data_path}")
@@ -126,29 +126,27 @@ class RandomForestHERGClassifier:
         return fingerprints, labels
     
     def _standardize_smiles(self, smiles: str) -> Optional[str]:
-        """Standardize a SMILES string."""
-        try:
-            mol = Chem.MolFromSmiles(smiles)
-            return Chem.MolToSmiles(mol) if mol else None
-        except:
-            return None
+        """Standardize a SMILES string using existing infrastructure."""
+        # Use existing HERGDataProcessor instead of duplicate code
+        from src.chapter3_ml_screening.data_processing import HERGDataProcessor
+        
+        processor = HERGDataProcessor()
+        mol = processor.process_smiles(smiles)
+        
+        if mol is not None:
+            try:
+                return Chem.MolToSmiles(mol)
+            except:
+                return None
+        return None
     
     def _compute_morgan_fingerprints(self, molecules: List, radius: int = 2, n_bits: int = 2048) -> np.ndarray:
-        """Compute Morgan fingerprints for molecules."""
-        from rdkit.DataStructs import ConvertToNumpyArray
+        """Compute Morgan fingerprints for molecules using existing infrastructure."""
+        # Use existing MolecularFeaturizer instead of duplicate code
+        from src.chapter3_ml_screening.molecular_features import MolecularFeaturizer
         
-        fingerprints = []
-        
-        for mol in molecules:
-            if mol is not None:
-                fp = GetMorganFingerprintAsBitVect(mol, radius=radius, nBits=n_bits)
-                arr = np.zeros((n_bits,), dtype=int)
-                ConvertToNumpyArray(fp, arr)
-                fingerprints.append(arr)
-            else:
-                fingerprints.append(np.zeros(n_bits, dtype=int))
-        
-        return np.array(fingerprints)
+        featurizer = MolecularFeaturizer(radius=radius, n_bits=n_bits)
+        return featurizer.compute_fingerprints_batch(molecules)
     
     def split_data(self, X: np.ndarray, y: np.ndarray, test_size: float = 0.33) -> None:
         """Split data into training and test sets."""

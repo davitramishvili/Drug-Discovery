@@ -19,9 +19,10 @@ from pathlib import Path
 from typing import Dict, List
 import sys
 import time
+from rdkit import Chem
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 # Import pipeline components
 from pipeline import AntimalarialScreeningPipeline
@@ -81,9 +82,9 @@ class SpecsHitsGenerator:
         
         pipeline = AntimalarialScreeningPipeline(config)
         
-        # Check data files
-        specs_path = Path("data/raw/Specs.sdf")
-        malaria_path = Path("data/reference/malaria_box_400.sdf")
+        # Check data files using centralized paths
+        specs_path = Path(data_paths.resolve_specs_path(from_examples=True))
+        malaria_path = Path(data_paths.resolve_malaria_path(from_examples=True))
         
         if not specs_path.exists():
             print(f"❌ Library file not found: {specs_path}")
@@ -192,8 +193,38 @@ class SpecsHitsGenerator:
             print(f"❌ Error loading existing hits: {e}")
             return None
 
+    def compute_fingerprints(self, molecules: List[Chem.Mol]) -> np.ndarray:
+        """Compute Morgan fingerprints for molecules using centralized infrastructure."""
+        # Use existing infrastructure instead of duplicating fingerprint computation
+        from src.similarity.fingerprints import FingerprintGenerator
+        
+        print(f"🔢 Computing Morgan fingerprints...")
+        
+        fp_generator = FingerprintGenerator(fingerprint_type="morgan", radius=2, n_bits=2048)
+        fingerprints = []
+        
+        for i, mol in enumerate(molecules):
+            if mol is not None:
+                try:
+                    fp = fp_generator.generate_fingerprint(mol)
+                    fingerprints.append(fp)
+                except Exception:
+                    fingerprints.append(np.zeros(2048))
+            else:
+                fingerprints.append(np.zeros(2048))
+            
+            # Progress update
+            if (i + 1) % 100 == 0:
+                print(f"   Processed {i + 1}/{len(molecules)} molecules")
+        
+        return np.array(fingerprints)
+
 def main():
-    """Main execution function."""
+    """Generate Specs hits for antimalarial compounds using basic single-threaded approach."""
+    
+    # Use centralized paths
+    from src.utils.config import data_paths
+    
     print("="*70)
     print("🎯 CHAPTER 2 HITS GENERATOR")
     print("One-time generation of top 1000 antimalarial hits for reuse")

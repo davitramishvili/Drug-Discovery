@@ -14,34 +14,52 @@ import time
 import logging
 import sys
 import os
+from pathlib import Path
 
 # Add the parent directory to Python path to import src modules
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 # Import the enhanced modules
-from src.filtering.drug_like import DrugLikeFilter
-from src.similarity.fingerprints import FingerprintGenerator
-from src.similarity.search import SimilaritySearcher
+from filtering.drug_like import DrugLikeFilter
+from similarity.fingerprints import FingerprintGenerator
+from similarity.search import SimilaritySearcher
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 def create_demo_data():
-    """Create some demo molecular data."""
-    # Simple drug-like SMILES for demonstration
+    """Create demo dataset for testing."""
+    logger.info("Creating demo dataset...")
+    
+    # Use centralized descriptor calculator
+    from src.utils.molecular_descriptors import descriptor_calculator
+    
     smiles_list = [
-        "CCO",  # Ethanol
-        "CC(C)C(C)C",  # Isopentane
-        "c1ccccc1O",  # Phenol
-        "CCN(CC)CC",  # Triethylamine
-        "CCOC(=O)C",  # Ethyl acetate
-        "CCc1ccc(O)cc1",  # 4-Ethylphenol
-        "CC(C)(C)O",  # tert-Butanol
-        "c1ccc2ccccc2c1",  # Naphthalene
-        "CCCc1ccccc1",  # Propylbenzene
-        "CCCOC(=O)C",  # Propyl acetate
-    ] * 50  # Repeat to create 500 molecules
+        "CCO", "CC(=O)O", "c1ccccc1", "CCN(CC)CC", "C1=CC=C(C=C1)C(=O)O",
+        "CC(C)(C)C1=CC=C(C=C1)O", "CC1=CC=CC=C1", "CCC1=CC=CC=C1",
+        "C1=CC=C2C(=C1)C=CC=C2", "CC(=O)NC1=CC=CC=C1",
+        "CC1=CC=C(C=C1)C", "COC1=CC=CC=C1", "CC(C)C1=CC=CC=C1",
+        "C1=CC=C(C=C1)N", "CC1=CC=C(C=C1)N", "C1=CC=C(C=C1)Cl",
+        "CC1=CC=C(C=C1)Cl", "C1=CC=C(C=C1)Br", "CC1=CC=C(C=C1)Br",
+        "C1=CC=C(C=C1)F", "CC1=CC=C(C=C1)F", "C1=CC=C(C=C1)I"
+    ]
+    
+    # Add more diverse compounds for better testing
+    additional_smiles = [
+        "CCCCCCCCCCCCCCCC(=O)O",  # Palmitic acid
+        "CCCCCCCCC=CCCCCCCCC(=O)O",  # Oleic acid
+        "NC(=O)C1=CC=CC=C1",  # Benzamide
+        "CC(C)(C)OC(=O)NC1=CC=CC=C1",  # Boc-aniline
+        "C1=CC=C2C(=C1)NC=N2",  # Benzimidazole
+        "C1=CC=C2C(=C1)NC3=CC=CC=C32",  # Carbazole
+        "CC1=CC2=C(C=C1)C=CC=C2",  # 2-Methylnaphthalene
+        "C1=CC=C(C=C1)C2=CC=CC=C2",  # Biphenyl
+        "CC(C)(C)C1=CC=C(C=C1)C(C)(C)C",  # Di-tert-butylbenzene
+        "C1=CC=C(C=C1)C(=O)C2=CC=CC=C2",  # Benzophenone
+    ] * 15  # Multiply to get more test data
+    
+    smiles_list.extend(additional_smiles)
     
     molecules = []
     data = []
@@ -51,17 +69,19 @@ def create_demo_data():
         if mol is not None:
             molecules.append(mol)
             
-            # Calculate descriptors with correct RDKit names
+            # Use centralized descriptor calculator
+            descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+            
             row = {
                 'ID': f'MOL_{i:04d}',
                 'SMILES': smiles,
                 'ROMol': mol,
-                'MW': Descriptors.MolWt(mol),
-                'LogP': Crippen.MolLogP(mol),
-                'HBA': Descriptors.NOCount(mol),  # Correct name
-                'HBD': Descriptors.NHOHCount(mol),  # Correct name
-                'TPSA': Descriptors.TPSA(mol),
-                'RotBonds': Descriptors.NumRotatableBonds(mol),
+                'MW': descriptors.get('MW', 0),
+                'LogP': descriptors.get('LogP', 0),
+                'HBA': descriptors.get('HBA', 0),
+                'HBD': descriptors.get('HBD', 0),
+                'TPSA': descriptors.get('TPSA', 0),
+                'RotBonds': descriptors.get('RotBonds', 0),
             }
             data.append(row)
     
@@ -207,6 +227,37 @@ def demo_backward_compatibility():
     logger.info("filter = DrugLikeFilter(violations_allowed=1, n_threads=4)")
     logger.info("filtered_df = filter.filter_dataframe(df, use_threading=True)")
 
+def test_molecular_descriptor_calculation():
+    """Test molecular descriptor calculations with threading capabilities."""
+    print("🧪 Testing molecular descriptor calculations...")
+    
+    # Use centralized descriptor calculator
+    from src.utils.molecular_descriptors import descriptor_calculator
+    
+    test_smiles = [
+        "CCO",  # Ethanol
+        "CC(=O)O",  # Acetic acid  
+        "c1ccccc1",  # Benzene
+        "CCN(CC)CC",  # Triethylamine
+        "C1=CC=C(C=C1)C(=O)O"  # Benzoic acid
+    ]
+    
+    print(f"   Testing {len(test_smiles)} molecules...")
+    
+    for i, smiles in enumerate(test_smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        if mol:
+            # Use centralized descriptor calculator
+            descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+            
+            print(f"   Molecule {i+1}: {smiles}")
+            print(f"      MW: {descriptors.get('MW', 0):.2f}")
+            print(f"      LogP: {descriptors.get('LogP', 0):.2f}")
+            print(f"      HBA: {descriptors.get('HBA', 0)}")
+            print(f"      HBD: {descriptors.get('HBD', 0)}")
+            print(f"      TPSA: {descriptors.get('TPSA', 0):.2f}")
+            print(f"      RotBonds: {descriptors.get('RotBonds', 0)}")
+
 def main():
     """Run all demonstrations."""
     logger.info("Multi-Threading Enhancement Demonstration")
@@ -226,6 +277,9 @@ def main():
         
         # Demo backward compatibility
         demo_backward_compatibility()
+        
+        # Test molecular descriptor calculations
+        test_molecular_descriptor_calculation()
         
         logger.info("\n" + "="*60)
         logger.info("SUMMARY: Multi-Threading Enhancements")

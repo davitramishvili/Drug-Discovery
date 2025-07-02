@@ -23,7 +23,7 @@ from typing import Dict, Tuple, List
 import sys
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 # Machine Learning
 from sklearn.model_selection import train_test_split
@@ -40,6 +40,9 @@ from chapter3_ml_screening.molecular_features import MolecularFeaturizer
 from data_processing.loader import MoleculeLoader
 from pipeline import AntimalarialScreeningPipeline
 from utils.config import ProjectConfig
+
+# Import centralized descriptor calculator
+from src.utils.molecular_descriptors import descriptor_calculator
 
 # Suppress warnings
 warnings.filterwarnings('ignore')
@@ -122,10 +125,11 @@ class Chapter2HitsSafetyAnalyzer:
         np.random.seed(self.random_seed)
         for mol in processed_df['mol']:
             if mol:
-                # Simulate DILI based on molecular properties
-                mw = Descriptors.MolWt(mol)
-                logp = Descriptors.MolLogP(mol)
-                tpsa = Descriptors.TPSA(mol)
+                # Simulate DILI based on molecular properties using centralized calculator
+                descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                mw = descriptors.get('MW', 0)
+                logp = descriptors.get('LogP', 0)
+                tpsa = descriptors.get('TPSA', 0)
                 
                 # Complex rule: higher MW, LogP, and lower TPSA = higher DILI risk
                 dili_risk = (0.15 + 
@@ -181,13 +185,13 @@ class Chapter2HitsSafetyAnalyzer:
         
         try:
             # Load library data (Specs database)
-            specs_path = Path("data/raw/Specs.sdf")
+            specs_path = Path("../../../data/raw/Specs.sdf")
             if not specs_path.exists():
                 print("   ⚠️  Specs.sdf not found, creating synthetic hit compounds...")
                 return self.create_synthetic_hits(max_hits)
             
             # Load reference compounds (Malaria Box)
-            malaria_path = Path("data/reference/malaria_box_400.sdf")
+            malaria_path = Path("../../../data/reference/malaria_box_400.sdf")
             if not malaria_path.exists():
                 print("   ⚠️  Malaria Box not found, creating synthetic hit compounds...")
                 return self.create_synthetic_hits(max_hits)
@@ -247,11 +251,12 @@ class Chapter2HitsSafetyAnalyzer:
             if mol:
                 smiles = Chem.MolToSmiles(mol)
                 
-                # Calculate properties
-                mw = Descriptors.MolWt(mol)
-                logp = Descriptors.MolLogP(mol)
-                hba = Descriptors.NumHAcceptors(mol)
-                hbd = Descriptors.NumHDonors(mol)
+                # Calculate properties using centralized infrastructure
+                descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+                mw = descriptors.get('MW', 0)
+                logp = descriptors.get('LogP', 0)
+                hba = descriptors.get('HBA', 0)
+                hbd = descriptors.get('HBD', 0)
                 
                 synthetic_hits.append({
                     'ID': f'HIT_{i+1:04d}',
