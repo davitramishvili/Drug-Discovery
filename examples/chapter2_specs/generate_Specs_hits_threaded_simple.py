@@ -66,34 +66,37 @@ class SimpleThreadedGenerator:
                 percentage = (self.processed_compounds / self.total_compounds) * 100
                 print(f"\r   ⚡ Processing: {self.processed_compounds}/{self.total_compounds} ({percentage:.1f}%)", end="", flush=True)
     
-    def simple_lipinski_filter(self, mol: Chem.Mol) -> bool:
-        """Relaxed drug-like filter allowing 1-2 Lipinski violations."""
+    def check_drug_likeness(self, mol: Chem.Mol) -> bool:
+        """Enhanced drug-likeness check using centralized infrastructure."""
         if mol is None:
             return False
-        try:
-            mw = Descriptors.MolWt(mol)
-            logp = Descriptors.MolLogP(mol)
-            hbd = Descriptors.NumHDonors(mol)
-            hba = Descriptors.NumHAcceptors(mol)
             
-            # Count Lipinski violations
-            violations = 0
-            if mw > 500:
-                violations += 1
-            if logp > 5:
-                violations += 1
-            if hbd > 5:
-                violations += 1
-            if hba > 10:
-                violations += 1
-            
-            # Allow up to 2 violations (more permissive than standard)
-            # Also ensure basic sanity checks
-            return (violations <= 2 and 
-                    mw >= 150 and mw <= 1000 and  # Basic MW range
-                    logp >= -3 and logp <= 8)      # Reasonable LogP range
-        except:
-            return False
+        # Use centralized descriptor calculator
+        from src.utils.molecular_descriptors import descriptor_calculator
+        
+        descriptors = descriptor_calculator.calculate_all_descriptors(mol)
+        
+        # Extract values with defaults
+        mw = descriptors.get('MW', 0)
+        logp = descriptors.get('LogP', 0)
+        hbd = descriptors.get('HBD', 0)
+        hba = descriptors.get('HBA', 0)
+        
+        # Count Lipinski violations (more lenient)
+        violations = 0
+        if mw > 500:
+            violations += 1
+        if logp > 5:
+            violations += 1
+        if hbd > 5:
+            violations += 1
+        if hba > 10:
+            violations += 1
+        
+        # Allow up to 1 Lipinski violation, plus basic sanity checks
+        return (violations <= 1 and 
+                mw >= 150 and mw <= 1000 and  # Basic MW range
+                logp >= -3 and logp <= 8)      # Reasonable LogP range
     
     def compute_fingerprints_batch(self, molecules: List[Chem.Mol], batch_id: int) -> Tuple[int, List]:
         """Compute fingerprints for a batch of molecules (thread worker) - using centralized infrastructure."""
@@ -175,7 +178,7 @@ class SimpleThreadedGenerator:
         library_filtered = []
         for _, mol_data in library_df.iterrows():
             mol = mol_data.get('ROMol')  # Use correct column name
-            if mol and self.simple_lipinski_filter(mol):
+            if mol and self.check_drug_likeness(mol):
                 library_filtered.append(mol_data)
         
         library_df = pd.DataFrame(library_filtered)
@@ -304,16 +307,19 @@ class SimpleThreadedGenerator:
         
         # Add molecular properties
         print(f"\n📊 Computing molecular properties for {len(hits_df)} hits...")
-        for idx, row in hits_df.iterrows():
-            mol = row.get('mol')
-            if mol:
-                try:
-                    hits_df.at[idx, 'MW'] = Descriptors.MolWt(mol)
-                    hits_df.at[idx, 'LogP'] = Descriptors.MolLogP(mol)
-                    hits_df.at[idx, 'HBA'] = Descriptors.NumHAcceptors(mol)
-                    hits_df.at[idx, 'HBD'] = Descriptors.NumHDonors(mol)
-                except Exception:
-                    continue
+        
+        # Use centralized descriptor calculator
+        from src.utils.molecular_descriptors import descriptor_calculator
+        
+        # Add descriptors efficiently using the centralized calculator
+        hits_df_with_descriptors = descriptor_calculator.add_descriptors_to_dataframe(
+            hits_df, mol_col='ROMol', descriptors=['MW', 'LogP', 'HBA', 'HBD']
+        )
+        
+        # Update the original dataframe
+        for desc in ['MW', 'LogP', 'HBA', 'HBD']:
+            if desc in hits_df_with_descriptors.columns:
+                hits_df[desc] = hits_df_with_descriptors[desc]
         
         elapsed_time = time.time() - start_time
         

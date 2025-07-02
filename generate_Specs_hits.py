@@ -234,20 +234,22 @@ class SpecsHitsGenerator:
         
         # Add molecular properties
         print(f"\n📊 Computing molecular properties for {len(hits_df)} hits...")
-        for idx, row in hits_df.iterrows():
-            mol = row.get('mol')
-            if mol:
-                try:
-                    hits_df.at[idx, 'MW'] = Descriptors.MolWt(mol)
-                    hits_df.at[idx, 'LogP'] = Descriptors.MolLogP(mol)
-                    hits_df.at[idx, 'HBA'] = Descriptors.NumHAcceptors(mol)
-                    hits_df.at[idx, 'HBD'] = Descriptors.NumHDonors(mol)
-                    hits_df.at[idx, 'TPSA'] = Descriptors.TPSA(mol)
-                except Exception:
-                    continue
-            
-            elapsed_time = time.time() - start_time
-            
+        
+        # Use centralized descriptor calculator
+        from src.utils.molecular_descriptors import descriptor_calculator
+        
+        # Add descriptors efficiently using the centralized calculator
+        hits_df_with_descriptors = descriptor_calculator.add_descriptors_to_dataframe(
+            hits_df, mol_col='ROMol', descriptors=['MW', 'LogP', 'HBA', 'HBD', 'TPSA']
+        )
+        
+        # Update the original dataframe
+        for desc in ['MW', 'LogP', 'HBA', 'HBD', 'TPSA']:
+            if desc in hits_df_with_descriptors.columns:
+                hits_df[desc] = hits_df_with_descriptors[desc]
+        
+        elapsed_time = time.time() - start_time
+        
         print(f"\n🎉 THREADED GENERATION COMPLETE!")
         print(f"   ⏱️  Total time: {elapsed_time:.1f} seconds")
         print(f"   📊 Generated {len(hits_df)} hits")
