@@ -598,13 +598,16 @@ class Chapter3Visualizer:
         # Plot 3: Screening results (if available)
         if 'compound_screening' in results:
             screening = results['compound_screening']
+            # Fix: Access the nested screening_results structure
+            screening_results = screening.get('screening_results', screening)
+            
             libraries = []
             safe_counts = []
             blocker_counts = []
             
             for lib_name in ['specs', 'malaria_box']:
-                if lib_name in screening:
-                    data = screening[lib_name]['summary']
+                if lib_name in screening_results:
+                    data = screening_results[lib_name]['summary']
                     libraries.append(lib_name.replace('_', ' ').title())
                     safe_counts.append(data.get('predicted_safe', 0))
                     blocker_counts.append(data.get('predicted_blockers', 0))
@@ -621,14 +624,57 @@ class Chapter3Visualizer:
                 ax3.set_xticklabels(libraries)
                 ax3.legend()
                 ax3.grid(True, alpha=0.3)
+            else:
+                # If no screening data, show placeholder
+                ax3.text(0.5, 0.5, 'No Screening Data Available', 
+                        horizontalalignment='center', verticalalignment='center',
+                        transform=ax3.transAxes, fontsize=12)
+                ax3.set_title('Screening Results by Library')
+        else:
+            # If no compound_screening section, show placeholder
+            ax3.text(0.5, 0.5, 'No Screening Data Available', 
+                    horizontalalignment='center', verticalalignment='center',
+                    transform=ax3.transAxes, fontsize=12)
+            ax3.set_title('Screening Results by Library')
         
-        # Plot 4: Risk distribution (placeholder with sample data)
-        risk_levels = ['Low', 'Medium', 'High']
-        risk_counts = [150, 75, 25]  # Sample data
-        colors = [self.colors['success'], self.colors['warning'], self.colors['danger']]
-        
-        wedges, texts, autotexts = ax4.pie(risk_counts, labels=risk_levels, colors=colors, autopct='%1.1f%%')
-        ax4.set_title('Risk Level Distribution')
+        # Plot 4: Risk distribution using real data from screening results
+        if 'compound_screening' in results:
+            screening = results['compound_screening']
+            screening_results = screening.get('screening_results', screening)
+            
+            # Aggregate risk data from all libraries
+            total_low = total_medium = total_high = 0
+            
+            for lib_name in ['specs', 'malaria_box']:
+                if lib_name in screening_results:
+                    risk_dist = screening_results[lib_name]['summary'].get('risk_distribution', {})
+                    total_low += risk_dist.get('LOW', 0)
+                    total_medium += risk_dist.get('MEDIUM', 0)
+                    total_high += risk_dist.get('HIGH', 0)
+            
+            if total_low + total_medium + total_high > 0:
+                risk_levels = ['Low', 'Medium', 'High']
+                risk_counts = [total_low, total_medium, total_high]
+                colors = [self.colors['success'], self.colors['warning'], self.colors['danger']]
+                
+                wedges, texts, autotexts = ax4.pie(risk_counts, labels=risk_levels, colors=colors, autopct='%1.1f%%')
+                ax4.set_title('Risk Level Distribution')
+            else:
+                # Fallback to sample data if no risk distribution available
+                risk_levels = ['Low', 'Medium', 'High']
+                risk_counts = [150, 75, 25]  # Sample data
+                colors = [self.colors['success'], self.colors['warning'], self.colors['danger']]
+                
+                wedges, texts, autotexts = ax4.pie(risk_counts, labels=risk_levels, colors=colors, autopct='%1.1f%%')
+                ax4.set_title('Risk Level Distribution (Sample Data)')
+        else:
+            # Fallback to sample data
+            risk_levels = ['Low', 'Medium', 'High']
+            risk_counts = [150, 75, 25]  # Sample data
+            colors = [self.colors['success'], self.colors['warning'], self.colors['danger']]
+            
+            wedges, texts, autotexts = ax4.pie(risk_counts, labels=risk_levels, colors=colors, autopct='%1.1f%%')
+            ax4.set_title('Risk Level Distribution (Sample Data)')
         
         plt.tight_layout()
         
