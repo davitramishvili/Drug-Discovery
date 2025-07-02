@@ -37,11 +37,11 @@ ENV/
 # data/processed/*.csv
 # data/processed/*.pkl
 
-# # Results
-# results/*.png
-# results/*.pdf
-# results/*.csv
-# results/*.html
+# Results
+results/*.png
+results/*.pdf
+results/*.csv
+results/*.html
 
 # Jupyter Notebooks
 .ipynb_checkpoints/
