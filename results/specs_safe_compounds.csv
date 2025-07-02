@@ -1,0 +1,871 @@
+PUBCHEM_COMPOUND_ID_TYPE,PUBCHEM_TOTAL_CHARGE,PUBCHEM_SUBSTANCE_ID,PUBCHEM_SUBSTANCE_VERSION,PUBCHEM_EXT_DATASOURCE_NAME,PUBCHEM_EXT_DATASOURCE_REGID,PUBCHEM_SUBSTANCE_SYNONYM,PUBCHEM_XREF_EXT_ID,PUBCHEM_EXT_DATASOURCE_URL,PUBCHEM_EXT_SUBSTANCE_URL,PUBCHEM_CID_ASSOCIATIONS,PUBCHEM_COORDINATE_TYPE,ID,ROMol,PUBCHEM_SUBSTANCE_COMMENT,PUBCHEM_BONDANNOTATIONS,hERG_Prediction,hERG_Probability,Risk_Level
+0,0,469753574,1,Specs,AN-584/43496265,"4-bromo-2-methyl-6-nitroaniline
+AN-584/43496265",AN-584/43496265,http://www.specs.net,http://www.specs.net/enter.php?specsid=AN-584/43496265,522679  1,"1
+3",469753574,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A0DD0>,,,0,0.285,LOW
+0,0,469753570,1,Specs,AM-814/41092606,"4-[bis(4-chlorophenyl)methyl]-3,5-dimethyl-1H-pyrazole-1-carboximidamide
+AM-814/41092606",AM-814/41092606,http://www.specs.net,http://www.specs.net/enter.php?specsid=AM-814/41092606,164575813  1,"1
+3",469753570,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A1000>,Salt: HCl,,0,0.46,LOW
+0,0,469753569,1,Specs,AK-087/40841622,"1-[2,4-dihydroxy-3-(3-methyl-2-butenyl)phenyl]ethanone
+AK-087/40841622",AK-087/40841622,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-087/40841622,10932971  1,"1
+3",469753569,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A1070>,,,0,0.445,LOW
+0,0,469753568,1,Specs,AH-153/31146018,"N-(4-chlorophenyl)hydrazinecarbothioamide
+AH-153/31146018",AH-153/31146018,http://www.specs.net,http://www.specs.net/enter.php?specsid=AH-153/31146018,706988  1,"1
+3",469753568,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A1150>,,,0,0.5,MEDIUM
+0,0,469753564,1,Specs,AG-205/03651061,"2-chloro-4,6-di(4-morpholinyl)-1,3,5-triazine
+AG-205/03651061",AG-205/03651061,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/03651061,224967  1,"1
+3",469753564,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A1460>,,,0,0.4716666666666666,LOW
+0,0,406166504,3,Specs,AU-059/43521620,"N-(3,4-dichlorobenzoyl)glutamic acid
+AU-059/43521620",AU-059/43521620,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521620,49875237  1,"1
+3",406166504,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A1850>,,"5  4  5
+5  21  6",0,0.39,LOW
+0,0,172543305,3,Specs,AP-853/43445418,"4-{5-[(2-oxotetrahydro-3-furanyl)sulfanyl]-1H-tetraazol-1-yl}benzoic acid
+AP-853/43445418",AP-853/43445418,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-853/43445418,44123248  1,"1
+3",172543305,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A1E70>,,,0,0.42,LOW
+0,0,163630442,3,Specs,AS-871/43476161,"4-amino-6-(4-pyridinyl)-1,3,5-triazin-2-ylamine
+AS-871/43476161",AS-871/43476161,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/43476161,99551  1,"1
+3",163630442,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A1EE0>,,,0,0.23,LOW
+0,0,163630296,3,Specs,AS-871/43475914,"pentyl 3-amino-4,6-dimethylthieno[2,3-b]pyridine-2-carboxylate
+AS-871/43475914",AS-871/43475914,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/43475914,1622528  1,"1
+3",163630296,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A1FC0>,,,0,0.46375,LOW
+0,0,163627835,3,Specs,AO-548/12575676,"dimethyl 5-[(3-methylbutanoyl)amino]isophthalate
+AO-548/12575676",AO-548/12575676,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-548/12575676,694694  1,"1
+3",163627835,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A21F0>,,,0,0.425,LOW
+0,0,163627187,3,Specs,AE-641/40777865,"3-(cyclohexylamino)-6-methyl-1,2,4-triazin-5(4H)-one
+AE-641/40777865",AE-641/40777865,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-641/40777865,135454353  1,"1
+3",163627187,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A23B0>,,,0,0.295,LOW
+0,0,163425406,5,Specs,AS-871/43477753,"2-amino-4-tert-butyl-3-thiophenecarbonitrile
+AS-871/43477753",AS-871/43477753,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/43477753,596866  1,"1
+3",163425406,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A2500>,,,0,0.465,LOW
+0,0,163424842,3,Specs,AS-871/43352406,"3-(1,1-dioxidotetrahydro-3-thienyl)-5-[(2-methyl-2,3-dihydro-1-benzofuran-5-yl)methylene]-2-thioxo-1,3-thiazolidin-4-one
+AS-871/43352406",AS-871/43352406,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/43352406,6237216  1,"1
+3",163424842,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A27A0>,,,0,0.5,MEDIUM
+0,0,136958628,5,Specs,AJ-797/11982002,"4,5-dihydro-3H-8lambda~4~-[1,2]dithiolo[4,5,1-hi][1,2]benzodithiole
+AJ-797/11982002",AJ-797/11982002,http://www.specs.net,http://www.specs.net/enter.php?specsid=AJ-797/11982002,56693105  1,"1
+3",136958628,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A2C70>,,,0,0.46,LOW
+0,0,135659143,3,Specs,AO-022/43455304,"5-ethyl-N-{3-methyl-1-[(1,3-thiazol-2-ylamino)carbonyl]butyl}-8-oxo-5,8-dihydro[1,3]dioxolo[4,5-g]quinoline-7-carboxamide
+AO-022/43455304",AO-022/43455304,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-022/43455304,17584853  1,"1
+3",135659143,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A2E30>,,16  27  6,0,0.45,LOW
+0,0,104177703,3,Specs,AG-389/13258004,"methyl 2-{[2,2,2-trifluoro-1-(propionylamino)-1-(trifluoromethyl)ethyl]amino}-4,5,6,7-tetrahydro-1-benzothiophene-3-carboxylate
+AG-389/13258004",AG-389/13258004,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-389/13258004,1046722  1,"1
+3",104177703,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A3370>,,,0,0.445,LOW
+0,0,49699593,4,Specs,AG-205/36697026,"ethyl 2-[({[(acetylamino)acetyl]oxy}acetyl)amino]-5,6-dihydro-4H-cyclopenta[b]thiophene-3-carboxylate
+AG-205/36697026",AG-205/36697026,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/36697026,4365225  1,"1
+3",49699593,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A35A0>,,,0,0.37,LOW
+0,0,17141216,5,Specs,AP-060/15175005,"N'-[1-(4-hydroxy-6-methyl-2-oxo-2H-pyran-3-yl)ethylidene]nicotinohydrazide
+AP-060/15175005",AP-060/15175005,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-060/15175005,135401395  1,"1
+3",17141216,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A3760>,,,0,0.495,LOW
+0,0,17128704,8,Specs,AO-081/13877038,"2-{2-fluoro[(4-methylphenyl)sulfonyl]anilino}-N-(2-pyridinylmethyl)acetamide
+AO-081/13877038",AO-081/13877038,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-081/13877038,1129544  1,"1
+3",17128704,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A3A00>,,,0,0.5,MEDIUM
+0,0,17112257,8,Specs,AN-652/10427003,"N-(4-fluorophenyl)-2-methylpropanamide
+AN-652/10427003",AN-652/10427003,http://www.specs.net,http://www.specs.net/enter.php?specsid=AN-652/10427003,532134  1,"1
+3",17112257,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A3CA0>,,,0,0.483,LOW
+0,0,17097716,4,Specs,AN-329/11560775,"4-(2-hydroxy-5-methylanilino)-4-oxobutanoic acid
+AN-329/11560775",AN-329/11560775,http://www.specs.net,http://www.specs.net/enter.php?specsid=AN-329/11560775,777051  1,"1
+3",17097716,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1A3D10>,,,0,0.37,LOW
+0,0,17050124,6,Specs,AK-087/42718385,"1-[2,4-dihydroxy-5-(3-methyl-2-butenyl)phenyl]ethanone
+AK-087/42718385",AK-087/42718385,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-087/42718385,902169  1,"1
+3",17050124,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BC510>,,,0,0.473,LOW
+0,0,17007342,4,Specs,AG-690/11668175,"ethyl 7-methyl-2-(4-methylbenzylidene)-5-(4-methylphenyl)-3-oxo-2,3-dihydro-5H-[1,3]thiazolo[3,2-a]pyrimidine-6-carboxylate
+AG-690/11668175",AG-690/11668175,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/11668175,5759120  1,"1
+3",17007342,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BD070>,,,0,0.46875,LOW
+0,0,16972600,4,Specs,AF-399/33326012,"4-phenyl-4-(phenylhydrazono)butanoic acid
+AF-399/33326012",AF-399/33326012,http://www.specs.net,http://www.specs.net/enter.php?specsid=AF-399/33326012,9725740  1,"1
+3",16972600,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BDA80>,,,0,0.485,LOW
+0,0,16963229,4,Specs,AE-848/11419472,"4-ethyl-2-thioxo-2,5,6,7-tetrahydro-1H-cyclopenta[b]pyridine-3-carbonitrile
+AE-848/11419472",AE-848/11419472,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-848/11419472,794510  1,"1
+3",16963229,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BDD20>,,,0,0.37,LOW
+0,0,16959610,8,Specs,AE-641/00125008,"7,9-bis{nitromethyl}-8-methyl-8-azaspiro[4.5]deca-6,9-diene-6,10-dicarbonitrile
+AE-641/00125008",AE-641/00125008,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-641/00125008,8142864  1,"1
+3",16959610,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BDE00>,,,0,0.39,LOW
+0,0,252147828,3,Specs,AP-782/41885229,"2-{nitromethylene}imidazolidine
+AP-782/41885229",AP-782/41885229,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-782/41885229,3014763  1,"1
+3",252147828,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BE110>,,,0,0.34,LOW
+0,0,242040862,3,Specs,AS-871/43240709,"3,5-dichloro-2-hydroxy-N-(4-morpholinyl)benzenesulfonamide
+AS-871/43240709",AS-871/43240709,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/43240709,2986960  1,"1
+3",242040862,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BE2D0>,,,0,0.5,MEDIUM
+0,0,242040343,5,Specs,AE-641/01634060,"1-adamantanamine
+AE-641/01634060",AE-641/01634060,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-641/01634060,2130  1,"1
+3",242040343,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BE3B0>,Salt: HCl,,0,0.265,LOW
+0,0,163630433,3,Specs,AS-871/43476143,"6-methyl-5-[(2-methylcyclohexyl)amino]-1,2,4-triazin-3(2H)-one
+AS-871/43476143",AS-871/43476143,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/43476143,20995196  1,"1
+3",163630433,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BE500>,,,0,0.4,LOW
+0,0,163628080,3,Specs,AP-906/41346391,"5-methyl-7-(3-pyridinyl)-4,7-dihydro[1,2,4]triazolo[1,5-a]pyrimidine-6-carboxamide
+AP-906/41346391",AP-906/41346391,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-906/41346391,2792763  1,"1
+3",163628080,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BE7A0>,,,0,0.46,LOW
+0,0,163425187,5,Specs,AS-871/43476848,"3-cyclopropyl-3-(4-methylphenyl)acrylic acid
+AS-871/43476848",AS-871/43476848,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/43476848,71464449  1,"1
+3",163425187,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BEB20>,,,0,0.485,LOW
+0,0,163424182,3,Specs,AG-205/03751006,"methyl 3-amino-4,6-dimethylthieno[2,3-b]pyridine-2-carboxylate
+AG-205/03751006",AG-205/03751006,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/03751006,753694  1,"1
+3",163424182,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BEDC0>,,,0,0.36,LOW
+0,0,136958720,3,Specs,AK-968/11567175,"1-{2-chloro-5-nitrobenzoyl}-3,5-dimethylpiperidine
+AK-968/11567175",AK-968/11567175,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-968/11567175,603503  1,"1
+3",136958720,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BF1B0>,,,0,0.48,LOW
+0,0,136958435,3,Specs,AG-690/08589007,"methyl 4-(methylsulfanyl)-2-({[2,4,6-tris(1-methylethyl)phenyl]sulfonyl}amino)butanoate
+AG-690/08589007",AG-690/08589007,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/08589007,56694338  1,"1
+3",136958435,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BF290>,,,0,0.465,LOW
+0,0,136958360,3,Specs,AG-205/11133983,"ethyl 3,3,3-trifluoro-2-(isopropylamino)-2-[(3-methylbutanoyl)amino]propanoate
+AG-205/11133983",AG-205/11133983,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/11133983,389156  1,"1
+3",136958360,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BF300>,,,0,0.33875,LOW
+0,0,92090892,5,Specs,AG-690/33036003,"tricyclo[5.2.1.0~2,6~]deca-4,8-diene-3,10-dione dioxime
+AG-690/33036003",AG-690/33036003,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/33036003,45100288  1,"1
+3",92090892,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BFA00>,,,0,0.295,LOW
+0,0,24711536,7,Specs,AE-848/32610040,"4-{[2-(1-methyl-4(1H)-quinolinylidene)ethylidene]amino}benzoic acid
+AE-848/32610040",AE-848/32610040,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-848/32610040,5453336  1,"1
+3",24711536,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BFCA0>,,,0,0.495,LOW
+0,0,17140100,4,Specs,AO-638/40907368,"ethyl 4-[(1,3-dimethyl-1H-pyrazol-5-yl)amino]-2-(methylsulfanyl)-5-pyrimidinecarboxylate
+AO-638/40907368",AO-638/40907368,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-638/40907368,849409  1,"1
+3",17140100,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1BFDF0>,,,0,0.49875,LOW
+0,0,17117521,4,Specs,AN-655/14368020,"4-({2-[(3-chloro-4-methylphenyl)imino]-4-oxo-1,3-thiazolidin-5-ylidene}methyl)benzoic acid
+AN-655/14368020",AN-655/14368020,http://www.specs.net,http://www.specs.net/enter.php?specsid=AN-655/14368020,135435631  1,"1
+3",17117521,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F0200>,,,0,0.47,LOW
+0,0,17085257,4,Specs,AK-968/41171822,"1-(1-adamantyl)-3,3',5'-trimethyl-5,1'-bis(4-nitro-1H-pyrazole)
+AK-968/41171822",AK-968/41171822,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-968/41171822,5035253  1,"1
+3",17085257,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F0510>,,,0,0.425,LOW
+0,0,17066122,4,Specs,AK-968/12513107,"methyl 6-tert-butyl-2-[(2-pyrazinylcarbonyl)amino]-4,5,6,7-tetrahydro-1-benzothiophene-3-carboxylate
+AK-968/12513107",AK-968/12513107,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-968/12513107,2932821  1,"1
+3",17066122,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F07B0>,,,0,0.5,MEDIUM
+0,1,17028693,4,Specs,AG-690/40721914,"1-[5-cyano-4-(4-methylphenyl)-2,6-dioxo-3-piperidinyl]pyridinium
+AG-690/40721914",AG-690/40721914,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/40721914,3143734  1,"1
+3",17028693,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F0D60>,Salt: Cl-,,0,0.5,MEDIUM
+0,0,17026657,6,Specs,AG-690/40640011,"4-{2-nitrophenyl}-3,5-diphenyl-4,5-dihydropyrrolo[3,4-c]pyrazol-6(1H)-one
+AG-690/40640011",AG-690/40640011,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/40640011,2878369  1,"1
+3",17026657,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F0EB0>,,,0,0.475,LOW
+0,0,17026384,6,Specs,AG-690/40638275,"4-(acetylamino)phenyl 2,5-dibromobenzenesulfonate
+AG-690/40638275",AG-690/40638275,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/40638275,1733740  1,"1
+3",17026384,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F0F90>,,,0,0.46,LOW
+0,0,17019651,8,Specs,AG-690/33359061,"ethyl (9-imino-1,2,3,5,6,7,8,9-octahydro-4H-cyclopenta[b]quinolin-4-yl)acetate
+AG-690/33359061",AG-690/33359061,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/33359061,1729407  1,"1
+3",17019651,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F1070>,Salt: HCl,,0,0.43,LOW
+0,0,17005768,8,Specs,AG-690/11558037,"1,3-dioxo-2-[(2,4,6-trichlorophenyl)amino]-2,3-dihydro-1H-isoindole-5-carboxylic acid
+AG-690/11558037",AG-690/11558037,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/11558037,1127135  1,"1
+3",17005768,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F1770>,,,0,0.48,LOW
+0,0,16992168,6,Specs,AG-205/40650024,"spiro[1,3-benzodioxole-2,1'-cyclopentane]-5-amine
+AG-205/40650024",AG-205/40650024,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/40650024,723950  1,"1
+3",16992168,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F1A80>,Salt: HCl,,0,0.47,LOW
+0,0,16976792,4,Specs,AF-399/42217375,"2-(5-methyl-1,3,4-thiadiazol-2-yl)-1-(3-propoxyphenyl)-1,2-dihydrochromeno[2,3-c]pyrrole-3,9-dione
+AF-399/42217375",AF-399/42217375,http://www.specs.net,http://www.specs.net/enter.php?specsid=AF-399/42217375,4504585  1,"1
+3",16976792,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F1E00>,,,0,0.49875,LOW
+0,0,16962084,8,Specs,AE-646/12709136,"2-amino-4-chloro-3-methylbenzoic acid
+AE-646/12709136",AE-646/12709136,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-646/12709136,827463  1,"1
+3",16962084,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F2180>,,,0,0.35,LOW
+0,0,16960310,6,Specs,AE-641/04635029,"4-{[(2-chloro-3-pyridinyl)carbonyl]amino}butanoic acid
+AE-641/04635029",AE-641/04635029,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-641/04635029,1713760  1,"1
+3",16960310,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F21F0>,,,0,0.48,LOW
+0,0,463747993,1,Specs,AU-004/43508125,"2,4,6-trifluoro-1,3,5-benzenetricarbonitrile
+AU-004/43508125",AU-004/43508125,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508125,12745042  1,"1
+3",463747993,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F2570>,,,0,0.2713333333333333,LOW
+0,0,463747991,1,Specs,AU-004/43500344,"4-(1,2,3-thiadiazol-4-yl)aniline
+AU-004/43500344",AU-004/43500344,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43500344,2739170  1,"1
+3",463747991,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F26C0>,,,0,0.245,LOW
+0,0,463747990,1,Specs,AG-205/11234090,"3-(5-{2-[6-(2,3-dimethylanilino)[1,2,5]oxadiazolo[3,4-b]pyrazin-5-yl]carbohydrazonoyl}-2-furyl)benzoic acid
+AG-205/11234090",AG-205/11234090,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/11234090,9599926  1,"1
+3",463747990,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F2730>,,,0,0.47,LOW
+0,0,251913581,3,Specs,AP-770/42745197,"[1,3]thiazolo[5,4-d]pyrimidin-7-ylamine
+AP-770/42745197",AP-770/42745197,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-770/42745197,350611  1,"1
+3",251913581,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F2880>,,,0,0.28,LOW
+0,0,242040763,3,Specs,AS-871/42057309,"8,10-dibromo-2,6-dioxo-3,5a,6,11b-tetrahydro-2H,5H-chromeno[4',3':4,5]thiopyrano[2,3-d][1,3]thiazole-5-carboxylic acid
+AS-871/42057309",AS-871/42057309,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/42057309,3793565  1,"1
+3",242040763,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F28F0>,,,0,0.305,LOW
+0,0,144088239,3,Specs,AJ-916/13841163,"1-[4-(4-bromobenzoyl)-1-(4-chlorophenyl)-1H-pyrazol-3-yl]ethanone
+AJ-916/13841163",AJ-916/13841163,http://www.specs.net,http://www.specs.net/enter.php?specsid=AJ-916/13841163,1214576  1,"1
+3",144088239,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F2C00>,,,0,0.43,LOW
+0,0,136958409,5,Specs,AG-227/11925014,"3,6-diphenyl-1,2,4-triazine-5-carbonitrile
+AG-227/11925014",AG-227/11925014,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-227/11925014,14086578  1,"1
+3",136958409,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F2FF0>,,,0,0.49,LOW
+0,0,134419770,3,Specs,AG-219/36042020,"2-[4-nitro-5-methyl-3-(trifluoromethyl)-1H-pyrazol-1-yl]acetamide
+AG-219/36042020",AG-219/36042020,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-219/36042020,4191954  1,"1
+3",134419770,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F31B0>,,,0,0.295,LOW
+0,0,103799329,5,Specs,AQ-358/42007312,"2,4-furandicarboxylic acid
+AQ-358/42007312",AQ-358/42007312,http://www.specs.net,http://www.specs.net/enter.php?specsid=AQ-358/42007312,22280328  1,"1
+3",103799329,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F3300>,,,0,0.37,LOW
+0,0,92091376,7,Specs,AJ-333/36117006,"2-chloro-4-methyl-1,3,5-trinitrobenzene
+AJ-333/36117006",AJ-333/36117006,http://www.specs.net,http://www.specs.net/enter.php?specsid=AJ-333/36117006,247561  1,"1
+3",92091376,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F3370>,,,0,0.40666666666666673,LOW
+0,0,24429410,6,Specs,AI-204/31678025,"butyl 5-nitro-1,3-thiazol-2-ylcarbamate
+AI-204/31678025",AI-204/31678025,http://www.specs.net,http://www.specs.net/enter.php?specsid=AI-204/31678025,16044063  1,"1
+3",24429410,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F3530>,,,0,0.49875,LOW
+0,0,17141215,5,Specs,AP-060/15175002,"3-bromo-N'-[1-(4-hydroxy-6-methyl-2-oxo-2H-pyran-3-yl)ethylidene]benzohydrazide
+AP-060/15175002",AP-060/15175002,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-060/15175002,135501786  1,"1
+3",17141215,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F36F0>,,,0,0.49875,LOW
+0,0,17127526,4,Specs,AO-079/15259044,"5-nitro-8-methoxy-4H-chromen-4-one
+AO-079/15259044",AO-079/15259044,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-079/15259044,847727  1,"1
+3",17127526,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA1F3A00>,,,0,0.4354166666666666,LOW
+0,0,17090341,8,Specs,AM-807/13103084,"2-{[2-(1-adamantyl)-2-oxoethyl]sulfanyl}-6-amino-4-(3,4,5-trimethoxyphenyl)-3,5-pyridinedicarbonitrile
+AM-807/13103084",AM-807/13103084,http://www.specs.net,http://www.specs.net/enter.php?specsid=AM-807/13103084,4636636  1,"1
+3",17090341,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA2380B0>,,,0,0.49,LOW
+0,0,17050510,8,Specs,AK-249/36559010,"2,7-bisnitro-N-(4-methylphenyl)-9-oxo-9H-fluorene-4-carboxamide
+AK-249/36559010",AK-249/36559010,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-249/36559010,1717515  1,"1
+3",17050510,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA238430>,,,0,0.48,LOW
+0,0,17043520,4,Specs,AI-942/13331219,"5-{3,5-bisnitro-2-thienyl}-4-nitro-1H-pyrazole
+AI-942/13331219",AI-942/13331219,http://www.specs.net,http://www.specs.net/enter.php?specsid=AI-942/13331219,4094652  1,"1
+3",17043520,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA238970>,,,0,0.315,LOW
+0,0,16962799,6,Specs,AE-848/09037055,"1-oxo-1H-phenalen-9-yl 2-bromobenzoate
+AE-848/09037055",AE-848/09037055,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-848/09037055,1203454  1,"1
+3",16962799,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239150>,,,0,0.495,LOW
+0,0,16962089,6,Specs,AE-646/12711001,"4,4-dichlorotricyclo[5.4.1.0~3,5~]dodeca-1(11),7,9-triene
+AE-646/12711001",AE-646/12711001,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-646/12711001,4072118  1,"1
+3",16962089,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA2391C0>,,,0,0.5,MEDIUM
+0,0,16961737,6,Specs,AE-641/40198043,"methyl {[2-(4-morpholinyl)ethyl]amino}carbothioylcarbamate
+AE-641/40198043",AE-641/40198043,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-641/40198043,1719046  1,"1
+3",16961737,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239230>,,,0,0.315,LOW
+0,0,16957764,8,Specs,AC-907/34132032,"4-amino-5-nitro-3-phenylpyridazine
+AC-907/34132032",AC-907/34132032,http://www.specs.net,http://www.specs.net/enter.php?specsid=AC-907/34132032,6414679  1,"1
+3",16957764,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239460>,,,0,0.275,LOW
+0,0,16956190,6,Specs,AB-323/25048328,"6-amino-5-(nitro)pyrimidin-4(3H)-one
+AB-323/25048328",AB-323/25048328,http://www.specs.net,http://www.specs.net/enter.php?specsid=AB-323/25048328,135441823  1,"1
+3",16956190,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239540>,,,0,0.27,LOW
+0,0,242040779,3,Specs,AS-871/42289990,"methyl 4,7,7-trimethyl-3-[(trichloroacetyl)oxy]bicyclo[2.2.1]heptane-1-carboxylate
+AS-871/42289990",AS-871/42289990,http://www.specs.net,http://www.specs.net/enter.php?specsid=AS-871/42289990,3529042  1,"1
+3",242040779,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239700>,,,0,0.475,LOW
+0,0,162163828,3,Specs,AP-355/43470356,"4-[6-(2-amino-1,3-thiazol-4-yl)-2-pyridinyl]-1,3-thiazol-2-ylamine
+AP-355/43470356",AP-355/43470356,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-355/43470356,71304978  1,"1
+3",162163828,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239930>,,,0,0.42,LOW
+0,0,144088235,3,Specs,AJ-916/13002056,"1,3-benzothiazol-2-yl[4-(4-methoxybenzoyl)-1-phenyl-1H-pyrazol-3-yl]methanone
+AJ-916/13002056",AJ-916/13002056,http://www.specs.net,http://www.specs.net/enter.php?specsid=AJ-916/13002056,45034412  1,"1
+3",144088235,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239A80>,,,0,0.5,MEDIUM
+0,0,136958419,5,Specs,AG-390/14482024,"N-[1-[(3-cyclohexen-1-ylmethyl)(tetrahydro-2-furanylmethyl)amino]-2,2,2-trifluoro-1-(trifluoromethyl)ethyl]acetamide
+AG-390/14482024",AG-390/14482024,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-390/14482024,45034116  1,"1
+3",136958419,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239CB0>,,,0,0.45,LOW
+0,0,136958241,5,Specs,AE-508/36398062,"3-(6-bromo-1,3-benzodioxol-5-yl)propanenitrile
+AE-508/36398062",AE-508/36398062,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-508/36398062,18467755  1,"1
+3",136958241,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA239D20>,,,0,0.49,LOW
+0,0,103798817,5,Specs,AN-829/13537063,"8-[2-amino-6-(2-thienyl)-4-pyrimidinyl]-7-hydroxy-4-methyl-2H-chromen-2-one
+AN-829/13537063",AN-829/13537063,http://www.specs.net,http://www.specs.net/enter.php?specsid=AN-829/13537063,136044572  1,"1
+3",103798817,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23A0A0>,,,0,0.46,LOW
+0,0,17141658,14,Specs,AP-114/15325001,"ethyl {{[amino(methoxy)phosphoryl]methyl}[(4-methylphenyl)sulfonyl]amino}acetate
+AP-114/15325001",AP-114/15325001,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-114/15325001,8219196  1,"1
+3",17141658,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23A500>,,,0,0.475,LOW
+0,0,17122329,6,Specs,AN-919/14547145,"2-amino-1-(4-chlorophenyl)-4-(2,5-dimethoxyphenyl)-7,7-dimethyl-3-(4-methylbenzoyl)-4,6,7,8-tetrahydro-5(1H)-quinolinone
+AN-919/14547145",AN-919/14547145,http://www.specs.net,http://www.specs.net/enter.php?specsid=AN-919/14547145,135494638  1,"1
+3",17122329,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23A9D0>,,,0,0.455,LOW
+0,0,17122173,6,Specs,AN-919/14028026,"[3-amino-4-methyl-6-(trifluoromethyl)thieno[2,3-b]pyridin-2-yl](9H-fluoren-2-yl)methanone
+AN-919/14028026",AN-919/14028026,http://www.specs.net,http://www.specs.net/enter.php?specsid=AN-919/14028026,4609209  1,"1
+3",17122173,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23AA40>,,,0,0.5,MEDIUM
+0,0,17106169,6,Specs,AN-465/13570012,"N-[3-(1,3-benzoxazol-2-yl)-4-chlorophenyl]-3-nitro-2-methylbenzamide
+AN-465/13570012",AN-465/13570012,http://www.specs.net,http://www.specs.net/enter.php?specsid=AN-465/13570012,1015848  1,"1
+3",17106169,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23ADC0>,,,0,0.465,LOW
+0,0,17093873,4,Specs,AM-879/40736049,"N-[4-(4-bromophenyl)-1,3-thiazol-2-yl]-N'-(pyridin-3-ylcarbonyl)thiourea
+AM-879/40736049",AM-879/40736049,http://www.specs.net,http://www.specs.net/enter.php?specsid=AM-879/40736049,1207591  1,"1
+3",17093873,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23AEA0>,,,0,0.48,LOW
+0,0,17085148,4,Specs,AK-968/41171606,"5-(4-chloro-1,3-dimethyl-1H-pyrazol-5-yl)-4-(3-ethoxypropyl)-4H-1,2,4-triazole-3-thiol
+AK-968/41171606",AK-968/41171606,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-968/41171606,3692055  1,"1
+3",17085148,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23AFF0>,,,0,0.47875,LOW
+0,0,17058203,11,Specs,AK-968/09270049,"3-(methylsulfanyl)-6-(2-thienyl)-6,7-dihydro[1,2,4]triazino[5,6-d][3,1]benzoxazepine
+AK-968/09270049",AK-968/09270049,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-968/09270049,611200  1,"1
+3",17058203,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23B220>,,,0,0.495,LOW
+0,0,17050408,6,Specs,AK-249/11477001,"9-(dicyanomethylene)-2,5,7-trisnitro-N-(1-phenylethyl)-9H-fluorene-4-carboxamide
+AK-249/11477001",AK-249/11477001,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-249/11477001,4415872  1,"1
+3",17050408,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23B290>,,,0,0.495,LOW
+0,0,17049853,6,Specs,AJ-916/13002058,"[3-(1,3-benzothiazol-2-ylcarbonyl)-1-(3-chlorophenyl)-1H-pyrazol-4-yl](1-naphthyl)methanone
+AJ-916/13002058",AJ-916/13002058,http://www.specs.net,http://www.specs.net/enter.php?specsid=AJ-916/13002058,1825864  1,"1
+3",17049853,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23B300>,,,0,0.5,MEDIUM
+0,0,17043431,4,Specs,AI-889/36270005,"methyl 2-{[(cyclohexylamino)(cyclohexylimino)methoxy]carbonyl}-6,8,10-trimethyl-1-heptalenecarboxylate
+AI-889/36270005",AI-889/36270005,http://www.specs.net,http://www.specs.net/enter.php?specsid=AI-889/36270005,9537498  1,"1
+3",17043431,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23B760>,,,0,0.42,LOW
+0,0,17033728,6,Specs,AH-262/33341003,"ethyl 3-[5-amino-4,4,6-tricyano-3-(3-ethoxy-3-oxopropyl)-3-methyl-1,5-cyclohexadien-1-yl]propanoate
+AH-262/33341003",AH-262/33341003,http://www.specs.net,http://www.specs.net/enter.php?specsid=AH-262/33341003,4089906  1,"1
+3",17033728,<rdkit.Chem.rdchem.Mol object at 0x0000023FFA23B840>,,,0,0.40875,LOW
+0,0,16962678,4,Specs,AE-848/08417023,"4,10-di(1,3-thiazol-2-yl)-4,10-diazatetracyclo[5.5.2.0~2,6~.0~8,12~]tetradec-13-ene-3,5,9,11-tetrone
+AE-848/08417023",AE-848/08417023,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-848/08417023,2837510  1,"1
+3",16962678,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC214040>,,,0,0.405,LOW
+0,0,16956294,4,Specs,AB-337/13036017,"4b,4c,9b,9c-tetrahydro[1]benzothieno[2',3':3,4]cyclobuta[1,2-b][1]benzothiophene 5,5,10,10-tetraoxide
+AB-337/13036017",AB-337/13036017,http://www.specs.net,http://www.specs.net/enter.php?specsid=AB-337/13036017,822348  1,"1
+3",16956294,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC214430>,,,0,0.5,MEDIUM
+0,0,459153307,1,Specs,AU-004/43509236,"methyl 4-(1-aminoethyl)benzoate
+AU-004/43509236",AU-004/43509236,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509236,17751895  1,"1
+3",459153307,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2147B0>,,9  11  5,0,0.37,LOW
+0,0,459153306,1,Specs,AU-004/43508317,"tert-butyl 3-fluoro-4-hydroxy-1-piperidinecarboxylate
+AU-004/43508317",AU-004/43508317,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508317,42609254  1,"1
+3",459153306,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC214820>,,,0,0.49,LOW
+0,0,459153304,1,Specs,AR-527/43461193,"ethyl 5,5,5-trifluoro-4-hydroxy-2-oxo-3-pentenoate
+AR-527/43461193",AR-527/43461193,http://www.specs.net,http://www.specs.net/enter.php?specsid=AR-527/43461193,14611890  1,"1
+3",459153304,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC214970>,,,0,0.35375,LOW
+0,0,459153302,1,Specs,AR-527/42754089,"cyclohexylacetaldehyde
+AR-527/42754089",AR-527/42754089,http://www.specs.net,http://www.specs.net/enter.php?specsid=AR-527/42754089,316627  1,"1
+3",459153302,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC214AC0>,,,0,0.315,LOW
+0,0,377715586,3,Specs,AG-670/31783036,"N-(tert-butyl)-3-nitro-1-adamantanecarboxamide
+AG-670/31783036",AG-670/31783036,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-670/31783036,23879772  1,"1
+3",377715586,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC214B30>,,,0,0.355,LOW
+0,0,17060003,4,Specs,AK-968/11532088,"2-(ethylsulfanyl)ethyl 4-{6-nitro-1,3-benzodioxol-5-yl}-1,6-dimethyl-2-oxo-1,2,3,4-tetrahydro-5-pyrimidinecarboxylate
+AK-968/11532088",AK-968/11532088,http://www.specs.net,http://www.specs.net/enter.php?specsid=AK-968/11532088,2863881  1,"1
+3",17060003,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2152A0>,,,0,0.5,MEDIUM
+0,1,17042137,4,Specs,AI-204/31679020,"1-(2-amino-2-oxoethyl)-4-[(carboxymethyl)sulfanyl]pyridinium
+AI-204/31679020",AI-204/31679020,http://www.specs.net,http://www.specs.net/enter.php?specsid=AI-204/31679020,1811290  1,"1
+3",17042137,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC215310>,Salt: Cl-,,0,0.305,LOW
+0,0,312524615,3,Specs,AT-057/43469644,"N-(2-fluorophenyl)-2-[11-(2-furyl)-1-hydroxy-2,3,4,11-tetrahydro-10H-dibenzo[b,e][1,4]diazepin-10-yl]acetamide
+AT-057/43469644",AT-057/43469644,http://www.specs.net,http://www.specs.net/enter.php?specsid=AT-057/43469644,17171588  1,"1
+3",312524615,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC215620>,,,0,0.465,LOW
+0,0,17032104,6,Specs,AG-826/25038002,"5-amino-3-methylisoxazole-4-carbonitrile
+AG-826/25038002",AG-826/25038002,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-826/25038002,305590  1,"1
+3",17032104,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC215B60>,,,0,0.275,LOW
+0,0,17020772,7,Specs,AG-690/34469030,"1-(2-adamantyloxy)-3-(4-morpholinyl)-2-propanol
+AG-690/34469030",AG-690/34469030,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/34469030,567884  1,"1
+3",17020772,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC215C40>,Salt: HCl,,0,0.37166666666666665,LOW
+0,0,17003819,4,Specs,AG-690/11156250,"6-(ethoxycarbonyl)-5,7-dimethylpyrazolo[1,5-a]pyrimidine-2-carboxylic acid
+AG-690/11156250",AG-690/11156250,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/11156250,720011  1,"1
+3",17003819,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC215D20>,,,0,0.47875,LOW
+0,0,16964910,4,Specs,AE-848/31049016,"N~4~-(2,5-dimethylphenyl)-2,7,8-trimethyl-4,5-quinolinediamine
+AE-848/31049016",AE-848/31049016,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-848/31049016,828020  1,"1
+3",16964910,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC215E00>,,,0,0.41,LOW
+0,0,445008672,1,Specs,AU-004/43509042,"4-(tert-butoxycarbonyl)-3-morpholinecarboxylic acid
+AU-004/43509042",AU-004/43509042,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509042,1512537  1,"1
+3",445008672,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC215E70>,,3  4  6,0,0.405,LOW
+0,0,445008671,1,Specs,AU-004/43508516,"tert-butyl 2-propyl-1-piperazinecarboxylate
+AU-004/43508516",AU-004/43508516,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508516,44593842  1,"1
+3",445008671,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC215F50>,Salt: HCl,5  11  6,0,0.46,LOW
+0,0,445008670,1,Specs,AU-004/43508419,"3,6-dibromothieno[3,2-b]thiophene
+AU-004/43508419",AU-004/43508419,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508419,10613979  1,"1
+3",445008670,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC216030>,,,0,0.39375,LOW
+0,0,445008666,1,Specs,AU-004/43508333,"tert-butyl 3-fluoro-4-oxo-1-piperidinecarboxylate
+AU-004/43508333",AU-004/43508333,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508333,10560711  1,"1
+3",445008666,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2162D0>,,,0,0.42,LOW
+0,0,445008665,1,Specs,AU-004/43508276,"tert-butyl 6-oxo-2-azaspiro[3.4]octane-2-carboxylate
+AU-004/43508276",AU-004/43508276,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508276,72207506  1,"1
+3",445008665,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2163B0>,,,0,0.455,LOW
+0,0,445008663,1,Specs,AU-004/43508049,"tert-butyl 3-methylenecyclobutylcarbamate
+AU-004/43508049",AU-004/43508049,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508049,28875369  1,"1
+3",445008663,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC216570>,,,0,0.34875,LOW
+0,0,445008660,1,Specs,AU-004/40047543,"1-bromo-4-[(trifluoromethyl)sulfonyl]benzene
+AU-004/40047543",AU-004/40047543,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/40047543,300114  1,"1
+3",445008660,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2167A0>,,,0,0.455,LOW
+0,0,445008657,1,Specs,AG-205/01808041,"2,3,4,6-tetra-O-acetyl-1-thiohexopyranose
+AG-205/01808041",AG-205/01808041,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/01808041,10904578  1,"1
+3",445008657,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2169D0>,,"1  7  5
+2  8  5
+3  9  6
+4  15  5
+6  14  5",0,0.31,LOW
+0,0,445008656,1,Specs,AE-848/31847024,"4-{[1-carboxy-2-(4-hydroxyphenyl)ethyl]amino}-4-oxobutanoic acid
+AE-848/31847024",AE-848/31847024,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-848/31847024,23546817  1,"1
+3",445008656,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC216AB0>,,,0,0.4,LOW
+0,0,442882582,1,Specs,AU-059/43508396,"2-bromo-4,5-dimethylaniline
+AU-059/43508396",AU-059/43508396,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43508396,4179236  1,"1
+3",442882582,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC216C70>,,,0,0.42,LOW
+0,0,442882581,1,Specs,AU-004/43510685,"[(tert-butoxycarbonyl)amino](cyclohexyl)acetic acid
+AU-004/43510685",AU-004/43510685,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43510685,7004938  1,"1
+3",442882581,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC216CE0>,,3  2  6,0,0.3,LOW
+0,0,442882580,1,Specs,AU-004/43510628,"2-[(tert-butoxycarbonyl)amino]cyclopentanecarboxylic acid
+AU-004/43510628",AU-004/43510628,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43510628,1268162  1,"1
+3",442882580,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC216DC0>,,"2  4  5
+5  3  6",0,0.3475,LOW
+0,0,442882576,1,Specs,AU-004/43510389,"3-(2-amino-2-oxoethyl)-5-methylhexanoic acid
+AU-004/43510389",AU-004/43510389,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43510389,22871591  1,"1
+3",442882576,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217060>,,3  6  5,0,0.135,LOW
+0,0,442882575,1,Specs,AU-004/43510370,"[1-(tert-butoxycarbonyl)-3-pyrrolidinyl]acetic acid
+AU-004/43510370",AU-004/43510370,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43510370,1502099  1,"1
+3",442882575,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217140>,,10  11  6,0,0.405,LOW
+0,0,442882573,1,Specs,AU-004/43510025,"[1-(tert-butoxycarbonyl)-3-piperidinyl]acetic acid
+AU-004/43510025",AU-004/43510025,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43510025,1502084  1,"1
+3",442882573,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217300>,,9  10  5,0,0.355,LOW
+0,0,442882571,1,Specs,AU-004/43509869,"[1-(tert-butoxycarbonyl)-2-pyrrolidinyl]acetic acid
+AU-004/43509869",AU-004/43509869,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509869,688605  1,"1
+3",442882571,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217450>,,3  4  6,0,0.34,LOW
+0,0,442882570,1,Specs,AU-004/43509642,"1-tert-butyl 3-methyl 1,3-piperazinedicarboxylate
+AU-004/43509642",AU-004/43509642,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509642,6558432  1,"1
+3",442882570,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217530>,,3  5  5,0,0.425,LOW
+0,0,442882569,1,Specs,AU-004/43509530,"3-hydroxyphenylalanine
+AU-004/43509530",AU-004/43509530,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509530,6950578  1,"1
+3",442882569,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217610>,,2  7  5,0,0.465,LOW
+0,0,442882568,1,Specs,AU-004/43509437,"1-(tert-butoxycarbonyl)-2-azetidinecarboxylic acid
+AU-004/43509437",AU-004/43509437,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509437,2734495  1,"1
+3",442882568,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217680>,,3  6  6,0,0.435,LOW
+0,0,442882567,1,Specs,AU-004/43509367,"1-(tert-butoxycarbonyl)-2-piperazinecarboxylic acid
+AU-004/43509367",AU-004/43509367,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509367,24820285  1,"1
+3",442882567,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217760>,,3  4  6,0,0.415,LOW
+0,0,442882566,1,Specs,AU-004/43509055,"[1-(tert-butoxycarbonyl)-2-piperidinyl]acetic acid
+AU-004/43509055",AU-004/43509055,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509055,1514277  1,"1
+3",442882566,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217840>,,3  4  6,0,0.355,LOW
+0,0,442882565,1,Specs,AU-004/43509048,"2,2,2-trifluoro-1-(4-fluorophenyl)ethanamine
+AU-004/43509048",AU-004/43509048,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43509048,16046477  1,"1
+3",442882565,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217920>,Salt: HCl,2  9  6,0,0.37799999999999995,LOW
+0,0,442882563,1,Specs,AU-004/43508955,"tert-butyl 2-(hydroxymethyl)-4-morpholinecarboxylate
+AU-004/43508955",AU-004/43508955,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508955,1512577  1,"1
+3",442882563,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217A70>,,7  12  5,0,0.445,LOW
+0,0,442882562,1,Specs,AU-004/43508833,"N-(tert-butoxycarbonyl)-3-methoxyalanine
+AU-004/43508833",AU-004/43508833,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508833,7016354  1,"1
+3",442882562,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217B50>,,2  3  6,0,0.21125,LOW
+0,0,442882559,1,Specs,AU-004/43508565,"tert-butyl 3-cyano-1-piperazinecarboxylate
+AU-004/43508565",AU-004/43508565,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508565,27281803  1,"1
+3",442882559,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217DF0>,,7  5  5,0,0.435,LOW
+0,0,442882558,1,Specs,AU-004/43508444,"methyl 5-amino-2,4-dimethylbenzoate
+AU-004/43508444",AU-004/43508444,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508444,46835529  1,"1
+3",442882558,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217ED0>,,,0,0.36,LOW
+0,0,442882557,1,Specs,AU-004/43508442,"methyl 5-bromo-2-pyrimidinecarboxylate
+AU-004/43508442",AU-004/43508442,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508442,45790831  1,"1
+3",442882557,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC217F40>,,,0,0.385,LOW
+0,-1,442882555,1,Specs,AU-004/43508439,"4,6-dichloro-5-pyrimidinecarboxylate
+AU-004/43508439",AU-004/43508439,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508439,"29415724  1
+24820487  2","1
+3",442882555,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24C120>,Salt: Na+,,0,0.35,LOW
+0,0,442882550,1,Specs,AU-004/43508422,"tert-butyl 2-oxo-6-azaspiro[3.4]octane-6-carboxylate
+AU-004/43508422",AU-004/43508422,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508422,23565399  1,"1
+3",442882550,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24C3C0>,,,0,0.46,LOW
+0,0,442882548,1,Specs,AU-004/43508418,"methyl 2-hydroxy-4-(trifluoromethyl)-5-pyrimidinecarboxylate
+AU-004/43508418",AU-004/43508418,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508418,37859565  1,"1
+3",442882548,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24C510>,Salt: H2O,,0,0.41,LOW
+0,0,442882543,1,Specs,AU-004/43508406,"4-fluoro-3-(trifluoromethyl)benzenesulfonamide
+AU-004/43508406",AU-004/43508406,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508406,28306931  1,"1
+3",442882543,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24C7B0>,,,0,0.46799999999999997,LOW
+0,0,442882542,1,Specs,AU-004/43508405,"tert-butyl 3,9-diazabicyclo[3.3.1]nonane-9-carboxylate
+AU-004/43508405",AU-004/43508405,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508405,54595539  1,"1
+3",442882542,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24C890>,,,0,0.405,LOW
+0,0,442882541,1,Specs,AU-004/43508404,"[3-bromo-5-(trifluoromethyl)phenyl]acetic acid
+AU-004/43508404",AU-004/43508404,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508404,56923647  1,"1
+3",442882541,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24C970>,,,0,0.495,LOW
+0,0,442882540,1,Specs,AU-004/43508403,"methyl 2-bromoimidazo[1,2-a]pyridine-6-carboxylate
+AU-004/43508403",AU-004/43508403,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508403,56763851  1,"1
+3",442882540,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24CA50>,,,0,0.46,LOW
+0,0,442882538,1,Specs,AU-004/43508394,"5-[(trifluoromethyl)sulfanyl]-2-pyridinylamine
+AU-004/43508394",AU-004/43508394,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508394,43625023  1,"1
+3",442882538,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24CBA0>,,,0,0.41,LOW
+0,0,442882537,1,Specs,AU-004/43508393,"1,3-benzothiazole-7-carboxylic acid
+AU-004/43508393",AU-004/43508393,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508393,45076984  1,"1
+3",442882537,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24CC80>,,,0,0.44,LOW
+0,0,442882530,1,Specs,AU-004/43508373,"5-bromo-1-methyl-1H-pyrrole-2-carboxylic acid
+AU-004/43508373",AU-004/43508373,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508373,21525613  1,"1
+3",442882530,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D000>,,,0,0.5,MEDIUM
+0,0,442882528,1,Specs,AU-004/43508370,"2,6-dichloro-4-cyanobenzoic acid
+AU-004/43508370",AU-004/43508370,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508370,17855060  1,"1
+3",442882528,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D150>,,,0,0.405,LOW
+0,0,442882527,1,Specs,AU-004/43508366,"3-bromo-5-methoxy-4-methylpyridine
+AU-004/43508366",AU-004/43508366,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508366,57363789  1,"1
+3",442882527,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D1C0>,,,0,0.495,LOW
+0,0,442882524,1,Specs,AU-004/43508354,"methyl 5-(difluoromethyl)-2-pyrazinecarboxylate
+AU-004/43508354",AU-004/43508354,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508354,91926117  1,"1
+3",442882524,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D310>,,,0,0.375,LOW
+0,0,442882523,1,Specs,AU-004/43508350,"tert-butyl 3-fluoro-4-piperidinylcarbamate
+AU-004/43508350",AU-004/43508350,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508350,53302083  1,"1
+3",442882523,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D3F0>,,"3  2  5
+5  9  6",0,0.395,LOW
+0,0,442882522,1,Specs,AU-004/43508348,"4-(tert-butoxycarbonyl)-1,2,3,4-tetrahydro-6-quinoxalinecarboxylic acid
+AU-004/43508348",AU-004/43508348,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508348,45790823  1,"1
+3",442882522,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D4D0>,,,0,0.475,LOW
+0,0,442882519,1,Specs,AU-004/43508340,"4-bromo-6-chloro-3-pyridazinamine
+AU-004/43508340",AU-004/43508340,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508340,22024419  1,"1
+3",442882519,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D690>,,,0,0.32166666666666666,LOW
+0,0,442882518,1,Specs,AU-004/43508332,"3-fluoro-4-(trifluoromethyl)-2-pyridinylamine
+AU-004/43508332",AU-004/43508332,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508332,54772293  1,"1
+3",442882518,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D700>,,,0,0.473,LOW
+0,0,442882517,1,Specs,AU-004/43508331,"tert-butyl 3,3-difluoro-5-(hydroxymethyl)-1-piperidinecarboxylate
+AU-004/43508331",AU-004/43508331,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508331,54772387  1,"1
+3",442882517,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24D7E0>,,,0,0.42,LOW
+0,0,442882511,1,Specs,AU-004/43508309,"2-chloro-4-(trifluoromethyl)-3-pyridinylamine
+AU-004/43508309",AU-004/43508309,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508309,19851909  1,"1
+3",442882511,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24DAF0>,,,0,0.48166666666666663,LOW
+0,0,442882510,1,Specs,AU-004/43508306,"tert-butyl 2,6-diazaspiro[3.3]heptane-2-carboxylate
+AU-004/43508306",AU-004/43508306,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508306,40151981  1,"1
+3",442882510,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24DBD0>,Salt: 0.5 HOOCCOOH,,0,0.4,LOW
+0,0,442882509,1,Specs,AU-004/43508305,"4-chloro-6-iodopyrimidine
+AU-004/43508305",AU-004/43508305,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508305,15418840  1,"1
+3",442882509,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24DCB0>,,,0,0.49000000000000005,LOW
+0,0,442882508,1,Specs,AU-004/43508304,"2-[(2-amino-2-imino-1,1-dimethylethyl)diazenyl]-2-methylpropanimidamide
+AU-004/43508304",AU-004/43508304,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508304,1969  1,"1
+3",442882508,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24DD20>,Salt: 2 HCl,,0,0.34,LOW
+0,0,442882506,1,Specs,AU-004/43508302,"5-bromo-3-chloropyridazine
+AU-004/43508302",AU-004/43508302,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508302,56587785  1,"1
+3",442882506,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24DE00>,,,0,0.395,LOW
+0,0,442882505,1,Specs,AU-004/43508300,"1-amino-2-naphthoic acid
+AU-004/43508300",AU-004/43508300,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508300,11789942  1,"1
+3",442882505,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24DE70>,,,0,0.435,LOW
+0,0,442882504,1,Specs,AU-004/43508299,"methyl 2-amino-6-chloronicotinate
+AU-004/43508299",AU-004/43508299,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508299,57415887  1,"1
+3",442882504,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24DEE0>,,,0,0.415,LOW
+0,0,442882502,1,Specs,AU-004/43508294,"(4,4-difluorocyclohexyl)acetic acid
+AU-004/43508294",AU-004/43508294,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508294,53420743  1,"1
+3",442882502,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24E030>,,,0,0.21,LOW
+0,0,442882501,1,Specs,AU-004/43508293,"phenyl[2-(trifluoromethyl)-1H-pyrrol-3-yl]methanone
+AU-004/43508293",AU-004/43508293,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508293,75530392  1,"1
+3",442882501,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24E0A0>,,,0,0.375,LOW
+0,0,442882498,1,Specs,AU-004/43508290,"5-bromo-6-fluoronicotinic acid
+AU-004/43508290",AU-004/43508290,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508290,45158843  1,"1
+3",442882498,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24E2D0>,,,0,0.3,LOW
+0,0,442882497,1,Specs,AU-004/43508289,"3-bromo-1H-pyrazolo[3,4-d]pyrimidin-4-amine
+AU-004/43508289",AU-004/43508289,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508289,340230  1,"1
+3",442882497,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24E340>,,,0,0.31,LOW
+0,0,442882493,1,Specs,AU-004/43508283,"tert-butyl 3-cyano-4-oxo-1-piperidinecarboxylate
+AU-004/43508283",AU-004/43508283,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508283,42609283  1,"1
+3",442882493,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24E570>,,,0,0.45,LOW
+0,0,442882492,1,Specs,AU-004/43508282,"4-chloro-5,8-dihydro-6H-pyrano[4',3':4,5]thieno[2,3-d]pyrimidine
+AU-004/43508282",AU-004/43508282,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508282,22313872  1,"1
+3",442882492,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24E650>,,,0,0.49166666666666664,LOW
+0,0,442882487,1,Specs,AU-004/43508269,"5-bromo-3-fluoro-2-pyridinamine
+AU-004/43508269",AU-004/43508269,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508269,50851130  1,"1
+3",442882487,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24E8F0>,,,0,0.373,LOW
+0,0,442882486,1,Specs,AU-004/43508266,"tert-butyl 3-hydroxycyclopentylcarbamate
+AU-004/43508266",AU-004/43508266,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508266,25067268  1,"1
+3",442882486,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24E960>,,"5  2  6
+8  11  6",0,0.3675,LOW
+0,0,442882485,1,Specs,AU-004/43508265,"tert-butyl 3-amino-4-fluoro-1-piperidinecarboxylate
+AU-004/43508265",AU-004/43508265,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508265,72207953  1,"1
+3",442882485,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24EA40>,,"4  11  6
+9  12  6",0,0.49,LOW
+0,0,442882484,1,Specs,AU-004/43508264,"7-chloro-1H-pyrrolo[2,3-c]pyridine-2-carboxylic acid
+AU-004/43508264",AU-004/43508264,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508264,76852916  1,"1
+3",442882484,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24EB20>,,,0,0.46,LOW
+0,0,442882483,1,Specs,AU-004/43508262,"5-amino-2-(1H-tetraazol-1-yl)benzoic acid
+AU-004/43508262",AU-004/43508262,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508262,63116215  1,"1
+3",442882483,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24EC00>,,,0,0.31,LOW
+0,0,442882482,1,Specs,AU-004/43508261,"2,4-dichloro-1,3-benzenediol
+AU-004/43508261",AU-004/43508261,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508261,177760  1,"1
+3",442882482,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24ECE0>,,,0,0.45333333333333337,LOW
+0,0,442882479,1,Specs,AU-004/43508246,"2,4-bis(trifluoromethyl)-5-pyrimidinecarboxylic acid
+AU-004/43508246",AU-004/43508246,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508246,10539242  1,"1
+3",442882479,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24EE30>,,,0,0.295,LOW
+0,0,442882477,1,Specs,AU-004/43508239,"3-bromo-4-methyl-5-nitropyridine
+AU-004/43508239",AU-004/43508239,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508239,12510054  1,"1
+3",442882477,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24EF80>,,,0,0.335,LOW
+0,0,442882476,1,Specs,AU-004/43508238,"ethyl 2-amino-4,5,6,7-tetrahydro-1,3-benzothiazole-6-carboxylate
+AU-004/43508238",AU-004/43508238,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508238,15101101  1,"1
+3",442882476,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24EFF0>,,,0,0.325,LOW
+0,0,442882475,1,Specs,AU-004/43508237,"2,4-dichloro-3-fluorobenzoic acid
+AU-004/43508237",AU-004/43508237,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508237,16091238  1,"1
+3",442882475,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24F060>,,,0,0.375,LOW
+0,0,442882470,1,Specs,AU-004/43508220,"3-bromo-5-fluoro-2-pyridinecarboxylic acid
+AU-004/43508220",AU-004/43508220,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508220,53395617  1,"1
+3",442882470,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24F370>,,,0,0.37,LOW
+0,0,442882468,1,Specs,AU-004/43508218,"6-amino-5-bromonicotinic acid
+AU-004/43508218",AU-004/43508218,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508218,22742028  1,"1
+3",442882468,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24F4C0>,,,0,0.245,LOW
+0,0,442882465,1,Specs,AU-004/43508211,"2,6-difluoro-4-iodophenol
+AU-004/43508211",AU-004/43508211,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508211,45790937  1,"1
+3",442882465,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24F680>,,,0,0.43633333333333335,LOW
+0,0,442882464,1,Specs,AU-004/43508208,"4-cyano-5-(methylsulfanyl)-2-thiophenecarboxylic acid
+AU-004/43508208",AU-004/43508208,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508208,45594312  1,"1
+3",442882464,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24F6F0>,,,0,0.445,LOW
+0,0,442882462,1,Specs,AU-004/43508203,"tert-butyl cyano(4-methylphenyl)methylcarbamate
+AU-004/43508203",AU-004/43508203,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508203,11230354  1,"1
+3",442882462,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24F8B0>,,,0,0.41041666666666665,LOW
+0,0,442882461,1,Specs,AU-004/43508202,"6-bromo-1-benzothiophene
+AU-004/43508202",AU-004/43508202,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508202,12744400  1,"1
+3",442882461,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24F990>,,,0,0.4633333333333334,LOW
+0,0,442882459,1,Specs,AU-004/43508198,"4-bromo-2-(trifluoromethoxy)benzoic acid
+AU-004/43508198",AU-004/43508198,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508198,16665572  1,"1
+3",442882459,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24FA70>,,,0,0.48,LOW
+0,0,442882457,1,Specs,AU-004/43508196,"2,3-dibromoisonicotinic acid
+AU-004/43508196",AU-004/43508196,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508196,26967070  1,"1
+3",442882457,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24FBC0>,,,0,0.385,LOW
+0,0,442882456,1,Specs,AU-004/43508188,"5-bromo-3-iodo-6-methyl-2-pyridinamine
+AU-004/43508188",AU-004/43508188,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508188,24729532  1,"1
+3",442882456,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24FC30>,,,0,0.385,LOW
+0,0,442882453,1,Specs,AU-004/43508172,"6-chloro-5-fluoro-2-pyridinecarboxylic acid
+AU-004/43508172",AU-004/43508172,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508172,11412672  1,"1
+3",442882453,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC24FD80>,,,0,0.46,LOW
+0,0,442882450,1,Specs,AU-004/43508165,"2-fluoro-4-(trifluoromethyl)nicotinic acid
+AU-004/43508165",AU-004/43508165,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508165,28307766  1,"1
+3",442882450,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2840B0>,,,0,0.49,LOW
+0,0,442882449,1,Specs,AU-004/43508157,"tert-butyl 2,9-diazaspiro[5.5]undecane-9-carboxylate
+AU-004/43508157",AU-004/43508157,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508157,46912008  1,"1
+3",442882449,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284190>,Salt: HCl,,0,0.45,LOW
+0,0,442882447,1,Specs,AU-004/43508145,"3-bromo-4-iodopyridine
+AU-004/43508145",AU-004/43508145,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508145,52911177  1,"1
+3",442882447,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284350>,,,0,0.49200000000000005,LOW
+0,0,442882445,1,Specs,AU-004/43508143,"5-chloro-4-iodo-2-pyridinol
+AU-004/43508143",AU-004/43508143,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508143,45588195  1,"1
+3",442882445,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284430>,,,0,0.49833333333333335,LOW
+0,0,442882444,1,Specs,AU-004/43508140,"5-bromo-6-methoxynicotinic acid
+AU-004/43508140",AU-004/43508140,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508140,45790466  1,"1
+3",442882444,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2844A0>,,,0,0.45,LOW
+0,0,442882443,1,Specs,AU-004/43508139,"6-bromo-5-fluoronicotinic acid
+AU-004/43508139",AU-004/43508139,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508139,45790465  1,"1
+3",442882443,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284510>,,,0,0.31,LOW
+0,-1,442882440,1,Specs,AU-004/43508127,"1,1,2,2,2-pentafluoroethanesulfinate
+AU-004/43508127",AU-004/43508127,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508127,"17774127  1
+12663632  2","1
+3",442882440,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284740>,Salt: K+,,0,0.31,LOW
+0,0,442882439,1,Specs,AU-004/43508126,"2-[(trifluoromethoxy)methyl]piperidine
+AU-004/43508126",AU-004/43508126,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508126,75406310  1,"1
+3",442882439,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2847B0>,Salt: Cl-,,0,0.42,LOW
+0,0,442882438,1,Specs,AU-004/43508123,"5-bromo-2-fluoro-4-methylphenol
+AU-004/43508123",AU-004/43508123,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508123,54772399  1,"1
+3",442882438,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284820>,,,0,0.48633333333333334,LOW
+0,0,442882437,1,Specs,AU-004/43508122,"5-bromo-2-(trifluoromethyl)isonicotinic acid
+AU-004/43508122",AU-004/43508122,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508122,28306936  1,"1
+3",442882437,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284890>,,,0,0.345,LOW
+0,0,442882436,1,Specs,AU-004/43508121,"tert-butyl 4-piperidinecarboxylate
+AU-004/43508121",AU-004/43508121,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508121,1512676  1,"1
+3",442882436,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284970>,Salt: HCl,,0,0.425,LOW
+0,0,442882435,1,Specs,AU-004/43508120,"3-bromo-5-(difluoromethyl)pyridine
+AU-004/43508120",AU-004/43508120,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508120,640480  1,"1
+3",442882435,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2849E0>,,,0,0.485,LOW
+0,0,442882434,1,Specs,AU-004/43508119,"[4-(methoxycarbonyl)phenyl]acetic acid
+AU-004/43508119",AU-004/43508119,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508119,10797879  1,"1
+3",442882434,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284A50>,,,0,0.49,LOW
+0,0,442882433,1,Specs,AU-004/43508117,"3-[5-(2-fluorophenyl)-1,2,4-oxadiazol-3-yl]benzoic acid
+AU-004/43508117",AU-004/43508117,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508117,11219835  1,"1
+3",442882433,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284AC0>,,,0,0.46,LOW
+0,0,442882432,1,Specs,AU-004/43508112,"1-[(trifluoromethoxy)methyl]cyclopropanecarboxylic acid
+AU-004/43508112",AU-004/43508112,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508112,75530477  1,"1
+3",442882432,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284BA0>,,,0,0.32,LOW
+0,0,442882429,1,Specs,AU-004/43508096,"tert-butyl 3,6-diazabicyclo[3.1.1]heptane-6-carboxylate
+AU-004/43508096",AU-004/43508096,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508096,66676870  1,"1
+3",442882429,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284D60>,,,0,0.39,LOW
+0,0,442882425,1,Specs,AU-004/43508087,"tert-butyl 6-hydroxy-2-azaspiro[3.3]heptane-2-carboxylate
+AU-004/43508087",AU-004/43508087,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508087,52987765  1,"1
+3",442882425,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC284F90>,,,0,0.4,LOW
+0,0,442882424,1,Specs,AU-004/43508085,"2-chloro-6-(hydroxymethyl)-4-iodo-3-pyridinol
+AU-004/43508085",AU-004/43508085,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508085,10684568  1,"1
+3",442882424,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285000>,,,0,0.4733333333333334,LOW
+0,0,442882423,1,Specs,AU-004/43508084,"tert-butyl 2,5-diazaspiro[3.4]octane-5-carboxylate
+AU-004/43508084",AU-004/43508084,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508084,46912009  1,"1
+3",442882423,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2850E0>,,,0,0.405,LOW
+0,0,442882422,1,Specs,AU-004/43508083,"5-(4-bromophenyl)-2,3-pyrazinedicarboxylic acid
+AU-004/43508083",AU-004/43508083,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508083,45790776  1,"1
+3",442882422,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2851C0>,,,0,0.39,LOW
+0,0,442882421,1,Specs,AU-004/43508082,"3,7-dimethyl-1H-indazole-5-carboxylic acid
+AU-004/43508082",AU-004/43508082,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508082,55271466  1,"1
+3",442882421,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2852A0>,,,0,0.435,LOW
+0,0,442882419,1,Specs,AU-004/43508078,"methyl 4-(4-methylbenzoyl)benzoate
+AU-004/43508078",AU-004/43508078,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508078,182399  1,"1
+3",442882419,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285460>,,,0,0.285,LOW
+0,0,442882418,1,Specs,AU-004/43508076,"(4-chloro-2,5-dimethylphenyl)[4-(methylsulfonyl)phenyl]methanone
+AU-004/43508076",AU-004/43508076,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508076,64212511  1,"1
+3",442882418,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2854D0>,,,0,0.35,LOW
+0,0,442882417,1,Specs,AU-004/43508075,"tert-butyl 2,6-diazaspiro[3.5]nonane-2-carboxylate
+AU-004/43508075",AU-004/43508075,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508075,44182345  1,"1
+3",442882417,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285540>,Salt: 0.5 HOOCCOOH,,0,0.43,LOW
+0,0,442882416,1,Specs,AU-004/43508074,"3-[(trifluoromethyl)sulfanyl]-2-pyridinylamine
+AU-004/43508074",AU-004/43508074,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508074,75406399  1,"1
+3",442882416,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285620>,,,0,0.445,LOW
+0,0,442882415,1,Specs,AU-004/43508073,"6-[(trifluoromethyl)sulfanyl]-3-pyridinylamine
+AU-004/43508073",AU-004/43508073,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508073,43625022  1,"1
+3",442882415,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285700>,,,0,0.4,LOW
+0,0,442882413,1,Specs,AU-004/43508066,"3-(trifluoromethyl)-2-thiophenecarboxylic acid
+AU-004/43508066",AU-004/43508066,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508066,21100028  1,"1
+3",442882413,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2858C0>,,,0,0.43,LOW
+0,0,442882412,1,Specs,AU-004/43508063,"2-amino-5-(trifluoromethyl)nicotinic acid
+AU-004/43508063",AU-004/43508063,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508063,50989692  1,"1
+3",442882412,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2859A0>,,,0,0.36,LOW
+0,0,442882411,1,Specs,AU-004/43508062,"ethyl 4-amino-2,6-difluorobenzoate
+AU-004/43508062",AU-004/43508062,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508062,10750573  1,"1
+3",442882411,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285A80>,,,0,0.40674999999999994,LOW
+0,0,442882408,1,Specs,AU-004/43508057,"[6-(trifluoromethyl)-3-pyridinyl]acetic acid
+AU-004/43508057",AU-004/43508057,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508057,51695709  1,"1
+3",442882408,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285CB0>,,,0,0.495,LOW
+0,0,442882407,1,Specs,AU-004/43508056,"5-(trifluoromethoxy)-2-pyridinecarboxylic acid
+AU-004/43508056",AU-004/43508056,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508056,19860738  1,"1
+3",442882407,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285D90>,,,0,0.46,LOW
+0,0,442882406,1,Specs,AU-004/43508054,"tert-butyl 3-oxo-2,8-diazaspiro[4.5]decane-8-carboxylate
+AU-004/43508054",AU-004/43508054,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508054,10015184  1,"1
+3",442882406,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC285E70>,,,0,0.445,LOW
+0,0,442882402,1,Specs,AU-004/43508043,"3,6-dichloro-4,5-dimethylpyridazine
+AU-004/43508043",AU-004/43508043,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508043,21187505  1,"1
+3",442882402,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286110>,,,0,0.35,LOW
+0,0,442882397,1,Specs,AU-004/43508027,"[1,1'-biphenyl]-3,3',5,5'-tetracarboxylic acid
+AU-004/43508027",AU-004/43508027,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508027,15840397  1,"1
+3",442882397,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286500>,,,0,0.31,LOW
+0,0,442882396,1,Specs,AU-004/43508026,"tert-butyl 2-oxa-7-azaspiro[3.5]nonane-7-carboxylate
+AU-004/43508026",AU-004/43508026,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508026,21955210  1,"1
+3",442882396,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2865E0>,,,0,0.455,LOW
+0,0,442882395,1,Specs,AU-004/43508025,"tert-butyl 2-oxa-6-azaspiro[3.5]nonane-6-carboxylate
+AU-004/43508025",AU-004/43508025,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508025,54758972  1,"1
+3",442882395,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2866C0>,,,0,0.455,LOW
+0,0,442882392,1,Specs,AU-004/43508015,"6-chloro-5-fluoronicotinic acid
+AU-004/43508015",AU-004/43508015,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43508015,11513841  1,"1
+3",442882392,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286880>,,,0,0.305,LOW
+0,0,442882388,1,Specs,AU-004/43502121,"2-amino-3-bromobenzonitrile
+AU-004/43502121",AU-004/43502121,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43502121,4564338  1,"1
+3",442882388,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286A40>,,,0,0.37,LOW
+0,0,442882387,1,Specs,AU-004/43502112,"5-bromo-3-chloro-2-pyridinecarboxylic acid
+AU-004/43502112",AU-004/43502112,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43502112,45933815  1,"1
+3",442882387,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286AB0>,,,0,0.405,LOW
+0,0,442882386,1,Specs,AU-004/43502035,"5-bromo-3-chloro-2-pyridinecarbonitrile
+AU-004/43502035",AU-004/43502035,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43502035,45382148  1,"1
+3",442882386,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286B90>,,,0,0.4850000000000001,LOW
+0,0,442882385,1,Specs,AU-004/43502014,"3-bromo-5-fluoro-2-pyridinecarbonitrile
+AU-004/43502014",AU-004/43502014,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43502014,46941477  1,"1
+3",442882385,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286C00>,,,0,0.49133333333333334,LOW
+0,0,442882383,1,Specs,AU-004/43501977,"5-bromo-3-fluoro-2-pyridinecarboxylic acid
+AU-004/43501977",AU-004/43501977,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43501977,21075872  1,"1
+3",442882383,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286CE0>,,,0,0.34,LOW
+0,0,442882380,1,Specs,AU-004/43501647,"4,6-dichloro-2-pyridinecarboxylic acid
+AU-004/43501647",AU-004/43501647,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43501647,12087453  1,"1
+3",442882380,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286EA0>,,,0,0.415,LOW
+0,0,442882377,1,Specs,AU-004/43497116,"1-(tert-butoxycarbonyl)-4-fluoroproline
+AU-004/43497116",AU-004/43497116,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43497116,2756017  1,"1
+3",442882377,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC286FF0>,,"3  4  5
+9  13  5",0,0.435,LOW
+0,0,442882376,1,Specs,AU-004/43496278,"tert-butyl 3-pyrrolidinylcarbamate
+AU-004/43496278",AU-004/43496278,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43496278,1514396  1,"1
+3",442882376,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC287060>,,7  2  6,0,0.41,LOW
+0,0,442882375,1,Specs,AU-004/43368276,"tert-butyl 4-amino-3-fluoro-1-piperidinecarboxylate
+AU-004/43368276",AU-004/43368276,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/43368276,11736104  1,"1
+3",442882375,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2870D0>,,"4  11  6
+9  12  6",0,0.475,LOW
+0,0,442882374,1,Specs,AU-004/40988812,"2,2,2-trifluoro-1-(3-pyridinyl)ethylamine
+AU-004/40988812",AU-004/40988812,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/40988812,44118299  1,"1
+3",442882374,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2871B0>,Salt: HCl,,0,0.465,LOW
+0,0,442882372,1,Specs,AU-004/40710285,"1-(2,4-dihydroxy-6-methoxyphenyl)ethanone
+AU-004/40710285",AU-004/40710285,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/40710285,10965145  1,"1
+3",442882372,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC287300>,,,0,0.44,LOW
+0,0,442882369,1,Specs,AU-004/40000567,"3-bromo-5-methoxyaniline
+AU-004/40000567",AU-004/40000567,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-004/40000567,14998828  1,"1
+3",442882369,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC287530>,,,0,0.42,LOW
+0,0,442882362,1,Specs,AG-690/40701163,"2-({4-ethyl-5-[(4-fluoroanilino)methyl]-4H-1,2,4-triazol-3-yl}sulfanyl)-1-(4-methylphenyl)ethanone
+AG-690/40701163",AG-690/40701163,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-690/40701163,1133078  1,"1
+3",442882362,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC287840>,,,0,0.48875,LOW
+0,0,442882357,1,Specs,AG-205/06934016,"N-(tert-butoxycarbonyl)-N-methylalanine
+AG-205/06934016",AG-205/06934016,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/06934016,4436857  1,"1
+3",442882357,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC287A70>,,,0,0.295,LOW
+0,0,442882356,1,Specs,AG-205/06484054,"1,2,3,5-tetra-O-acetylpentofuranose
+AG-205/06484054",AG-205/06484054,http://www.specs.net,http://www.specs.net/enter.php?specsid=AG-205/06484054,46705331  1,"1
+3",442882356,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC287AE0>,,"2  1  5
+2  6  3
+5  3  5",0,0.32,LOW
+0,0,442882350,1,Specs,AE-641/10127039,"2-amino-N-(4-methyl-2-oxo-2H-chromen-7-yl)propanamide
+AE-641/10127039",AE-641/10127039,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-641/10127039,3943667  1,"1
+3",442882350,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC287DF0>,,,0,0.49,LOW
+0,0,442882349,1,Specs,AE-641/03276038,"5-(2,2-dimethyl-1,3-dioxolan-4-yl)-2,2-dimethyl-3a,5,6,6a-tetrahydrofuro[2,3-d][1,3]dioxol-6-ol
+AE-641/03276038",AE-641/03276038,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-641/03276038,2723618  1,"1
+3",442882349,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC287ED0>,,"1  19  5
+2  20  5
+3  8  5
+5  14  5",0,0.37166666666666665,LOW
+0,0,442882347,1,Specs,AE-562/43458002,"4-[tris(4-aminophenyl)methyl]phenylamine
+AE-562/43458002",AE-562/43458002,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-562/43458002,11825069  1,"1
+3",442882347,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8040>,,,0,0.43,LOW
+0,0,442882346,1,Specs,AC-907/34117027,"5-bromo-3-methoxy-2-pyridinamine
+AC-907/34117027",AC-907/34117027,http://www.specs.net,http://www.specs.net/enter.php?specsid=AC-907/34117027,22271407  1,"1
+3",442882346,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8120>,,,0,0.475,LOW
+0,0,439942049,1,Specs,AU-059/43517602,"4-methoxy-2,6-pyridinedicarboxamide
+AU-059/43517602",AU-059/43517602,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43517602,4309684  1,"1
+3",439942049,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8190>,,,0,0.445,LOW
+0,0,439942044,1,Specs,AU-059/43517574,"ethyl 2,5-diiodo-3-thiophenecarboxylate
+AU-059/43517574",AU-059/43517574,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43517574,49874851  1,"1
+3",439942044,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8430>,,,0,0.49875,LOW
+0,0,439942043,1,Specs,AU-059/43517573,"3,4-dibromo-2-thiophenecarbonitrile
+AU-059/43517573",AU-059/43517573,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43517573,49874850  1,"1
+3",439942043,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B84A0>,,,0,0.44333333333333336,LOW
+0,0,439942041,1,Specs,AU-059/43517551,"2-[(3-carboxy-2,3-dihydroxypropanoyl)amino]benzoic acid
+AU-059/43517551",AU-059/43517551,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43517551,49874698  1,"1
+3",439942041,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8580>,,"1  12  6
+3  13  6",0,0.43,LOW
+0,0,439942032,1,Specs,AU-059/43517432,"dimethyl 1,2-pyrrolidinedicarboxylate
+AU-059/43517432",AU-059/43517432,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43517432,10954274  1,"1
+3",439942032,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8BA0>,,3  4  5,0,0.3925,LOW
+0,0,439942030,1,Specs,AU-059/43517094,"3-methoxy-11-(trifluoroacetyl)-5,6,9,10,11,12-hexahydro-4aH-[1]benzofuro[3a,3,2-ef][2]benzazepin-6-ol
+AU-059/43517094",AU-059/43517094,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43517094,16639054  1,"1
+3",439942030,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8C80>,,23  25  5,0,0.44,LOW
+0,0,439942029,1,Specs,AU-059/43517081,"1-bromo-3-methoxy-5,6,9,10,11,12-hexahydro-4aH-[1]benzofuro[3a,3,2-ef][2]benzazepin-6-ol
+AU-059/43517081",AU-059/43517081,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43517081,9928418  1,"1
+3",439942029,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8CF0>,,14  19  5,0,0.43,LOW
+0,0,439942028,1,Specs,AU-059/43516974,"14-tert-butoxy-14-oxogalanthamine
+AU-059/43516974",AU-059/43516974,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43516974,16639033  1,"1
+3",439942028,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8D60>,,21  23  5,0,0.385,LOW
+0,0,439942027,1,Specs,AU-059/43516942,"1-(1,3-dithiolan-2-yl)-1,2,3,4,5-pentanepentol
+AU-059/43516942",AU-059/43516942,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43516942,285681  1,"1
+3",439942027,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8DD0>,,,0,0.31,LOW
+0,0,439942025,1,Specs,AU-059/43510397,"1-tert-butyl 2-methyl 4-hydroxy-1,2-pyrrolidinedicarboxylate
+AU-059/43510397",AU-059/43510397,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43510397,6951202  1,"1
+3",439942025,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B8F90>,,"3  4  6
+9  13  6",0,0.405,LOW
+0,0,439942024,1,Specs,AU-059/02895030,"1-(1,3-dithian-2-yl)-1,2,3,4,5-pentanepentol
+AU-059/02895030",AU-059/02895030,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/02895030,496775  1,"1
+3",439942024,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B9000>,,,0,0.305,LOW
+0,0,439942017,1,Specs,AP-263/43532132,"1-[(4-bromo-2,5-dimethylphenyl)sulfonyl]-5-methyl-1H-1,2,3-benzotriazole
+AP-263/43532132",AP-263/43532132,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-263/43532132,146145733  1,"1
+3",439942017,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B93F0>,,,0,0.465,LOW
+0,0,439942011,1,Specs,AP-263/43532118,"N-(4-{[(4-bromo-3-methylphenyl)sulfonyl]amino}phenyl)acetamide
+AP-263/43532118",AP-263/43532118,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-263/43532118,7938455  1,"1
+3",439942011,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B9690>,,,0,0.405,LOW
+0,0,439942009,1,Specs,AP-263/43532116,"N-(4-{[(4-chloro-2,5-dimethylphenyl)sulfonyl]amino}phenyl)acetamide
+AP-263/43532116",AP-263/43532116,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-263/43532116,22774840  1,"1
+3",439942009,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2B9770>,,,0,0.46,LOW
+0,0,439941989,1,Specs,AP-263/43532083,"N-(4-{[(2,4-dichloro-5-methylphenyl)sulfonyl]amino}phenyl)acetamide
+AP-263/43532083",AP-263/43532083,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-263/43532083,136576337  1,"1
+3",439941989,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BA2D0>,,,0,0.47,LOW
+0,0,439941975,1,Specs,AP-263/42425716,"2,4,5-trimethyl-N-(4-methylphenyl)benzenesulfonamide
+AP-263/42425716",AP-263/42425716,http://www.specs.net,http://www.specs.net/enter.php?specsid=AP-263/42425716,33727247  1,"1
+3",439941975,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BAB90>,,,0,0.475,LOW
+0,0,439941971,1,Specs,AO-365/43532227,"N-methyl-5-[1-(methylsulfonyl)-4-piperidinyl]-1,3,4-thiadiazol-2-amine
+AO-365/43532227",AO-365/43532227,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-365/43532227,155486344  1,"1
+3",439941971,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BAE30>,,,0,0.4075,LOW
+0,0,439941970,1,Specs,AO-365/43532226,"4-methyl-5-[1-(methylsulfonyl)-4-piperidinyl]-4H-1,2,4-triazole-3-thiol
+AO-365/43532226",AO-365/43532226,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-365/43532226,155486343  1,"1
+3",439941970,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BAEA0>,,,0,0.4475,LOW
+0,0,439941967,1,Specs,AO-365/43532223,"N-methyl-5-[1-(methylsulfonyl)-3-piperidinyl]-1,3,4-thiadiazol-2-amine
+AO-365/43532223",AO-365/43532223,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-365/43532223,155486338  1,"1
+3",439941967,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BAFF0>,,,0,0.3725,LOW
+0,0,439941966,1,Specs,AO-365/43532222,"4-methyl-5-[1-(methylsulfonyl)-3-piperidinyl]-4H-1,2,4-triazole-3-thiol
+AO-365/43532222",AO-365/43532222,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-365/43532222,17349692  1,"1
+3",439941966,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BB060>,,,0,0.4175,LOW
+0,0,439941962,1,Specs,AO-365/43532218,"N-[5-(3-isopropyl-1H-pyrazol-5-yl)-1,3,4-thiadiazol-2-yl]-N-methylamine
+AO-365/43532218",AO-365/43532218,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-365/43532218,155486333  1,"1
+3",439941962,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BB220>,,,0,0.37,LOW
+0,0,439941955,1,Specs,AO-365/43532205,"N-methyl-5-(3-pyridinyl)-1,3,4-thiadiazol-2-amine
+AO-365/43532205",AO-365/43532205,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-365/43532205,6488196  1,"1
+3",439941955,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BB530>,,,0,0.495,LOW
+0,0,439941944,1,Specs,AO-040/37409006,"1-[3-(methylsulfanyl)-1,2,4-triazin-5-yl]ethanone oxime
+AO-040/37409006",AO-040/37409006,http://www.specs.net,http://www.specs.net/enter.php?specsid=AO-040/37409006,135401462  1,"1
+3",439941944,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2BBB50>,,,0,0.3383333333333334,LOW
+0,0,439941900,1,Specs,AF-399/40826413,"5-chloro-8-quinolinyl 2-fluorobenzoate
+AF-399/40826413",AF-399/40826413,http://www.specs.net,http://www.specs.net/enter.php?specsid=AF-399/40826413,4176192  1,"1
+3",439941900,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2F9070>,,,0,0.495,LOW
+0,0,439941895,1,Specs,AF-399/12856063,"N-phenyl-N-[5-(3-pyridinyl)-1,3,4-thiadiazol-2-yl]amine
+AF-399/12856063",AF-399/12856063,http://www.specs.net,http://www.specs.net/enter.php?specsid=AF-399/12856063,946930  1,"1
+3",439941895,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2F92A0>,,,0,0.48,LOW
+0,0,439941891,1,Specs,AE-641/02486018,"4-(4-chloroanilino)-2,3-dihydroxy-4-oxobutanoic acid
+AE-641/02486018",AE-641/02486018,http://www.specs.net,http://www.specs.net/enter.php?specsid=AE-641/02486018,581251  1,"1
+3",439941891,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2F9540>,,,0,0.455,LOW
+0,0,439941886,1,Specs,AC-907/34114017,"[(3,5-dichloro-2-pyridinyl)oxy]acetic acid
+AC-907/34114017",AC-907/34114017,http://www.specs.net,http://www.specs.net/enter.php?specsid=AC-907/34114017,590671  1,"1
+3",439941886,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2F98C0>,,,0,0.475,LOW
+0,-1,439941883,1,Specs,AC-907/34110056,"2,6-ditert-butyl-4-ethoxy-3-pyridinesulfonate
+AC-907/34110056",AC-907/34110056,http://www.specs.net,http://www.specs.net/enter.php?specsid=AC-907/34110056,"155486885  1
+155486886  2","1
+3",439941883,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2F9A80>,Salt: Na+,,0,0.42875,LOW
+0,0,439941881,1,Specs,AC-907/34104031,"2,3-dibromo-4-pyridinamine
+AC-907/34104031",AC-907/34104031,http://www.specs.net,http://www.specs.net/enter.php?specsid=AC-907/34104031,53485351  1,"1
+3",439941881,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2F9BD0>,,,0,0.33,LOW
+0,0,406166596,1,Specs,AU-059/43522412,"6,8-dihydroxy-3,4-dihydro-1H-thiopyrano[3,4-c]pyridine-5-carbonitrile
+AU-059/43522412",AU-059/43522412,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43522412,146672109  1,"1
+3",406166596,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2F9CB0>,,,0,0.315,LOW
+0,0,406166591,1,Specs,AU-059/43521985,"5-iodo-1,2-benzisothiazole
+AU-059/43521985",AU-059/43521985,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521985,49875370  1,"1
+3",406166591,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2F9F50>,,,0,0.48833333333333334,LOW
+0,0,406166586,1,Specs,AU-059/43521964,"6-[4-(methylsulfanyl)phenyl]-1,2-benzisothiazol-5-ylamine
+AU-059/43521964",AU-059/43521964,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521964,49875356  1,"1
+3",406166586,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA1F0>,,,0,0.45,LOW
+0,0,406166585,1,Specs,AU-059/43521957,"methyl 2-(acetylamino)-1,3-thiazole-5-carboxylate
+AU-059/43521957",AU-059/43521957,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521957,49875402  1,"1
+3",406166585,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA260>,,,0,0.405,LOW
+0,0,406166583,1,Specs,AU-059/43521952,"N-[(2-amino-1,3-thiazol-5-yl)carbonyl]benzenesulfonamide
+AU-059/43521952",AU-059/43521952,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521952,49875397  1,"1
+3",406166583,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA3B0>,,,0,0.46,LOW
+0,0,406166582,1,Specs,AU-059/43521950,"5-{[(phenylsulfonyl)amino]carbonyl}-2-thiophenecarboxylic acid
+AU-059/43521950",AU-059/43521950,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521950,49875391  1,"1
+3",406166582,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA420>,,,0,0.445,LOW
+0,0,406166579,1,Specs,AU-059/43521944,"5-(4-fluorophenyl)-4-[4-(methylsulfonyl)phenyl]-3(2H)-isothiazolone 1,1-dioxide
+AU-059/43521944",AU-059/43521944,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521944,49875386  1,"1
+3",406166579,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA570>,,,0,0.493,LOW
+0,0,406166577,1,Specs,AU-059/43521941,"4-[2-allyl-5-(4-fluorophenyl)-1,1-dioxido-3-oxo-2,3-dihydro-4-isothiazolyl]benzenesulfonamide
+AU-059/43521941",AU-059/43521941,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521941,49875383  1,"1
+3",406166577,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA650>,,,0,0.4763333333333333,LOW
+0,0,406166576,1,Specs,AU-059/43521938,"4-[4-(4-fluorophenyl)-5-isothiazolyl]benzenesulfonamide
+AU-059/43521938",AU-059/43521938,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521938,20658577  1,"1
+3",406166576,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA6C0>,,,0,0.40299999999999997,LOW
+0,0,406166574,1,Specs,AU-059/43521935,"4-(4-fluorophenyl)-5-[4-(methylsulfonyl)phenyl]-3(2H)-isothiazolone 1,1-dioxide
+AU-059/43521935",AU-059/43521935,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521935,49875379  1,"1
+3",406166574,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA810>,,,0,0.493,LOW
+0,0,406166572,1,Specs,AU-059/43521932,"4-[5-(4-fluorophenyl)-4-isothiazolyl]benzenesulfonamide
+AU-059/43521932",AU-059/43521932,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521932,20658585  1,"1
+3",406166572,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA880>,,,0,0.40299999999999997,LOW
+0,0,406166571,1,Specs,AU-059/43521919,"methyl 3-amino-5-(1H-tetraazol-5-yl)-2-thiophenecarboxylate
+AU-059/43521919",AU-059/43521919,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521919,49875425  1,"1
+3",406166571,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FA960>,,,0,0.37,LOW
+0,0,406166565,1,Specs,AU-059/43521898,"5-[5-(4-fluorophenyl)-2-furyl]-2-thiophenecarboxylic acid
+AU-059/43521898",AU-059/43521898,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521898,49875463  1,"1
+3",406166565,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FACE0>,,,0,0.375,LOW
+0,0,406166558,1,Specs,AU-059/43521852,"3-(2,4-difluorophenoxy)-2-nitrothiophene
+AU-059/43521852",AU-059/43521852,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521852,49875140  1,"1
+3",406166558,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FB140>,,,0,0.488,LOW
+0,0,406166544,1,Specs,AU-059/43521824,"6-(2-aminoethyl)-1,2,3,4,6,7-hexahydro-5H-cyclopenta[b]pyridin-5-one
+AU-059/43521824",AU-059/43521824,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521824,49875171  1,"1
+3",406166544,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FB920>,Salt: 2 HCl,,0,0.275,LOW
+0,0,406166541,1,Specs,AU-059/43521800,"6,15-dimethyl-5,7,8,15-tetrahydrodi[1,3]benzodioxolo[5,6-c:5,6-g]azecin-14(6H)-one
+AU-059/43521800",AU-059/43521800,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521800,50896333  1,"1
+3",406166541,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC2FBA70>,,,0,0.47,LOW
+0,0,406166524,1,Specs,AU-059/43521727,"6-(1-benzothien-2-yl)-2-pyridinamine
+AU-059/43521727",AU-059/43521727,http://www.specs.net,http://www.specs.net/enter.php?specsid=AU-059/43521727,15337656  1,"1
+3",406166524,<rdkit.Chem.rdchem.Mol object at 0x0000023FFC33C350>,Salt: HCl,,0,0.5,MEDIUM

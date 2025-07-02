@@ -31,17 +31,17 @@ ENV/
 *.swo
 *~
 
-# Data files (large datasets)
-data/raw/*.sdf
-data/raw/*.sdf.gz
-data/processed/*.csv
-data/processed/*.pkl
+# # Data files (large datasets)
+# data/raw/*.sdf
+# data/raw/*.sdf.gz
+# data/processed/*.csv
+# data/processed/*.pkl
 
-# Results
-results/*.png
-results/*.pdf
-results/*.csv
-results/*.html
+# # Results
+# results/*.png
+# results/*.pdf
+# results/*.csv
+# results/*.html
 
 # Jupyter Notebooks
 .ipynb_checkpoints/
