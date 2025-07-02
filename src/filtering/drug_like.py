@@ -274,7 +274,7 @@ class DrugLikeFilter:
                    f"({len(filtered_df)/len(df)*100:.1f}% pass rate)")
         
         return filtered_df
-
+        
     def filter_dataframe(self, df: pd.DataFrame, 
                         apply_lipinski: bool = True,
                         apply_additional: bool = True,
@@ -382,7 +382,7 @@ class DrugLikeFilter:
                    f"({len(filtered_df)/len(df)*100:.1f}% pass rate)")
         
         return filtered_df
-
+        
     def get_filter_statistics(self, df: pd.DataFrame) -> Dict[str, any]:
         """
         Get statistics about filtering results.

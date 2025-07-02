@@ -22,7 +22,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import multiprocessing as mp
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 # RDKit imports
 from rdkit import Chem
@@ -96,7 +96,10 @@ class SimpleThreadedGenerator:
             return False
     
     def compute_fingerprints_batch(self, molecules: List[Chem.Mol], batch_id: int) -> Tuple[int, List]:
-        """Compute fingerprints for a batch of molecules (thread worker)."""
+        """Compute fingerprints for a batch of molecules (thread worker) - using centralized infrastructure."""
+        # Use existing infrastructure instead of duplicating fingerprint computation
+        from similarity.fingerprints import FingerprintGenerator
+        
         fingerprints = []
         fp_generator = FingerprintGenerator(fingerprint_type="morgan", radius=2, n_bits=2048)
         
@@ -146,8 +149,8 @@ class SimpleThreadedGenerator:
         # Load data files
         loader = MoleculeLoader()
         
-        specs_path = Path("data/raw/Specs.sdf")
-        malaria_path = Path("data/reference/malaria_box_400.sdf")
+        specs_path = Path("../../../data/raw/Specs.sdf")
+        malaria_path = Path("../../../data/reference/malaria_box_400.sdf")
         
         if not specs_path.exists() or not malaria_path.exists():
             print("❌ Required data files not found")

@@ -1,6 +1,28 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 import os
+from pathlib import Path
+
+def find_project_root(current_path: Path = None) -> Path:
+    """Find the project root by looking for key directories or files."""
+    if current_path is None:
+        current_path = Path(__file__).parent
+    
+    # Search up the directory tree
+    for parent in [current_path] + list(current_path.parents):
+        # Look for data directory or other project indicators
+        if (parent / 'data').exists() and (parent / 'src').exists():
+            return parent
+        # Also check for specific files that indicate project root
+        if (parent / 'requirements.txt').exists() or (parent / 'README.md').exists():
+            if (parent / 'data').exists():
+                return parent
+    
+    # Fallback to current directory
+    return Path('.')
+
+# Get project root once for use throughout
+PROJECT_ROOT = find_project_root()
 
 @dataclass
 class FilterConfig:

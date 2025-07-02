@@ -26,6 +26,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from rdkit import Chem
 import joblib
+from typing import List
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -41,14 +42,14 @@ from chapter3_ml_screening import (
 from chapter3_ml_screening.utils import save_molecular_dataframe, load_molecular_dataframe
 
 
-def get_available_sdf_files():
+def get_available_sdf_files() -> List[str]:
     """Get list of available SDF files in the data/reference directory."""
     reference_dir = Path('data/reference')
     if not reference_dir.exists():
         return []
     
     sdf_files = list(reference_dir.glob('*.sdf'))
-    return sorted(sdf_files)
+    return [str(f) for f in sdf_files]
 
 
 def load_or_simulate_malaria_box_hits(n_compounds: int = 1000, sdf_file: str = None):
@@ -90,12 +91,8 @@ def load_or_simulate_malaria_box_hits(n_compounds: int = 1000, sdf_file: str = N
     
     # Original automatic detection logic
     # First priority: Check for Malaria Box reference files
-    malaria_files = [
-        'data/reference/malaria_box_400.sdf',
-        'data/reference/extended_malaria_box.sdf',
-        'data/reference/enhanced_malaria_box.sdf',
-        'data/reference/malaria_box.sdf'
-    ]
+    malaria_files = get_available_sdf_files()
+    malaria_files = [f for f in malaria_files if 'malaria' in f.lower()]
     
     for malaria_file in malaria_files:
         if Path(malaria_file).exists():
@@ -145,7 +142,6 @@ def load_or_simulate_malaria_box_hits(n_compounds: int = 1000, sdf_file: str = N
                 return df[smiles_col].head(available_compounds).tolist(), df.head(available_compounds)
     
     # Check for Malaria Box reference files
-    malaria_files = list(Path('data/reference').glob('*malaria*.sdf'))
     if malaria_files:
         print(f"Loading compounds from {malaria_files[0]}...")
         suppl = Chem.SDMolSupplier(str(malaria_files[0]))

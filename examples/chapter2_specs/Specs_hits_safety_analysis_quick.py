@@ -24,7 +24,7 @@ from typing import Dict, Tuple, List
 import sys
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 # Machine Learning
 from sklearn.model_selection import train_test_split

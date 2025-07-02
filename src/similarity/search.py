@@ -206,7 +206,7 @@ class SimilaritySearcher:
         logger.info(f"Found {len(results_df)} similar molecules above threshold {threshold}")
         
         return results_df
-
+        
     def search_library(self, library_df: pd.DataFrame,
                       threshold: float = 0.7,
                       max_results: int = 1000,
@@ -310,7 +310,7 @@ class SimilaritySearcher:
         logger.info(f"Found {len(results_df)} similar molecules above threshold {threshold}")
         
         return results_df
-
+        
     def get_top_similar_molecules(self, query_mol: Chem.Mol, 
                                 library_df: pd.DataFrame,
                                 n_results: int = 10,
@@ -384,7 +384,7 @@ class SimilaritySearcher:
                     chunk_matrix[i - start_idx, j] = similarity
         
         return chunk_matrix, start_idx, end_idx
-
+        
     def calculate_diversity_matrix(self, molecules_df: pd.DataFrame,
                                  mol_col: str = 'ROMol',
                                  use_threading: bool = True) -> np.ndarray:
@@ -447,9 +447,9 @@ class SimilaritySearcher:
             for chunk_matrix, start_idx, end_idx in results:
                 similarity_matrix[start_idx:end_idx, start_idx:end_idx] = chunk_matrix
         else:
-            similarity_matrix = self.similarity_calculator.calculate_similarity_matrix(
-                fingerprints_array
-            )
+        similarity_matrix = self.similarity_calculator.calculate_similarity_matrix(
+            fingerprints_array
+        )
         
         return similarity_matrix
         

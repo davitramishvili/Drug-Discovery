@@ -304,24 +304,20 @@ class SmilesToMols(BaseEstimator, TransformerMixin):
         return molecules
     
     def _process_smiles(self, smiles: str):
-        """Process a single SMILES string."""
+        """Process a single SMILES string using centralized infrastructure."""
         if not isinstance(smiles, str):
             return None
         
-        mol = Chem.MolFromSmiles(smiles)
+        if not self.standardize:
+            # Simple conversion without standardization
+            if not RDKIT_AVAILABLE:
+                return smiles
+            return Chem.MolFromSmiles(smiles)
         
-        if mol is None or not self.standardize:
-            return mol
-        
-        try:
-            # Apply standardization
-            mol = self.cleanup(mol)
-            mol = self.fragment_chooser.choose(mol)
-            mol = self.uncharger.uncharge(mol)
-            mol = self.tautomer_enumerator.Canonicalize(mol)
-            return mol
-        except Exception:
-            return mol
+        # Use centralized standardization
+        from .data_processing import HERGDataProcessor
+        processor = HERGDataProcessor()
+        return processor.process_smiles(smiles)
 
 
 class FingerprintFeaturizer(BaseEstimator, TransformerMixin):

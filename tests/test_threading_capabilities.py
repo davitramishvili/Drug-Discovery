@@ -14,14 +14,15 @@ import time
 import logging
 import sys
 import os
+from pathlib import Path
 
 # Add the parent directory to Python path to import src modules
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 # Import the enhanced modules
-from src.filtering.drug_like import DrugLikeFilter
-from src.similarity.fingerprints import FingerprintGenerator
-from src.similarity.search import SimilaritySearcher
+from filtering.drug_like import DrugLikeFilter
+from similarity.fingerprints import FingerprintGenerator
+from similarity.search import SimilaritySearcher
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

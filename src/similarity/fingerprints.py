@@ -275,7 +275,7 @@ class FingerprintGenerator:
         df['fingerprint'] = list(fingerprints) if len(fingerprints) > 0 else [None] * len(df)
         
         return df
-        
+            
     def generate_fingerprints_batch(self, molecules: List[Chem.Mol]) -> np.ndarray:
         """
         Generate fingerprints for a batch of molecules (single-threaded version).
