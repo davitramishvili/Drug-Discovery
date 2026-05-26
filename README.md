@@ -1,6 +1,55 @@
-﻿# Antimalarial Drug Discovery Pipeline
+# Antimalarial Drug Discovery Pipeline
 
-A comprehensive virtual screening pipeline for identifying potential antimalarial compounds using similarity searching and molecular property filtering.
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white">
+  <img alt="RDKit" src="https://img.shields.io/badge/RDKit-cheminformatics-1F4E79">
+  <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-ML-F7931E?logo=scikit-learn&logoColor=white">
+  <img alt="DRF" src="https://img.shields.io/badge/DRF-REST-A30000?logo=django&logoColor=white">
+  <img alt="Celery" src="https://img.shields.io/badge/Celery-async%20jobs-37814A?logo=celery&logoColor=white">
+  <img alt="pytest" src="https://img.shields.io/badge/pytest-tested-0A9EDC?logo=pytest&logoColor=white">
+</p>
+
+A virtual screening pipeline for identifying potential antimalarial compounds. Loads chemical libraries (SDF), applies Lipinski's Rule of Five plus PAINS/BRENK structural alerts, runs Morgan/RDKit/MACCS fingerprint similarity against known antimalarials, and produces ranked hits with PCA/t-SNE chemical-space visualisations.
+
+Originally my B.Sc. thesis at Kutaisi International University; refactored into a configurable Python package with a REST API surface and a pytest test suite.
+
+## One-line pitch
+
+> Cuts manual screening of a 50-compound library from days to under 5 minutes, with ranked hits, drug-likeness analysis, and an interactive chemical-space dashboard.
+
+## Quick start
+
+```bash
+git clone https://github.com/davitramishvili/Drug-Discovery.git
+cd Drug-Discovery
+python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python run_pipeline.py --dataset diverse
+```
+
+Results land in `results/`: filtered compounds CSV, similarity-ranked hits CSV, statistics report, and an interactive HTML dashboard.
+
+## What it does (technically)
+
+- **Load** SDF molecular libraries via RDKit
+- **Compute** Lipinski descriptors (MW, LogP, HBA, HBD, TPSA, RotBonds)
+- **Filter** by Lipinski's Rule of Five + PAINS + BRENK structural alerts
+- **Fingerprint** with Morgan / RDKit / MACCS
+- **Score** Tanimoto / Dice / cosine / Jaccard similarity against reference antimalarials
+- **Visualise** with PCA + t-SNE chemical-space plots and Plotly interactive dashboards
+- **Export** ranked hits, statistics, and chemical-diversity reports
+
+## Stack
+
+| Layer | Tech |
+|---|---|
+| Cheminformatics | RDKit |
+| ML | scikit-learn (PCA, t-SNE, Random Forest example) |
+| API | Django REST Framework |
+| Async | Celery |
+| Data | Pandas, NumPy, SciPy |
+| Visualisation | Matplotlib, Seaborn, Plotly |
+| Testing | pytest |
 
 ## Overview
 
@@ -418,38 +467,13 @@ pytest tests/test_pipeline.py::TestPipeline::test_structural_alerts -v
 
 ### Test Coverage
 The test suite covers:
-- ✅ Module imports and dependencies
-- ✅ Dataset creation and management
-- ✅ Data loading and descriptor calculation
-- ✅ Structural alerts (PAINS/BRENK filters)
-- ✅ Fingerprint generation (Morgan, RDKit, MACCS)
-- ✅ Complete pipeline execution
-- ✅ Results validation and statistics
-
-## Recent Improvements
-
-### Version 2.0 Updates
-- ✅ **Structural Alerts**: Added PAINS and BRENK filters for problematic substructures
-- ✅ **Dataset Manager**: Multiple pre-configured datasets (small, diverse, large, custom)
-- ✅ **Performance Optimization**: Resolved hanging issues with complex molecules
-- ✅ **Import System**: Fixed all relative import issues for reliable module loading
-- ✅ **Fingerprint Generation**: Updated to modern RDKit API, eliminated deprecation warnings
-- ✅ **Comprehensive Testing**: Full pytest suite with 95%+ test coverage
-- ✅ **Code Cleanup**: Removed redundant files, consolidated testing functions
-- ✅ **Documentation**: Updated README with all new features and usage examples
-
-### Performance Improvements
-- **Small Dataset**: ~5-10 seconds (5 molecules)
-- **Diverse Dataset**: ~30-60 seconds (20 molecules) 
-- **Large Dataset**: ~2-3 minutes (40 molecules)
-- **No Hanging**: All datasets process reliably without timeouts
-
-### Reliability Enhancements
-- All imports work correctly
-- No deprecation warnings
-- Comprehensive error handling
-- Robust test coverage
-- Clean execution logs
+- Module imports and dependencies
+- Dataset creation and management
+- Data loading and descriptor calculation
+- Structural alerts (PAINS/BRENK filters)
+- Fingerprint generation (Morgan, RDKit, MACCS)
+- Complete pipeline execution
+- Results validation and statistics
 
 ## Dependencies
 
@@ -548,5 +572,3 @@ Enable detailed logging:
 import logging
 logging.basicConfig(level=logging.DEBUG)
 ```
-
-
